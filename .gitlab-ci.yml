@@ -1,0 +1,5 @@
+analyze:
+  services:
+    - tlsprint/openssl:1.1.1
+  script:
+    - echo "test"
