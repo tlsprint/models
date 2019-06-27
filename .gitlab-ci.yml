@@ -1,5 +1,9 @@
 analyze:
+  image: tlsprint/statelearner
   services:
-    - tlsprint/openssl:1.1.1
+    - name: tlsprint/openssl:1.1.1
+      alias: sut
+    - name: tlsprint/tlsattackerconnector
+      alias: connector
   script:
-    - echo "test"
+    - statelearner
