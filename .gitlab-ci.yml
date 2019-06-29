@@ -1,3 +1,7 @@
+stages:
+  - update
+  - analyze
+
 update:
   image: docker:stable
   variables:
@@ -9,7 +13,6 @@ update:
     - docker info
   script:
     - docker pull tlsprint/tlsattackerconnector
-
 
 analyze:
   image: tlsprint/statelearner
