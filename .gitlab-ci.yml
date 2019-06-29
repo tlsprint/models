@@ -5,7 +5,8 @@ analyze:
       alias: sut
     - name: tlsprint/tlsattackerconnector:latest
       alias: connector
-      command: ["connector", "--targetHost", "sut", "--protocolVersion", "TLS12", "--cipherSuite", "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA", "--startupDelay", "5000"]
+      command: ["cat" "/etc/hosts"]
+      # command: ["connector", "--targetHost", "sut", "--protocolVersion", "TLS12", "--cipherSuite", "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA", "--startupDelay", "5000"]
   script:
     - cat /etc/hosts
     - statelearner
