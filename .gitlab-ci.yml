@@ -1,9 +1,22 @@
+update:
+  image: docker:stable
+  variables:
+    DOCKER_HOST: tcp://docker:2375/
+    DOCKER_DRIVER: overlay2
+  services:
+    - docker:dind
+  before_script:
+    - docker info
+  script:
+    - docker pull tlsprint/tlsattackerconnector
+
+
 analyze:
   image: tlsprint/statelearner
   services:
     - name: tlsprint/openssl:1.1.1
       alias: sut
-    - name: tlsprint/tlsattackerconnector:latest
+    - name: tlsprint/tlsattackerconnector
       alias: connector
       command: ["connector", "--targetHost", "sut", "--protocolVersion", "TLS12", "--cipherSuite", "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA", "--delayStartup", "5000"]
   script:
