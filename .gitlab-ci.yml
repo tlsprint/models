@@ -3,6 +3,7 @@ stages:
   - analyze
 
 update:
+  stage: update
   image: docker:stable
   variables:
     DOCKER_HOST: tcp://docker:2375/
@@ -15,6 +16,7 @@ update:
     - docker pull tlsprint/tlsattackerconnector
 
 analyze:
+  stage: analyze
   image: tlsprint/statelearner
   services:
     - name: tlsprint/openssl:1.1.1
