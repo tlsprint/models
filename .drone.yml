@@ -29,6 +29,7 @@ steps:
       - name: cache
         path: /tmp/cache
     commands:
+      - sleep 10
       - statelearner
       - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
 
