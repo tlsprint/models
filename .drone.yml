@@ -39,7 +39,12 @@ steps:
       - name: cache
         path: /tmp/cache
     commands:
-      - cat /tmp/cache/learnedModel.dot
+      - pip install -r requirements.txt
+      - python commit_model.py
+        --implementation openssl
+        --version 1.1.1
+        --tls-version TLS12
+        --model /tmp/cache/learnedModel.dot
 
 volumes:
   - name: cache
