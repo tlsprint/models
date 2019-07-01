@@ -30,6 +30,7 @@ steps:
         path: /tmp/cache
     commands:
       - sleep 10
+      - echo "$bl$"
       - statelearner
       - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
 
