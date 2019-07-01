@@ -45,7 +45,7 @@ steps:
         --version 1.1.1
         --tls-version TLS12
         --model /tmp/cache/learnedModel.dot
-        "--api-key $GITLAB_TLSPRINT_API_KEY"
+        --api-key "$GITLAB_TLSPRINT_API_KEY"
         --verbose
 
 volumes:
