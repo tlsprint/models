@@ -29,8 +29,8 @@ steps:
       - name: cache
         path: /tmp/cache
     commands:
-      - echo "This is a test" > /tmp/cache/test
-      # - statelearner
+      - statelearner
+      - cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot
 
   - name: commit
     image: python:3.6
@@ -38,7 +38,7 @@ steps:
       - name: cache
         path: /tmp/cache
     commands:
-      - cat /tmp/cache/test
+      - cat /tmp/cache/learnedModel.dot
 
 volumes:
   - name: cache
