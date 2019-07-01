@@ -50,6 +50,7 @@ def main(implementation, version, tls_version, model, api_key, gitlab_url, proje
                 "No API key specified. Specify via --api-key or define GITLAB_TLSPRINT_API_KEY.",
                 file=sys.stderr,
             )
+            sys.exit(1)
 
     headers = {"PRIVATE-TOKEN"}
 
