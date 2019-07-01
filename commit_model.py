@@ -35,7 +35,19 @@ import requests
     default=50,
     help="Gitlab ID of the project where the model should be committed to",
 )
-def main(implementation, version, tls_version, model, api_key, gitlab_url, project_id):
+@click.option(
+    "-v", "--verbose", is_flag=True, default=False, help="Provide verbose output"
+)
+def main(
+    implementation,
+    version,
+    tls_version,
+    model,
+    api_key,
+    gitlab_url,
+    project_id,
+    verbose,
+):
     """Commit the model of a TLS implementation to a Git repository."""
     # Make sure the implementation name and version is lowercase
     implementation = implementation.lower()
@@ -52,6 +64,11 @@ def main(implementation, version, tls_version, model, api_key, gitlab_url, proje
             )
             sys.exit(1)
 
+    url = f"{gitlab_url}/api/v4/projects/{project_id}/repository/commits"
+
+    if verbose:
+        print("Target url:", url)
+
     headers = {"PRIVATE-TOKEN"}
 
     payload = {
@@ -61,13 +78,15 @@ def main(implementation, version, tls_version, model, api_key, gitlab_url, proje
         "actions": [
             {
                 "action": "create",
-                "file_path": "{implementation}/{version}/{tls_version}/learnedModel.dot",
+                "file_path": f"{implementation}/{version}/{tls_version}/learnedModel.dot",
                 "content": model.read(),
             }
         ],
     }
 
-    url = f"{gitlab_url}/api/v4/projects/{project_id}/repository/commits"
+    if verbose:
+        print("Payload:")
+        print(json.dumps(payload, indent=4))
 
     req = requests.post(
         f"https://gitlab.com/api/v4/projects/{project_id}/repository/commits",
@@ -76,11 +95,16 @@ def main(implementation, version, tls_version, model, api_key, gitlab_url, proje
     )
 
     if req.status_code != 201:
-        print("Failed to create commit:", file=sys.stderr)
+        print(
+            f"Failed to create commit, status code {req.status_code}:", file=sys.stderr
+        )
         print(json.dumps(json.loads(req.content.decode()), indent=4), file=sys.stderr)
         sys.exit(1)
     else:
-        print(json.dumps(json.loads(req.content.decode()), indent=4), file=sys.stderr)
+        if verbose:
+            print("Status code:", req.stderr)
+            print("Reponse:")
+            print(json.dumps(json.loads(req.content.decode()), indent=4))
 
 
 if __name__ == "__main__":
