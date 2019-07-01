@@ -25,5 +25,21 @@ steps:
   - name: learner
     image: tlsprint/statelearner
     pull: always
+    volumes:
+      - name: cache
+        path: /tmp/cache
     commands:
-      - statelearner
+      - echo "This is a test" > /tmp/cache/test
+      # - statelearner
+
+  - name: commit
+    image: python:3.6
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+      - cat /tmp/cache/test
+
+volumes:
+  - name: cache
+    temp: {}
