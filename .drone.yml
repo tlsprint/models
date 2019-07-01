@@ -30,7 +30,6 @@ steps:
         path: /tmp/cache
     commands:
       - sleep 10
-      - echo "$bl$"
       - statelearner
       - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
 
@@ -46,8 +45,10 @@ steps:
         --version 1.1.1
         --tls-version TLS12
         --model /tmp/cache/learnedModel.dot
-        --api-key "$GITLAB_TLSPRINT_API_KEY"
         --verbose
+    environment:
+      GITLAB_TLSPRINT_API_KEY:
+        from_secret: GITLAB_TLSPRINT_API_KEY
 
 volumes:
   - name: cache
