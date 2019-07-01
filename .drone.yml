@@ -30,7 +30,7 @@ steps:
         path: /tmp/cache
     commands:
       - statelearner
-      - cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot
+      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
 
   - name: commit
     image: python:3.6
