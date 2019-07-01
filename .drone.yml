@@ -13,6 +13,7 @@ steps:
   - name: connector
     image: tlsprint/tlsattackerconnector
     pull: always
+    detach: true
     commands:
       - connector
         --targetHost sut
