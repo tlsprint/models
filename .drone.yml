@@ -8,8 +8,9 @@ steps:
     commands:
       - echo test
 
-when:
-  cron: [ test-job ]
+trigger:
+  cron:
+    - test-job
 
 ---
 kind: pipeline
