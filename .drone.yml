@@ -9,6 +9,8 @@ steps:
       - echo test
 
 trigger:
+  event:
+    - promote
   cron:
     - update-repository-every-hour
 
@@ -70,7 +72,6 @@ volumes:
 
 trigger:
   event:
-    exclude:
-      - "*"
+    - promote
   cron:
     - learn-new-models-every-day
