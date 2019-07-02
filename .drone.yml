@@ -1,6 +1,6 @@
 ---
 kind: pipeline
-name: openssl-1.1.1
+name: openssl-1.1.1a
 
 steps:
     # Start the sut (system under test)
@@ -42,7 +42,7 @@ steps:
       - pip install -r requirements.txt
       - python commit_model.py
         --implementation openssl
-        --version 1.1.1
+        --version 1.1.1a
         --tls-version TLS12
         --model /tmp/cache/learnedModel.dot
         --verbose
@@ -55,7 +55,5 @@ volumes:
     temp: {}
 
 trigger:
-  branch:
-    - master
   cron:
-    - daily
+    - learn-new-models-every-day
