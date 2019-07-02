@@ -9,9 +9,6 @@ steps:
       - echo test
 
 trigger:
-  event:
-    exclude:
-      - "*"
   cron:
     - update-repository-every-hour
 
