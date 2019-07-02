@@ -4,6 +4,7 @@ name: update repository
 
 steps:
   - name: test
+    image: python:3.6
     commands:
       - echo test
 
