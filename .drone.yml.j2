@@ -1,0 +1,79 @@
+---
+kind: pipeline
+name: update repository
+
+steps:
+  - name: submodules
+    image: docker:git
+    commands:
+      - git submodule update --init --recursive
+
+{% for target in targets -%}
+{% set implementation = target["implementation"] -%}
+{% set version = target["version"] -%}
+{% set supported_tls = target["supported_tls"] -%}
+---
+kind: pipeline
+name: {{ implementation }} {{ version }}
+
+steps:
+    # Start the sut (system under test)
+  - name: sut
+    image: tlsprint/{{ implementation }}:{{ version }}
+    detach: true
+
+    # Start the connector with a delay of 5 seconds, so the sut has time to
+    # initialize.
+  - name: connector
+    image: tlsprint/tlsattackerconnector
+    pull: always
+    detach: true
+    commands:
+      - connector
+        --targetHost sut
+        --protocolVersion TLS12
+        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
+        --startupDelay 5000
+
+    # Perform the learning
+  - name: learner
+    image: tlsprint/statelearner
+    pull: always
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/{{ implementation }}/{{ version }} /TLS12/learnedModel.dot ]; then exit 0; fi
+      - sleep 10
+      - statelearner
+      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
+
+  - name: commit
+    image: python:3.6
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/{{ implementation }}/{{ version }}/TLS12/learnedModel.dot ]; then exit 0; fi
+      - pip install -r requirements.txt
+      - python commit_model.py
+        --implementation {{ implementation }}
+        --version {{ version }}
+        --tls-version TLS12
+        --model /tmp/cache/learnedModel.dot
+        --verbose
+    environment:
+      GITLAB_TLSPRINT_API_KEY:
+        from_secret: GITLAB_TLSPRINT_API_KEY
+
+volumes:
+  - name: cache
+    temp: {}
+
+trigger:
+  branch:
+    - master
+
+{% endfor %}
