@@ -3,20 +3,10 @@ kind: pipeline
 name: update repository
 
 steps:
-  - name: Check contents of docker dir
-    image: python:3.6
-    commands:
-      - ls docker-images
-
   - name: submodules
     image: docker:git
     commands:
       - git submodule update --init --recursive
-
-  - name: Check contents of docker dir again
-    image: python:3.6
-    commands:
-      - ls docker-images
 
 ---
 kind: pipeline
