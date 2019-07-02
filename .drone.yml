@@ -29,6 +29,8 @@ steps:
       - name: cache
         path: /tmp/cache
     commands:
+        # Skip if target already exists
+      - if [ -e openssl/1.1.1c/TLS12/learnedModel.dot ]; then exit 0; fi
       - sleep 10
       - statelearner
       - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
@@ -39,6 +41,8 @@ steps:
       - name: cache
         path: /tmp/cache
     commands:
+        # Skip if target already exists
+      - if [ -e openssl/1.1.1c/TLS12/learnedModel.dot ]; then exit 0; fi
       - pip install -r requirements.txt
       - python commit_model.py
         --implementation openssl
