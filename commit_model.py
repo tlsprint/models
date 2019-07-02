@@ -73,7 +73,7 @@ def main(
         "actions": [
             {
                 "action": "create",
-                "file_path": f"{implementation}/{version}/{tls_version}/learnedModel.dot",
+                "file_path": f"models/{implementation}/{version}/{tls_version}/learnedModel.dot",
                 "content": model.read(),
             }
         ],
