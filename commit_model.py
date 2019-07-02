@@ -69,7 +69,7 @@ def main(
     data = {
         "id": project_id,
         "branch": "master",
-        "commit_message": f"Add model of {implementation} version {version}, for {tls_version}",
+        "commit_message": f"[CI SKIP] Add model of {implementation} version {version}, for {tls_version}",
         "actions": [
             {
                 "action": "create",
