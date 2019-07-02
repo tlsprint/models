@@ -12,7 +12,7 @@ trigger:
   event:
     - promote
   cron:
-    - update-repository-every-hour
+    - test-job
 
 ---
 kind: pipeline
