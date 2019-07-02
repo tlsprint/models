@@ -3,7 +3,7 @@ import os
 import sys
 
 import click
-import requests
+import gitlab
 
 
 @click.command()
@@ -64,14 +64,9 @@ def main(
             )
             sys.exit(1)
 
-    url = f"{gitlab_url}/api/v4/projects/{project_id}/repository/commits"
+    gl = gitlab.Gitlab(gitlab_url, private_token=api_key)
 
-    if verbose:
-        print("Target url:", url)
-
-    headers = {"PRIVATE-TOKEN"}
-
-    payload = {
+    data = {
         "id": project_id,
         "branch": "master",
         "commit_message": f"Add model of {implementation} version {version}, for {tls_version}",
@@ -85,26 +80,16 @@ def main(
     }
 
     if verbose:
-        print("Payload:")
-        print(json.dumps(payload, indent=4))
+        print("Data:")
+        print(json.dumps(data, indent=4))
 
-    req = requests.post(
-        f"https://gitlab.com/api/v4/projects/{project_id}/repository/commits",
-        headers=headers,
-        json=payload,
-    )
+    project = gl.projects.get(50)
 
-    if req.status_code != 201:
-        print(
-            f"Failed to create commit, status code {req.status_code}:", file=sys.stderr
-        )
-        print(json.dumps(json.loads(req.content.decode()), indent=4), file=sys.stderr)
-        sys.exit(1)
-    else:
-        if verbose:
-            print("Status code:", req.stderr)
-            print("Reponse:")
-            print(json.dumps(json.loads(req.content.decode()), indent=4))
+    # Create commit
+    commit = project.commits.create(data)
+
+    if verbose:
+        print(commit)
 
 
 if __name__ == "__main__":
