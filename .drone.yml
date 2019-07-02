@@ -8,11 +8,8 @@ steps:
     commands:
       - echo test
 
-trigger:
-  event:
-    - promote
-  cron:
-    - test-job
+when:
+  cron: [ test-job ]
 
 ---
 kind: pipeline
