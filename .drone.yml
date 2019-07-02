@@ -1,5 +1,21 @@
 ---
 kind: pipeline
+name: update repository
+
+steps:
+  - name: test
+    commands:
+      - echo test
+
+trigger:
+  event:
+    exclude:
+      - "*"
+  cron:
+    - update-repository-every-hour
+
+---
+kind: pipeline
 name: openssl-1.1.1a
 
 steps:
@@ -60,4 +76,3 @@ trigger:
       - "*"
   cron:
     - learn-new-models-every-day
-
