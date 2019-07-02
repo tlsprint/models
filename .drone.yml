@@ -55,5 +55,9 @@ volumes:
     temp: {}
 
 trigger:
+  event:
+    exclude:
+      - "*"
   cron:
     - learn-new-models-every-day
+
