@@ -17,10 +17,10 @@ steps:
 {% for target in targets -%}
 {% set implementation = target["implementation"] -%}
 {% set version = target["version"] -%}
-{% set supported_tls = target["supported_tls"] -%}
+{% for tls in target["supported_tls"] -%}
 ---
 kind: pipeline
-name: {{ implementation }} {{ version }}
+name: {{ implementation }} {{ version }} {{ tls }}
 
 steps:
     # Start the sut (system under test)
@@ -37,7 +37,7 @@ steps:
     commands:
       - connector
         --targetHost sut
-        --protocolVersion TLS12
+        --protocolVersion {{ tls }}
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
 
@@ -50,7 +50,7 @@ steps:
         path: /tmp/cache
     commands:
         # Skip if target already exists
-      - if [ -e models/{{ implementation }}/{{ version }}/TLS12/learnedModel.dot ]; then exit 0; fi
+      - if [ -e models/{{ implementation }}/{{ version }}/{{ tls }}/learnedModel.dot ]; then exit 0; fi
       - sleep 10
       - statelearner
       - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
@@ -62,12 +62,12 @@ steps:
         path: /tmp/cache
     commands:
         # Skip if target already exists
-      - if [ -e models/{{ implementation }}/{{ version }}/TLS12/learnedModel.dot ]; then exit 0; fi
+      - if [ -e models/{{ implementation }}/{{ version }}/{{ tls }}/learnedModel.dot ]; then exit 0; fi
       - pip install -r requirements.txt
       - python commit_model.py
         --implementation {{ implementation }}
         --version {{ version }}
-        --tls-version TLS12
+        --tls-version {{ tls }}
         --model /tmp/cache/learnedModel.dot
         --verbose
     environment:
@@ -82,4 +82,5 @@ trigger:
   branch:
     - master
 
+{% endfor %}
 {% endfor %}

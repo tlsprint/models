@@ -3,3 +3,4 @@ python-gitlab
 jinja2
 requests
 GitPython
+dymport

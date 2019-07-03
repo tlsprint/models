@@ -2,15 +2,14 @@ import json
 import os
 import sys
 from distutils.version import LooseVersion
+from pathlib import Path
 
 import click
 import gitlab
 import requests
 from jinja2 import Template
 from git import Repo
-
-import logging
-logging.basicConfig(level=logging.INFO)
+import dymport
 
 def update_submodules():
     repo = Repo(".")
@@ -31,6 +30,14 @@ def query_docker_image_tags(image):
     )
     tag_info = json.loads(req.content.decode())
     return {info["name"] for info in tag_info}
+
+
+def query_tags_with_models(implementation, model_dir="models"):
+    directory = Path(model_dir) / implementation
+    try:
+        return {path.name for path in directory.iterdir()}
+    except FileNotFoundError:
+        return set()
 
 
 @click.command()
@@ -58,17 +65,64 @@ def query_docker_image_tags(image):
     help="Indicates whether the files modified by this script should be committed.",
 )
 def main(api_key, gitlab_url, project_id, verbose, commit):
+
+    if verbose:
+        print("Updating submodules")
     update_submodules()
 
-    tags = query_docker_image_tags("openssl")
-    tags = sorted(tags, key=LooseVersion)
+    implementation_dirs = [path for path in Path("docker-images").iterdir() if path.is_dir()]
+    if verbose:
+        print("Found the following implementations:")
+        for directory in implementation_dirs:
+            print("  -", directory.name)
 
-    # For now only use image > 1.0.1, these support all TLS12
-    targets = [
-        {"implementation": "openssl", "version": version, "supported_TLS": ["TLS12"]}
-        for version in tags
-        if version > "1.0.1"
-    ]
+    targets = []
+    model_dir = Path("models")
+    for directory in implementation_dirs:
+        implementation = directory.name
+
+        if verbose:
+            print(f"Querying image tags for '{implementation}'")
+
+        try:
+            docker_tags = query_docker_image_tags(implementation)
+        except TypeError:
+            # Query failed
+            print(f"Failed to retrieve tags for '{implementation}'", file=sys.stderr)
+            continue
+
+        if verbose:
+            print(f"  - found {len(docker_tags)} tags in Docker registry")
+
+        # Check which versions already have models
+        model_tags = query_tags_with_models(implementation)
+
+        if verbose:
+            print(f"  - found {len(model_tags)} tags with learned models")
+
+        tags_to_learn = docker_tags - model_tags
+
+        if verbose:
+            print(f"  - found {len(tags_to_learn)} tags to learn")
+
+        # Sort tags for deterministic output
+        versions = sorted(tags_to_learn, key=LooseVersion)
+
+        # Get supported TLS versions for every implementation, and add to
+        # targets.
+        module = dymport.import_file(implementation, directory / "__init__.py")
+        targets += [
+            {
+                "implementation": implementation,
+                "version": version,
+                "supported_tls": module.get_supported_tls(version),
+            } for version in versions
+        ]
+
+    if verbose:
+        print(f"Found {len(targets)} versions to learn in total")
+        print("Generating .drone.yml from template")
+
     with open(".drone.yml.j2") as f:
         template = Template(f.read())
 
