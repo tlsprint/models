@@ -1,6 +1,7 @@
 import json
 import os
 import sys
+from distutils.version import LooseVersion
 
 import click
 import gitlab
@@ -60,6 +61,7 @@ def main(api_key, gitlab_url, project_id, verbose, commit):
     update_submodules()
 
     tags = query_docker_image_tags("openssl")
+    tags = sorted(tags, key=LooseVersion)
 
     # For now only use image > 1.0.1, these support all TLS12
     targets = [
