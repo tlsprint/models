@@ -44,7 +44,7 @@ steps:
         path: /tmp/cache
     commands:
         # Skip if target already exists
-      - if [ -e models/{{ implementation }}/{{ version }} /TLS12/learnedModel.dot ]; then exit 0; fi
+      - if [ -e models/{{ implementation }}/{{ version }}/TLS12/learnedModel.dot ]; then exit 0; fi
       - sleep 10
       - statelearner
       - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"

@@ -10,12 +10,12 @@ steps:
 
 ---
 kind: pipeline
-name: openssl 1.0.1t
+name: openssl 1.1.0
 
 steps:
     # Start the sut (system under test)
   - name: sut
-    image: tlsprint/openssl:1.0.1t
+    image: tlsprint/openssl:1.1.0
     detach: true
 
     # Start the connector with a delay of 5 seconds, so the sut has time to
@@ -40,7 +40,7 @@ steps:
         path: /tmp/cache
     commands:
         # Skip if target already exists
-      - if [ -e models/openssl/1.0.1t /TLS12/learnedModel.dot ]; then exit 0; fi
+      - if [ -e models/openssl/1.1.0/TLS12/learnedModel.dot ]; then exit 0; fi
       - sleep 10
       - statelearner
       - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
@@ -52,779 +52,11 @@ steps:
         path: /tmp/cache
     commands:
         # Skip if target already exists
-      - if [ -e models/openssl/1.0.1t/TLS12/learnedModel.dot ]; then exit 0; fi
+      - if [ -e models/openssl/1.1.0/TLS12/learnedModel.dot ]; then exit 0; fi
       - pip install -r requirements.txt
       - python commit_model.py
         --implementation openssl
-        --version 1.0.1t
-        --tls-version TLS12
-        --model /tmp/cache/learnedModel.dot
-        --verbose
-    environment:
-      GITLAB_TLSPRINT_API_KEY:
-        from_secret: GITLAB_TLSPRINT_API_KEY
-
-volumes:
-  - name: cache
-    temp: {}
-
-trigger:
-  branch:
-    - master
-
----
-kind: pipeline
-name: openssl 1.0.1q
-
-steps:
-    # Start the sut (system under test)
-  - name: sut
-    image: tlsprint/openssl:1.0.1q
-    detach: true
-
-    # Start the connector with a delay of 5 seconds, so the sut has time to
-    # initialize.
-  - name: connector
-    image: tlsprint/tlsattackerconnector
-    pull: always
-    detach: true
-    commands:
-      - connector
-        --targetHost sut
-        --protocolVersion TLS12
-        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
-        --startupDelay 5000
-
-    # Perform the learning
-  - name: learner
-    image: tlsprint/statelearner
-    pull: always
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.0.1q /TLS12/learnedModel.dot ]; then exit 0; fi
-      - sleep 10
-      - statelearner
-      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
-
-  - name: commit
-    image: python:3.6
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.0.1q/TLS12/learnedModel.dot ]; then exit 0; fi
-      - pip install -r requirements.txt
-      - python commit_model.py
-        --implementation openssl
-        --version 1.0.1q
-        --tls-version TLS12
-        --model /tmp/cache/learnedModel.dot
-        --verbose
-    environment:
-      GITLAB_TLSPRINT_API_KEY:
-        from_secret: GITLAB_TLSPRINT_API_KEY
-
-volumes:
-  - name: cache
-    temp: {}
-
-trigger:
-  branch:
-    - master
-
----
-kind: pipeline
-name: openssl 1.0.1s
-
-steps:
-    # Start the sut (system under test)
-  - name: sut
-    image: tlsprint/openssl:1.0.1s
-    detach: true
-
-    # Start the connector with a delay of 5 seconds, so the sut has time to
-    # initialize.
-  - name: connector
-    image: tlsprint/tlsattackerconnector
-    pull: always
-    detach: true
-    commands:
-      - connector
-        --targetHost sut
-        --protocolVersion TLS12
-        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
-        --startupDelay 5000
-
-    # Perform the learning
-  - name: learner
-    image: tlsprint/statelearner
-    pull: always
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.0.1s /TLS12/learnedModel.dot ]; then exit 0; fi
-      - sleep 10
-      - statelearner
-      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
-
-  - name: commit
-    image: python:3.6
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.0.1s/TLS12/learnedModel.dot ]; then exit 0; fi
-      - pip install -r requirements.txt
-      - python commit_model.py
-        --implementation openssl
-        --version 1.0.1s
-        --tls-version TLS12
-        --model /tmp/cache/learnedModel.dot
-        --verbose
-    environment:
-      GITLAB_TLSPRINT_API_KEY:
-        from_secret: GITLAB_TLSPRINT_API_KEY
-
-volumes:
-  - name: cache
-    temp: {}
-
-trigger:
-  branch:
-    - master
-
----
-kind: pipeline
-name: openssl 1.1.0f
-
-steps:
-    # Start the sut (system under test)
-  - name: sut
-    image: tlsprint/openssl:1.1.0f
-    detach: true
-
-    # Start the connector with a delay of 5 seconds, so the sut has time to
-    # initialize.
-  - name: connector
-    image: tlsprint/tlsattackerconnector
-    pull: always
-    detach: true
-    commands:
-      - connector
-        --targetHost sut
-        --protocolVersion TLS12
-        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
-        --startupDelay 5000
-
-    # Perform the learning
-  - name: learner
-    image: tlsprint/statelearner
-    pull: always
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.1.0f /TLS12/learnedModel.dot ]; then exit 0; fi
-      - sleep 10
-      - statelearner
-      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
-
-  - name: commit
-    image: python:3.6
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.1.0f/TLS12/learnedModel.dot ]; then exit 0; fi
-      - pip install -r requirements.txt
-      - python commit_model.py
-        --implementation openssl
-        --version 1.1.0f
-        --tls-version TLS12
-        --model /tmp/cache/learnedModel.dot
-        --verbose
-    environment:
-      GITLAB_TLSPRINT_API_KEY:
-        from_secret: GITLAB_TLSPRINT_API_KEY
-
-volumes:
-  - name: cache
-    temp: {}
-
-trigger:
-  branch:
-    - master
-
----
-kind: pipeline
-name: openssl 1.0.1f
-
-steps:
-    # Start the sut (system under test)
-  - name: sut
-    image: tlsprint/openssl:1.0.1f
-    detach: true
-
-    # Start the connector with a delay of 5 seconds, so the sut has time to
-    # initialize.
-  - name: connector
-    image: tlsprint/tlsattackerconnector
-    pull: always
-    detach: true
-    commands:
-      - connector
-        --targetHost sut
-        --protocolVersion TLS12
-        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
-        --startupDelay 5000
-
-    # Perform the learning
-  - name: learner
-    image: tlsprint/statelearner
-    pull: always
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.0.1f /TLS12/learnedModel.dot ]; then exit 0; fi
-      - sleep 10
-      - statelearner
-      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
-
-  - name: commit
-    image: python:3.6
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.0.1f/TLS12/learnedModel.dot ]; then exit 0; fi
-      - pip install -r requirements.txt
-      - python commit_model.py
-        --implementation openssl
-        --version 1.0.1f
-        --tls-version TLS12
-        --model /tmp/cache/learnedModel.dot
-        --verbose
-    environment:
-      GITLAB_TLSPRINT_API_KEY:
-        from_secret: GITLAB_TLSPRINT_API_KEY
-
-volumes:
-  - name: cache
-    temp: {}
-
-trigger:
-  branch:
-    - master
-
----
-kind: pipeline
-name: openssl 1.1.0g
-
-steps:
-    # Start the sut (system under test)
-  - name: sut
-    image: tlsprint/openssl:1.1.0g
-    detach: true
-
-    # Start the connector with a delay of 5 seconds, so the sut has time to
-    # initialize.
-  - name: connector
-    image: tlsprint/tlsattackerconnector
-    pull: always
-    detach: true
-    commands:
-      - connector
-        --targetHost sut
-        --protocolVersion TLS12
-        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
-        --startupDelay 5000
-
-    # Perform the learning
-  - name: learner
-    image: tlsprint/statelearner
-    pull: always
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.1.0g /TLS12/learnedModel.dot ]; then exit 0; fi
-      - sleep 10
-      - statelearner
-      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
-
-  - name: commit
-    image: python:3.6
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.1.0g/TLS12/learnedModel.dot ]; then exit 0; fi
-      - pip install -r requirements.txt
-      - python commit_model.py
-        --implementation openssl
-        --version 1.1.0g
-        --tls-version TLS12
-        --model /tmp/cache/learnedModel.dot
-        --verbose
-    environment:
-      GITLAB_TLSPRINT_API_KEY:
-        from_secret: GITLAB_TLSPRINT_API_KEY
-
-volumes:
-  - name: cache
-    temp: {}
-
-trigger:
-  branch:
-    - master
-
----
-kind: pipeline
-name: openssl 1.0.2
-
-steps:
-    # Start the sut (system under test)
-  - name: sut
-    image: tlsprint/openssl:1.0.2
-    detach: true
-
-    # Start the connector with a delay of 5 seconds, so the sut has time to
-    # initialize.
-  - name: connector
-    image: tlsprint/tlsattackerconnector
-    pull: always
-    detach: true
-    commands:
-      - connector
-        --targetHost sut
-        --protocolVersion TLS12
-        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
-        --startupDelay 5000
-
-    # Perform the learning
-  - name: learner
-    image: tlsprint/statelearner
-    pull: always
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.0.2 /TLS12/learnedModel.dot ]; then exit 0; fi
-      - sleep 10
-      - statelearner
-      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
-
-  - name: commit
-    image: python:3.6
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.0.2/TLS12/learnedModel.dot ]; then exit 0; fi
-      - pip install -r requirements.txt
-      - python commit_model.py
-        --implementation openssl
-        --version 1.0.2
-        --tls-version TLS12
-        --model /tmp/cache/learnedModel.dot
-        --verbose
-    environment:
-      GITLAB_TLSPRINT_API_KEY:
-        from_secret: GITLAB_TLSPRINT_API_KEY
-
-volumes:
-  - name: cache
-    temp: {}
-
-trigger:
-  branch:
-    - master
-
----
-kind: pipeline
-name: openssl 1.0.2r
-
-steps:
-    # Start the sut (system under test)
-  - name: sut
-    image: tlsprint/openssl:1.0.2r
-    detach: true
-
-    # Start the connector with a delay of 5 seconds, so the sut has time to
-    # initialize.
-  - name: connector
-    image: tlsprint/tlsattackerconnector
-    pull: always
-    detach: true
-    commands:
-      - connector
-        --targetHost sut
-        --protocolVersion TLS12
-        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
-        --startupDelay 5000
-
-    # Perform the learning
-  - name: learner
-    image: tlsprint/statelearner
-    pull: always
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.0.2r /TLS12/learnedModel.dot ]; then exit 0; fi
-      - sleep 10
-      - statelearner
-      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
-
-  - name: commit
-    image: python:3.6
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.0.2r/TLS12/learnedModel.dot ]; then exit 0; fi
-      - pip install -r requirements.txt
-      - python commit_model.py
-        --implementation openssl
-        --version 1.0.2r
-        --tls-version TLS12
-        --model /tmp/cache/learnedModel.dot
-        --verbose
-    environment:
-      GITLAB_TLSPRINT_API_KEY:
-        from_secret: GITLAB_TLSPRINT_API_KEY
-
-volumes:
-  - name: cache
-    temp: {}
-
-trigger:
-  branch:
-    - master
-
----
-kind: pipeline
-name: openssl 1.0.2n
-
-steps:
-    # Start the sut (system under test)
-  - name: sut
-    image: tlsprint/openssl:1.0.2n
-    detach: true
-
-    # Start the connector with a delay of 5 seconds, so the sut has time to
-    # initialize.
-  - name: connector
-    image: tlsprint/tlsattackerconnector
-    pull: always
-    detach: true
-    commands:
-      - connector
-        --targetHost sut
-        --protocolVersion TLS12
-        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
-        --startupDelay 5000
-
-    # Perform the learning
-  - name: learner
-    image: tlsprint/statelearner
-    pull: always
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.0.2n /TLS12/learnedModel.dot ]; then exit 0; fi
-      - sleep 10
-      - statelearner
-      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
-
-  - name: commit
-    image: python:3.6
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.0.2n/TLS12/learnedModel.dot ]; then exit 0; fi
-      - pip install -r requirements.txt
-      - python commit_model.py
-        --implementation openssl
-        --version 1.0.2n
-        --tls-version TLS12
-        --model /tmp/cache/learnedModel.dot
-        --verbose
-    environment:
-      GITLAB_TLSPRINT_API_KEY:
-        from_secret: GITLAB_TLSPRINT_API_KEY
-
-volumes:
-  - name: cache
-    temp: {}
-
-trigger:
-  branch:
-    - master
-
----
-kind: pipeline
-name: openssl 1.0.1g
-
-steps:
-    # Start the sut (system under test)
-  - name: sut
-    image: tlsprint/openssl:1.0.1g
-    detach: true
-
-    # Start the connector with a delay of 5 seconds, so the sut has time to
-    # initialize.
-  - name: connector
-    image: tlsprint/tlsattackerconnector
-    pull: always
-    detach: true
-    commands:
-      - connector
-        --targetHost sut
-        --protocolVersion TLS12
-        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
-        --startupDelay 5000
-
-    # Perform the learning
-  - name: learner
-    image: tlsprint/statelearner
-    pull: always
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.0.1g /TLS12/learnedModel.dot ]; then exit 0; fi
-      - sleep 10
-      - statelearner
-      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
-
-  - name: commit
-    image: python:3.6
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.0.1g/TLS12/learnedModel.dot ]; then exit 0; fi
-      - pip install -r requirements.txt
-      - python commit_model.py
-        --implementation openssl
-        --version 1.0.1g
-        --tls-version TLS12
-        --model /tmp/cache/learnedModel.dot
-        --verbose
-    environment:
-      GITLAB_TLSPRINT_API_KEY:
-        from_secret: GITLAB_TLSPRINT_API_KEY
-
-volumes:
-  - name: cache
-    temp: {}
-
-trigger:
-  branch:
-    - master
-
----
-kind: pipeline
-name: openssl 1.0.2d
-
-steps:
-    # Start the sut (system under test)
-  - name: sut
-    image: tlsprint/openssl:1.0.2d
-    detach: true
-
-    # Start the connector with a delay of 5 seconds, so the sut has time to
-    # initialize.
-  - name: connector
-    image: tlsprint/tlsattackerconnector
-    pull: always
-    detach: true
-    commands:
-      - connector
-        --targetHost sut
-        --protocolVersion TLS12
-        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
-        --startupDelay 5000
-
-    # Perform the learning
-  - name: learner
-    image: tlsprint/statelearner
-    pull: always
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.0.2d /TLS12/learnedModel.dot ]; then exit 0; fi
-      - sleep 10
-      - statelearner
-      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
-
-  - name: commit
-    image: python:3.6
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.0.2d/TLS12/learnedModel.dot ]; then exit 0; fi
-      - pip install -r requirements.txt
-      - python commit_model.py
-        --implementation openssl
-        --version 1.0.2d
-        --tls-version TLS12
-        --model /tmp/cache/learnedModel.dot
-        --verbose
-    environment:
-      GITLAB_TLSPRINT_API_KEY:
-        from_secret: GITLAB_TLSPRINT_API_KEY
-
-volumes:
-  - name: cache
-    temp: {}
-
-trigger:
-  branch:
-    - master
-
----
-kind: pipeline
-name: openssl 1.0.2g
-
-steps:
-    # Start the sut (system under test)
-  - name: sut
-    image: tlsprint/openssl:1.0.2g
-    detach: true
-
-    # Start the connector with a delay of 5 seconds, so the sut has time to
-    # initialize.
-  - name: connector
-    image: tlsprint/tlsattackerconnector
-    pull: always
-    detach: true
-    commands:
-      - connector
-        --targetHost sut
-        --protocolVersion TLS12
-        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
-        --startupDelay 5000
-
-    # Perform the learning
-  - name: learner
-    image: tlsprint/statelearner
-    pull: always
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.0.2g /TLS12/learnedModel.dot ]; then exit 0; fi
-      - sleep 10
-      - statelearner
-      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
-
-  - name: commit
-    image: python:3.6
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.0.2g/TLS12/learnedModel.dot ]; then exit 0; fi
-      - pip install -r requirements.txt
-      - python commit_model.py
-        --implementation openssl
-        --version 1.0.2g
-        --tls-version TLS12
-        --model /tmp/cache/learnedModel.dot
-        --verbose
-    environment:
-      GITLAB_TLSPRINT_API_KEY:
-        from_secret: GITLAB_TLSPRINT_API_KEY
-
-volumes:
-  - name: cache
-    temp: {}
-
-trigger:
-  branch:
-    - master
-
----
-kind: pipeline
-name: openssl 1.0.2i
-
-steps:
-    # Start the sut (system under test)
-  - name: sut
-    image: tlsprint/openssl:1.0.2i
-    detach: true
-
-    # Start the connector with a delay of 5 seconds, so the sut has time to
-    # initialize.
-  - name: connector
-    image: tlsprint/tlsattackerconnector
-    pull: always
-    detach: true
-    commands:
-      - connector
-        --targetHost sut
-        --protocolVersion TLS12
-        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
-        --startupDelay 5000
-
-    # Perform the learning
-  - name: learner
-    image: tlsprint/statelearner
-    pull: always
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.0.2i /TLS12/learnedModel.dot ]; then exit 0; fi
-      - sleep 10
-      - statelearner
-      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
-
-  - name: commit
-    image: python:3.6
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.0.2i/TLS12/learnedModel.dot ]; then exit 0; fi
-      - pip install -r requirements.txt
-      - python commit_model.py
-        --implementation openssl
-        --version 1.0.2i
+        --version 1.1.0
         --tls-version TLS12
         --model /tmp/cache/learnedModel.dot
         --verbose
@@ -872,7 +104,7 @@ steps:
         path: /tmp/cache
     commands:
         # Skip if target already exists
-      - if [ -e models/openssl/1.1.0i /TLS12/learnedModel.dot ]; then exit 0; fi
+      - if [ -e models/openssl/1.1.0i/TLS12/learnedModel.dot ]; then exit 0; fi
       - sleep 10
       - statelearner
       - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
@@ -889,1926 +121,6 @@ steps:
       - python commit_model.py
         --implementation openssl
         --version 1.1.0i
-        --tls-version TLS12
-        --model /tmp/cache/learnedModel.dot
-        --verbose
-    environment:
-      GITLAB_TLSPRINT_API_KEY:
-        from_secret: GITLAB_TLSPRINT_API_KEY
-
-volumes:
-  - name: cache
-    temp: {}
-
-trigger:
-  branch:
-    - master
-
----
-kind: pipeline
-name: openssl 1.0.2o
-
-steps:
-    # Start the sut (system under test)
-  - name: sut
-    image: tlsprint/openssl:1.0.2o
-    detach: true
-
-    # Start the connector with a delay of 5 seconds, so the sut has time to
-    # initialize.
-  - name: connector
-    image: tlsprint/tlsattackerconnector
-    pull: always
-    detach: true
-    commands:
-      - connector
-        --targetHost sut
-        --protocolVersion TLS12
-        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
-        --startupDelay 5000
-
-    # Perform the learning
-  - name: learner
-    image: tlsprint/statelearner
-    pull: always
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.0.2o /TLS12/learnedModel.dot ]; then exit 0; fi
-      - sleep 10
-      - statelearner
-      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
-
-  - name: commit
-    image: python:3.6
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.0.2o/TLS12/learnedModel.dot ]; then exit 0; fi
-      - pip install -r requirements.txt
-      - python commit_model.py
-        --implementation openssl
-        --version 1.0.2o
-        --tls-version TLS12
-        --model /tmp/cache/learnedModel.dot
-        --verbose
-    environment:
-      GITLAB_TLSPRINT_API_KEY:
-        from_secret: GITLAB_TLSPRINT_API_KEY
-
-volumes:
-  - name: cache
-    temp: {}
-
-trigger:
-  branch:
-    - master
-
----
-kind: pipeline
-name: openssl 1.0.1k
-
-steps:
-    # Start the sut (system under test)
-  - name: sut
-    image: tlsprint/openssl:1.0.1k
-    detach: true
-
-    # Start the connector with a delay of 5 seconds, so the sut has time to
-    # initialize.
-  - name: connector
-    image: tlsprint/tlsattackerconnector
-    pull: always
-    detach: true
-    commands:
-      - connector
-        --targetHost sut
-        --protocolVersion TLS12
-        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
-        --startupDelay 5000
-
-    # Perform the learning
-  - name: learner
-    image: tlsprint/statelearner
-    pull: always
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.0.1k /TLS12/learnedModel.dot ]; then exit 0; fi
-      - sleep 10
-      - statelearner
-      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
-
-  - name: commit
-    image: python:3.6
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.0.1k/TLS12/learnedModel.dot ]; then exit 0; fi
-      - pip install -r requirements.txt
-      - python commit_model.py
-        --implementation openssl
-        --version 1.0.1k
-        --tls-version TLS12
-        --model /tmp/cache/learnedModel.dot
-        --verbose
-    environment:
-      GITLAB_TLSPRINT_API_KEY:
-        from_secret: GITLAB_TLSPRINT_API_KEY
-
-volumes:
-  - name: cache
-    temp: {}
-
-trigger:
-  branch:
-    - master
-
----
-kind: pipeline
-name: openssl 1.0.1a
-
-steps:
-    # Start the sut (system under test)
-  - name: sut
-    image: tlsprint/openssl:1.0.1a
-    detach: true
-
-    # Start the connector with a delay of 5 seconds, so the sut has time to
-    # initialize.
-  - name: connector
-    image: tlsprint/tlsattackerconnector
-    pull: always
-    detach: true
-    commands:
-      - connector
-        --targetHost sut
-        --protocolVersion TLS12
-        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
-        --startupDelay 5000
-
-    # Perform the learning
-  - name: learner
-    image: tlsprint/statelearner
-    pull: always
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.0.1a /TLS12/learnedModel.dot ]; then exit 0; fi
-      - sleep 10
-      - statelearner
-      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
-
-  - name: commit
-    image: python:3.6
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.0.1a/TLS12/learnedModel.dot ]; then exit 0; fi
-      - pip install -r requirements.txt
-      - python commit_model.py
-        --implementation openssl
-        --version 1.0.1a
-        --tls-version TLS12
-        --model /tmp/cache/learnedModel.dot
-        --verbose
-    environment:
-      GITLAB_TLSPRINT_API_KEY:
-        from_secret: GITLAB_TLSPRINT_API_KEY
-
-volumes:
-  - name: cache
-    temp: {}
-
-trigger:
-  branch:
-    - master
-
----
-kind: pipeline
-name: openssl 1.1.0k
-
-steps:
-    # Start the sut (system under test)
-  - name: sut
-    image: tlsprint/openssl:1.1.0k
-    detach: true
-
-    # Start the connector with a delay of 5 seconds, so the sut has time to
-    # initialize.
-  - name: connector
-    image: tlsprint/tlsattackerconnector
-    pull: always
-    detach: true
-    commands:
-      - connector
-        --targetHost sut
-        --protocolVersion TLS12
-        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
-        --startupDelay 5000
-
-    # Perform the learning
-  - name: learner
-    image: tlsprint/statelearner
-    pull: always
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.1.0k /TLS12/learnedModel.dot ]; then exit 0; fi
-      - sleep 10
-      - statelearner
-      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
-
-  - name: commit
-    image: python:3.6
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.1.0k/TLS12/learnedModel.dot ]; then exit 0; fi
-      - pip install -r requirements.txt
-      - python commit_model.py
-        --implementation openssl
-        --version 1.1.0k
-        --tls-version TLS12
-        --model /tmp/cache/learnedModel.dot
-        --verbose
-    environment:
-      GITLAB_TLSPRINT_API_KEY:
-        from_secret: GITLAB_TLSPRINT_API_KEY
-
-volumes:
-  - name: cache
-    temp: {}
-
-trigger:
-  branch:
-    - master
-
----
-kind: pipeline
-name: openssl 1.0.1b
-
-steps:
-    # Start the sut (system under test)
-  - name: sut
-    image: tlsprint/openssl:1.0.1b
-    detach: true
-
-    # Start the connector with a delay of 5 seconds, so the sut has time to
-    # initialize.
-  - name: connector
-    image: tlsprint/tlsattackerconnector
-    pull: always
-    detach: true
-    commands:
-      - connector
-        --targetHost sut
-        --protocolVersion TLS12
-        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
-        --startupDelay 5000
-
-    # Perform the learning
-  - name: learner
-    image: tlsprint/statelearner
-    pull: always
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.0.1b /TLS12/learnedModel.dot ]; then exit 0; fi
-      - sleep 10
-      - statelearner
-      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
-
-  - name: commit
-    image: python:3.6
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.0.1b/TLS12/learnedModel.dot ]; then exit 0; fi
-      - pip install -r requirements.txt
-      - python commit_model.py
-        --implementation openssl
-        --version 1.0.1b
-        --tls-version TLS12
-        --model /tmp/cache/learnedModel.dot
-        --verbose
-    environment:
-      GITLAB_TLSPRINT_API_KEY:
-        from_secret: GITLAB_TLSPRINT_API_KEY
-
-volumes:
-  - name: cache
-    temp: {}
-
-trigger:
-  branch:
-    - master
-
----
-kind: pipeline
-name: openssl 1.0.2j
-
-steps:
-    # Start the sut (system under test)
-  - name: sut
-    image: tlsprint/openssl:1.0.2j
-    detach: true
-
-    # Start the connector with a delay of 5 seconds, so the sut has time to
-    # initialize.
-  - name: connector
-    image: tlsprint/tlsattackerconnector
-    pull: always
-    detach: true
-    commands:
-      - connector
-        --targetHost sut
-        --protocolVersion TLS12
-        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
-        --startupDelay 5000
-
-    # Perform the learning
-  - name: learner
-    image: tlsprint/statelearner
-    pull: always
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.0.2j /TLS12/learnedModel.dot ]; then exit 0; fi
-      - sleep 10
-      - statelearner
-      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
-
-  - name: commit
-    image: python:3.6
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.0.2j/TLS12/learnedModel.dot ]; then exit 0; fi
-      - pip install -r requirements.txt
-      - python commit_model.py
-        --implementation openssl
-        --version 1.0.2j
-        --tls-version TLS12
-        --model /tmp/cache/learnedModel.dot
-        --verbose
-    environment:
-      GITLAB_TLSPRINT_API_KEY:
-        from_secret: GITLAB_TLSPRINT_API_KEY
-
-volumes:
-  - name: cache
-    temp: {}
-
-trigger:
-  branch:
-    - master
-
----
-kind: pipeline
-name: openssl 1.0.1h
-
-steps:
-    # Start the sut (system under test)
-  - name: sut
-    image: tlsprint/openssl:1.0.1h
-    detach: true
-
-    # Start the connector with a delay of 5 seconds, so the sut has time to
-    # initialize.
-  - name: connector
-    image: tlsprint/tlsattackerconnector
-    pull: always
-    detach: true
-    commands:
-      - connector
-        --targetHost sut
-        --protocolVersion TLS12
-        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
-        --startupDelay 5000
-
-    # Perform the learning
-  - name: learner
-    image: tlsprint/statelearner
-    pull: always
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.0.1h /TLS12/learnedModel.dot ]; then exit 0; fi
-      - sleep 10
-      - statelearner
-      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
-
-  - name: commit
-    image: python:3.6
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.0.1h/TLS12/learnedModel.dot ]; then exit 0; fi
-      - pip install -r requirements.txt
-      - python commit_model.py
-        --implementation openssl
-        --version 1.0.1h
-        --tls-version TLS12
-        --model /tmp/cache/learnedModel.dot
-        --verbose
-    environment:
-      GITLAB_TLSPRINT_API_KEY:
-        from_secret: GITLAB_TLSPRINT_API_KEY
-
-volumes:
-  - name: cache
-    temp: {}
-
-trigger:
-  branch:
-    - master
-
----
-kind: pipeline
-name: openssl 1.0.2h
-
-steps:
-    # Start the sut (system under test)
-  - name: sut
-    image: tlsprint/openssl:1.0.2h
-    detach: true
-
-    # Start the connector with a delay of 5 seconds, so the sut has time to
-    # initialize.
-  - name: connector
-    image: tlsprint/tlsattackerconnector
-    pull: always
-    detach: true
-    commands:
-      - connector
-        --targetHost sut
-        --protocolVersion TLS12
-        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
-        --startupDelay 5000
-
-    # Perform the learning
-  - name: learner
-    image: tlsprint/statelearner
-    pull: always
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.0.2h /TLS12/learnedModel.dot ]; then exit 0; fi
-      - sleep 10
-      - statelearner
-      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
-
-  - name: commit
-    image: python:3.6
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.0.2h/TLS12/learnedModel.dot ]; then exit 0; fi
-      - pip install -r requirements.txt
-      - python commit_model.py
-        --implementation openssl
-        --version 1.0.2h
-        --tls-version TLS12
-        --model /tmp/cache/learnedModel.dot
-        --verbose
-    environment:
-      GITLAB_TLSPRINT_API_KEY:
-        from_secret: GITLAB_TLSPRINT_API_KEY
-
-volumes:
-  - name: cache
-    temp: {}
-
-trigger:
-  branch:
-    - master
-
----
-kind: pipeline
-name: openssl 1.0.1m
-
-steps:
-    # Start the sut (system under test)
-  - name: sut
-    image: tlsprint/openssl:1.0.1m
-    detach: true
-
-    # Start the connector with a delay of 5 seconds, so the sut has time to
-    # initialize.
-  - name: connector
-    image: tlsprint/tlsattackerconnector
-    pull: always
-    detach: true
-    commands:
-      - connector
-        --targetHost sut
-        --protocolVersion TLS12
-        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
-        --startupDelay 5000
-
-    # Perform the learning
-  - name: learner
-    image: tlsprint/statelearner
-    pull: always
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.0.1m /TLS12/learnedModel.dot ]; then exit 0; fi
-      - sleep 10
-      - statelearner
-      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
-
-  - name: commit
-    image: python:3.6
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.0.1m/TLS12/learnedModel.dot ]; then exit 0; fi
-      - pip install -r requirements.txt
-      - python commit_model.py
-        --implementation openssl
-        --version 1.0.1m
-        --tls-version TLS12
-        --model /tmp/cache/learnedModel.dot
-        --verbose
-    environment:
-      GITLAB_TLSPRINT_API_KEY:
-        from_secret: GITLAB_TLSPRINT_API_KEY
-
-volumes:
-  - name: cache
-    temp: {}
-
-trigger:
-  branch:
-    - master
-
----
-kind: pipeline
-name: openssl 1.0.2m
-
-steps:
-    # Start the sut (system under test)
-  - name: sut
-    image: tlsprint/openssl:1.0.2m
-    detach: true
-
-    # Start the connector with a delay of 5 seconds, so the sut has time to
-    # initialize.
-  - name: connector
-    image: tlsprint/tlsattackerconnector
-    pull: always
-    detach: true
-    commands:
-      - connector
-        --targetHost sut
-        --protocolVersion TLS12
-        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
-        --startupDelay 5000
-
-    # Perform the learning
-  - name: learner
-    image: tlsprint/statelearner
-    pull: always
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.0.2m /TLS12/learnedModel.dot ]; then exit 0; fi
-      - sleep 10
-      - statelearner
-      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
-
-  - name: commit
-    image: python:3.6
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.0.2m/TLS12/learnedModel.dot ]; then exit 0; fi
-      - pip install -r requirements.txt
-      - python commit_model.py
-        --implementation openssl
-        --version 1.0.2m
-        --tls-version TLS12
-        --model /tmp/cache/learnedModel.dot
-        --verbose
-    environment:
-      GITLAB_TLSPRINT_API_KEY:
-        from_secret: GITLAB_TLSPRINT_API_KEY
-
-volumes:
-  - name: cache
-    temp: {}
-
-trigger:
-  branch:
-    - master
-
----
-kind: pipeline
-name: openssl 1.0.1d
-
-steps:
-    # Start the sut (system under test)
-  - name: sut
-    image: tlsprint/openssl:1.0.1d
-    detach: true
-
-    # Start the connector with a delay of 5 seconds, so the sut has time to
-    # initialize.
-  - name: connector
-    image: tlsprint/tlsattackerconnector
-    pull: always
-    detach: true
-    commands:
-      - connector
-        --targetHost sut
-        --protocolVersion TLS12
-        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
-        --startupDelay 5000
-
-    # Perform the learning
-  - name: learner
-    image: tlsprint/statelearner
-    pull: always
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.0.1d /TLS12/learnedModel.dot ]; then exit 0; fi
-      - sleep 10
-      - statelearner
-      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
-
-  - name: commit
-    image: python:3.6
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.0.1d/TLS12/learnedModel.dot ]; then exit 0; fi
-      - pip install -r requirements.txt
-      - python commit_model.py
-        --implementation openssl
-        --version 1.0.1d
-        --tls-version TLS12
-        --model /tmp/cache/learnedModel.dot
-        --verbose
-    environment:
-      GITLAB_TLSPRINT_API_KEY:
-        from_secret: GITLAB_TLSPRINT_API_KEY
-
-volumes:
-  - name: cache
-    temp: {}
-
-trigger:
-  branch:
-    - master
-
----
-kind: pipeline
-name: openssl 1.0.2s
-
-steps:
-    # Start the sut (system under test)
-  - name: sut
-    image: tlsprint/openssl:1.0.2s
-    detach: true
-
-    # Start the connector with a delay of 5 seconds, so the sut has time to
-    # initialize.
-  - name: connector
-    image: tlsprint/tlsattackerconnector
-    pull: always
-    detach: true
-    commands:
-      - connector
-        --targetHost sut
-        --protocolVersion TLS12
-        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
-        --startupDelay 5000
-
-    # Perform the learning
-  - name: learner
-    image: tlsprint/statelearner
-    pull: always
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.0.2s /TLS12/learnedModel.dot ]; then exit 0; fi
-      - sleep 10
-      - statelearner
-      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
-
-  - name: commit
-    image: python:3.6
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.0.2s/TLS12/learnedModel.dot ]; then exit 0; fi
-      - pip install -r requirements.txt
-      - python commit_model.py
-        --implementation openssl
-        --version 1.0.2s
-        --tls-version TLS12
-        --model /tmp/cache/learnedModel.dot
-        --verbose
-    environment:
-      GITLAB_TLSPRINT_API_KEY:
-        from_secret: GITLAB_TLSPRINT_API_KEY
-
-volumes:
-  - name: cache
-    temp: {}
-
-trigger:
-  branch:
-    - master
-
----
-kind: pipeline
-name: openssl 1.1.0b
-
-steps:
-    # Start the sut (system under test)
-  - name: sut
-    image: tlsprint/openssl:1.1.0b
-    detach: true
-
-    # Start the connector with a delay of 5 seconds, so the sut has time to
-    # initialize.
-  - name: connector
-    image: tlsprint/tlsattackerconnector
-    pull: always
-    detach: true
-    commands:
-      - connector
-        --targetHost sut
-        --protocolVersion TLS12
-        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
-        --startupDelay 5000
-
-    # Perform the learning
-  - name: learner
-    image: tlsprint/statelearner
-    pull: always
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.1.0b /TLS12/learnedModel.dot ]; then exit 0; fi
-      - sleep 10
-      - statelearner
-      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
-
-  - name: commit
-    image: python:3.6
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.1.0b/TLS12/learnedModel.dot ]; then exit 0; fi
-      - pip install -r requirements.txt
-      - python commit_model.py
-        --implementation openssl
-        --version 1.1.0b
-        --tls-version TLS12
-        --model /tmp/cache/learnedModel.dot
-        --verbose
-    environment:
-      GITLAB_TLSPRINT_API_KEY:
-        from_secret: GITLAB_TLSPRINT_API_KEY
-
-volumes:
-  - name: cache
-    temp: {}
-
-trigger:
-  branch:
-    - master
-
----
-kind: pipeline
-name: openssl 1.0.1r
-
-steps:
-    # Start the sut (system under test)
-  - name: sut
-    image: tlsprint/openssl:1.0.1r
-    detach: true
-
-    # Start the connector with a delay of 5 seconds, so the sut has time to
-    # initialize.
-  - name: connector
-    image: tlsprint/tlsattackerconnector
-    pull: always
-    detach: true
-    commands:
-      - connector
-        --targetHost sut
-        --protocolVersion TLS12
-        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
-        --startupDelay 5000
-
-    # Perform the learning
-  - name: learner
-    image: tlsprint/statelearner
-    pull: always
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.0.1r /TLS12/learnedModel.dot ]; then exit 0; fi
-      - sleep 10
-      - statelearner
-      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
-
-  - name: commit
-    image: python:3.6
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.0.1r/TLS12/learnedModel.dot ]; then exit 0; fi
-      - pip install -r requirements.txt
-      - python commit_model.py
-        --implementation openssl
-        --version 1.0.1r
-        --tls-version TLS12
-        --model /tmp/cache/learnedModel.dot
-        --verbose
-    environment:
-      GITLAB_TLSPRINT_API_KEY:
-        from_secret: GITLAB_TLSPRINT_API_KEY
-
-volumes:
-  - name: cache
-    temp: {}
-
-trigger:
-  branch:
-    - master
-
----
-kind: pipeline
-name: openssl 1.0.2f
-
-steps:
-    # Start the sut (system under test)
-  - name: sut
-    image: tlsprint/openssl:1.0.2f
-    detach: true
-
-    # Start the connector with a delay of 5 seconds, so the sut has time to
-    # initialize.
-  - name: connector
-    image: tlsprint/tlsattackerconnector
-    pull: always
-    detach: true
-    commands:
-      - connector
-        --targetHost sut
-        --protocolVersion TLS12
-        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
-        --startupDelay 5000
-
-    # Perform the learning
-  - name: learner
-    image: tlsprint/statelearner
-    pull: always
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.0.2f /TLS12/learnedModel.dot ]; then exit 0; fi
-      - sleep 10
-      - statelearner
-      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
-
-  - name: commit
-    image: python:3.6
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.0.2f/TLS12/learnedModel.dot ]; then exit 0; fi
-      - pip install -r requirements.txt
-      - python commit_model.py
-        --implementation openssl
-        --version 1.0.2f
-        --tls-version TLS12
-        --model /tmp/cache/learnedModel.dot
-        --verbose
-    environment:
-      GITLAB_TLSPRINT_API_KEY:
-        from_secret: GITLAB_TLSPRINT_API_KEY
-
-volumes:
-  - name: cache
-    temp: {}
-
-trigger:
-  branch:
-    - master
-
----
-kind: pipeline
-name: openssl 1.1.0a
-
-steps:
-    # Start the sut (system under test)
-  - name: sut
-    image: tlsprint/openssl:1.1.0a
-    detach: true
-
-    # Start the connector with a delay of 5 seconds, so the sut has time to
-    # initialize.
-  - name: connector
-    image: tlsprint/tlsattackerconnector
-    pull: always
-    detach: true
-    commands:
-      - connector
-        --targetHost sut
-        --protocolVersion TLS12
-        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
-        --startupDelay 5000
-
-    # Perform the learning
-  - name: learner
-    image: tlsprint/statelearner
-    pull: always
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.1.0a /TLS12/learnedModel.dot ]; then exit 0; fi
-      - sleep 10
-      - statelearner
-      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
-
-  - name: commit
-    image: python:3.6
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.1.0a/TLS12/learnedModel.dot ]; then exit 0; fi
-      - pip install -r requirements.txt
-      - python commit_model.py
-        --implementation openssl
-        --version 1.1.0a
-        --tls-version TLS12
-        --model /tmp/cache/learnedModel.dot
-        --verbose
-    environment:
-      GITLAB_TLSPRINT_API_KEY:
-        from_secret: GITLAB_TLSPRINT_API_KEY
-
-volumes:
-  - name: cache
-    temp: {}
-
-trigger:
-  branch:
-    - master
-
----
-kind: pipeline
-name: openssl 1.1.1c
-
-steps:
-    # Start the sut (system under test)
-  - name: sut
-    image: tlsprint/openssl:1.1.1c
-    detach: true
-
-    # Start the connector with a delay of 5 seconds, so the sut has time to
-    # initialize.
-  - name: connector
-    image: tlsprint/tlsattackerconnector
-    pull: always
-    detach: true
-    commands:
-      - connector
-        --targetHost sut
-        --protocolVersion TLS12
-        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
-        --startupDelay 5000
-
-    # Perform the learning
-  - name: learner
-    image: tlsprint/statelearner
-    pull: always
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.1.1c /TLS12/learnedModel.dot ]; then exit 0; fi
-      - sleep 10
-      - statelearner
-      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
-
-  - name: commit
-    image: python:3.6
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.1.1c/TLS12/learnedModel.dot ]; then exit 0; fi
-      - pip install -r requirements.txt
-      - python commit_model.py
-        --implementation openssl
-        --version 1.1.1c
-        --tls-version TLS12
-        --model /tmp/cache/learnedModel.dot
-        --verbose
-    environment:
-      GITLAB_TLSPRINT_API_KEY:
-        from_secret: GITLAB_TLSPRINT_API_KEY
-
-volumes:
-  - name: cache
-    temp: {}
-
-trigger:
-  branch:
-    - master
-
----
-kind: pipeline
-name: openssl 1.0.1n
-
-steps:
-    # Start the sut (system under test)
-  - name: sut
-    image: tlsprint/openssl:1.0.1n
-    detach: true
-
-    # Start the connector with a delay of 5 seconds, so the sut has time to
-    # initialize.
-  - name: connector
-    image: tlsprint/tlsattackerconnector
-    pull: always
-    detach: true
-    commands:
-      - connector
-        --targetHost sut
-        --protocolVersion TLS12
-        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
-        --startupDelay 5000
-
-    # Perform the learning
-  - name: learner
-    image: tlsprint/statelearner
-    pull: always
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.0.1n /TLS12/learnedModel.dot ]; then exit 0; fi
-      - sleep 10
-      - statelearner
-      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
-
-  - name: commit
-    image: python:3.6
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.0.1n/TLS12/learnedModel.dot ]; then exit 0; fi
-      - pip install -r requirements.txt
-      - python commit_model.py
-        --implementation openssl
-        --version 1.0.1n
-        --tls-version TLS12
-        --model /tmp/cache/learnedModel.dot
-        --verbose
-    environment:
-      GITLAB_TLSPRINT_API_KEY:
-        from_secret: GITLAB_TLSPRINT_API_KEY
-
-volumes:
-  - name: cache
-    temp: {}
-
-trigger:
-  branch:
-    - master
-
----
-kind: pipeline
-name: openssl 1.0.2l
-
-steps:
-    # Start the sut (system under test)
-  - name: sut
-    image: tlsprint/openssl:1.0.2l
-    detach: true
-
-    # Start the connector with a delay of 5 seconds, so the sut has time to
-    # initialize.
-  - name: connector
-    image: tlsprint/tlsattackerconnector
-    pull: always
-    detach: true
-    commands:
-      - connector
-        --targetHost sut
-        --protocolVersion TLS12
-        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
-        --startupDelay 5000
-
-    # Perform the learning
-  - name: learner
-    image: tlsprint/statelearner
-    pull: always
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.0.2l /TLS12/learnedModel.dot ]; then exit 0; fi
-      - sleep 10
-      - statelearner
-      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
-
-  - name: commit
-    image: python:3.6
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.0.2l/TLS12/learnedModel.dot ]; then exit 0; fi
-      - pip install -r requirements.txt
-      - python commit_model.py
-        --implementation openssl
-        --version 1.0.2l
-        --tls-version TLS12
-        --model /tmp/cache/learnedModel.dot
-        --verbose
-    environment:
-      GITLAB_TLSPRINT_API_KEY:
-        from_secret: GITLAB_TLSPRINT_API_KEY
-
-volumes:
-  - name: cache
-    temp: {}
-
-trigger:
-  branch:
-    - master
-
----
-kind: pipeline
-name: openssl 1.1.0
-
-steps:
-    # Start the sut (system under test)
-  - name: sut
-    image: tlsprint/openssl:1.1.0
-    detach: true
-
-    # Start the connector with a delay of 5 seconds, so the sut has time to
-    # initialize.
-  - name: connector
-    image: tlsprint/tlsattackerconnector
-    pull: always
-    detach: true
-    commands:
-      - connector
-        --targetHost sut
-        --protocolVersion TLS12
-        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
-        --startupDelay 5000
-
-    # Perform the learning
-  - name: learner
-    image: tlsprint/statelearner
-    pull: always
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.1.0 /TLS12/learnedModel.dot ]; then exit 0; fi
-      - sleep 10
-      - statelearner
-      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
-
-  - name: commit
-    image: python:3.6
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.1.0/TLS12/learnedModel.dot ]; then exit 0; fi
-      - pip install -r requirements.txt
-      - python commit_model.py
-        --implementation openssl
-        --version 1.1.0
-        --tls-version TLS12
-        --model /tmp/cache/learnedModel.dot
-        --verbose
-    environment:
-      GITLAB_TLSPRINT_API_KEY:
-        from_secret: GITLAB_TLSPRINT_API_KEY
-
-volumes:
-  - name: cache
-    temp: {}
-
-trigger:
-  branch:
-    - master
-
----
-kind: pipeline
-name: openssl 1.1.0h
-
-steps:
-    # Start the sut (system under test)
-  - name: sut
-    image: tlsprint/openssl:1.1.0h
-    detach: true
-
-    # Start the connector with a delay of 5 seconds, so the sut has time to
-    # initialize.
-  - name: connector
-    image: tlsprint/tlsattackerconnector
-    pull: always
-    detach: true
-    commands:
-      - connector
-        --targetHost sut
-        --protocolVersion TLS12
-        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
-        --startupDelay 5000
-
-    # Perform the learning
-  - name: learner
-    image: tlsprint/statelearner
-    pull: always
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.1.0h /TLS12/learnedModel.dot ]; then exit 0; fi
-      - sleep 10
-      - statelearner
-      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
-
-  - name: commit
-    image: python:3.6
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.1.0h/TLS12/learnedModel.dot ]; then exit 0; fi
-      - pip install -r requirements.txt
-      - python commit_model.py
-        --implementation openssl
-        --version 1.1.0h
-        --tls-version TLS12
-        --model /tmp/cache/learnedModel.dot
-        --verbose
-    environment:
-      GITLAB_TLSPRINT_API_KEY:
-        from_secret: GITLAB_TLSPRINT_API_KEY
-
-volumes:
-  - name: cache
-    temp: {}
-
-trigger:
-  branch:
-    - master
-
----
-kind: pipeline
-name: openssl 1.1.1b
-
-steps:
-    # Start the sut (system under test)
-  - name: sut
-    image: tlsprint/openssl:1.1.1b
-    detach: true
-
-    # Start the connector with a delay of 5 seconds, so the sut has time to
-    # initialize.
-  - name: connector
-    image: tlsprint/tlsattackerconnector
-    pull: always
-    detach: true
-    commands:
-      - connector
-        --targetHost sut
-        --protocolVersion TLS12
-        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
-        --startupDelay 5000
-
-    # Perform the learning
-  - name: learner
-    image: tlsprint/statelearner
-    pull: always
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.1.1b /TLS12/learnedModel.dot ]; then exit 0; fi
-      - sleep 10
-      - statelearner
-      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
-
-  - name: commit
-    image: python:3.6
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.1.1b/TLS12/learnedModel.dot ]; then exit 0; fi
-      - pip install -r requirements.txt
-      - python commit_model.py
-        --implementation openssl
-        --version 1.1.1b
-        --tls-version TLS12
-        --model /tmp/cache/learnedModel.dot
-        --verbose
-    environment:
-      GITLAB_TLSPRINT_API_KEY:
-        from_secret: GITLAB_TLSPRINT_API_KEY
-
-volumes:
-  - name: cache
-    temp: {}
-
-trigger:
-  branch:
-    - master
-
----
-kind: pipeline
-name: openssl 1.1.0j
-
-steps:
-    # Start the sut (system under test)
-  - name: sut
-    image: tlsprint/openssl:1.1.0j
-    detach: true
-
-    # Start the connector with a delay of 5 seconds, so the sut has time to
-    # initialize.
-  - name: connector
-    image: tlsprint/tlsattackerconnector
-    pull: always
-    detach: true
-    commands:
-      - connector
-        --targetHost sut
-        --protocolVersion TLS12
-        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
-        --startupDelay 5000
-
-    # Perform the learning
-  - name: learner
-    image: tlsprint/statelearner
-    pull: always
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.1.0j /TLS12/learnedModel.dot ]; then exit 0; fi
-      - sleep 10
-      - statelearner
-      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
-
-  - name: commit
-    image: python:3.6
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.1.0j/TLS12/learnedModel.dot ]; then exit 0; fi
-      - pip install -r requirements.txt
-      - python commit_model.py
-        --implementation openssl
-        --version 1.1.0j
-        --tls-version TLS12
-        --model /tmp/cache/learnedModel.dot
-        --verbose
-    environment:
-      GITLAB_TLSPRINT_API_KEY:
-        from_secret: GITLAB_TLSPRINT_API_KEY
-
-volumes:
-  - name: cache
-    temp: {}
-
-trigger:
-  branch:
-    - master
-
----
-kind: pipeline
-name: openssl 1.0.2a
-
-steps:
-    # Start the sut (system under test)
-  - name: sut
-    image: tlsprint/openssl:1.0.2a
-    detach: true
-
-    # Start the connector with a delay of 5 seconds, so the sut has time to
-    # initialize.
-  - name: connector
-    image: tlsprint/tlsattackerconnector
-    pull: always
-    detach: true
-    commands:
-      - connector
-        --targetHost sut
-        --protocolVersion TLS12
-        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
-        --startupDelay 5000
-
-    # Perform the learning
-  - name: learner
-    image: tlsprint/statelearner
-    pull: always
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.0.2a /TLS12/learnedModel.dot ]; then exit 0; fi
-      - sleep 10
-      - statelearner
-      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
-
-  - name: commit
-    image: python:3.6
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.0.2a/TLS12/learnedModel.dot ]; then exit 0; fi
-      - pip install -r requirements.txt
-      - python commit_model.py
-        --implementation openssl
-        --version 1.0.2a
-        --tls-version TLS12
-        --model /tmp/cache/learnedModel.dot
-        --verbose
-    environment:
-      GITLAB_TLSPRINT_API_KEY:
-        from_secret: GITLAB_TLSPRINT_API_KEY
-
-volumes:
-  - name: cache
-    temp: {}
-
-trigger:
-  branch:
-    - master
-
----
-kind: pipeline
-name: openssl 1.0.1i
-
-steps:
-    # Start the sut (system under test)
-  - name: sut
-    image: tlsprint/openssl:1.0.1i
-    detach: true
-
-    # Start the connector with a delay of 5 seconds, so the sut has time to
-    # initialize.
-  - name: connector
-    image: tlsprint/tlsattackerconnector
-    pull: always
-    detach: true
-    commands:
-      - connector
-        --targetHost sut
-        --protocolVersion TLS12
-        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
-        --startupDelay 5000
-
-    # Perform the learning
-  - name: learner
-    image: tlsprint/statelearner
-    pull: always
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.0.1i /TLS12/learnedModel.dot ]; then exit 0; fi
-      - sleep 10
-      - statelearner
-      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
-
-  - name: commit
-    image: python:3.6
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.0.1i/TLS12/learnedModel.dot ]; then exit 0; fi
-      - pip install -r requirements.txt
-      - python commit_model.py
-        --implementation openssl
-        --version 1.0.1i
-        --tls-version TLS12
-        --model /tmp/cache/learnedModel.dot
-        --verbose
-    environment:
-      GITLAB_TLSPRINT_API_KEY:
-        from_secret: GITLAB_TLSPRINT_API_KEY
-
-volumes:
-  - name: cache
-    temp: {}
-
-trigger:
-  branch:
-    - master
-
----
-kind: pipeline
-name: openssl 1.0.1o
-
-steps:
-    # Start the sut (system under test)
-  - name: sut
-    image: tlsprint/openssl:1.0.1o
-    detach: true
-
-    # Start the connector with a delay of 5 seconds, so the sut has time to
-    # initialize.
-  - name: connector
-    image: tlsprint/tlsattackerconnector
-    pull: always
-    detach: true
-    commands:
-      - connector
-        --targetHost sut
-        --protocolVersion TLS12
-        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
-        --startupDelay 5000
-
-    # Perform the learning
-  - name: learner
-    image: tlsprint/statelearner
-    pull: always
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.0.1o /TLS12/learnedModel.dot ]; then exit 0; fi
-      - sleep 10
-      - statelearner
-      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
-
-  - name: commit
-    image: python:3.6
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.0.1o/TLS12/learnedModel.dot ]; then exit 0; fi
-      - pip install -r requirements.txt
-      - python commit_model.py
-        --implementation openssl
-        --version 1.0.1o
-        --tls-version TLS12
-        --model /tmp/cache/learnedModel.dot
-        --verbose
-    environment:
-      GITLAB_TLSPRINT_API_KEY:
-        from_secret: GITLAB_TLSPRINT_API_KEY
-
-volumes:
-  - name: cache
-    temp: {}
-
-trigger:
-  branch:
-    - master
-
----
-kind: pipeline
-name: openssl 1.0.2q
-
-steps:
-    # Start the sut (system under test)
-  - name: sut
-    image: tlsprint/openssl:1.0.2q
-    detach: true
-
-    # Start the connector with a delay of 5 seconds, so the sut has time to
-    # initialize.
-  - name: connector
-    image: tlsprint/tlsattackerconnector
-    pull: always
-    detach: true
-    commands:
-      - connector
-        --targetHost sut
-        --protocolVersion TLS12
-        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
-        --startupDelay 5000
-
-    # Perform the learning
-  - name: learner
-    image: tlsprint/statelearner
-    pull: always
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.0.2q /TLS12/learnedModel.dot ]; then exit 0; fi
-      - sleep 10
-      - statelearner
-      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
-
-  - name: commit
-    image: python:3.6
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.0.2q/TLS12/learnedModel.dot ]; then exit 0; fi
-      - pip install -r requirements.txt
-      - python commit_model.py
-        --implementation openssl
-        --version 1.0.2q
-        --tls-version TLS12
-        --model /tmp/cache/learnedModel.dot
-        --verbose
-    environment:
-      GITLAB_TLSPRINT_API_KEY:
-        from_secret: GITLAB_TLSPRINT_API_KEY
-
-volumes:
-  - name: cache
-    temp: {}
-
-trigger:
-  branch:
-    - master
-
----
-kind: pipeline
-name: openssl 1.0.1j
-
-steps:
-    # Start the sut (system under test)
-  - name: sut
-    image: tlsprint/openssl:1.0.1j
-    detach: true
-
-    # Start the connector with a delay of 5 seconds, so the sut has time to
-    # initialize.
-  - name: connector
-    image: tlsprint/tlsattackerconnector
-    pull: always
-    detach: true
-    commands:
-      - connector
-        --targetHost sut
-        --protocolVersion TLS12
-        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
-        --startupDelay 5000
-
-    # Perform the learning
-  - name: learner
-    image: tlsprint/statelearner
-    pull: always
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.0.1j /TLS12/learnedModel.dot ]; then exit 0; fi
-      - sleep 10
-      - statelearner
-      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
-
-  - name: commit
-    image: python:3.6
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.0.1j/TLS12/learnedModel.dot ]; then exit 0; fi
-      - pip install -r requirements.txt
-      - python commit_model.py
-        --implementation openssl
-        --version 1.0.1j
-        --tls-version TLS12
-        --model /tmp/cache/learnedModel.dot
-        --verbose
-    environment:
-      GITLAB_TLSPRINT_API_KEY:
-        from_secret: GITLAB_TLSPRINT_API_KEY
-
-volumes:
-  - name: cache
-    temp: {}
-
-trigger:
-  branch:
-    - master
-
----
-kind: pipeline
-name: openssl 1.1.0c
-
-steps:
-    # Start the sut (system under test)
-  - name: sut
-    image: tlsprint/openssl:1.1.0c
-    detach: true
-
-    # Start the connector with a delay of 5 seconds, so the sut has time to
-    # initialize.
-  - name: connector
-    image: tlsprint/tlsattackerconnector
-    pull: always
-    detach: true
-    commands:
-      - connector
-        --targetHost sut
-        --protocolVersion TLS12
-        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
-        --startupDelay 5000
-
-    # Perform the learning
-  - name: learner
-    image: tlsprint/statelearner
-    pull: always
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.1.0c /TLS12/learnedModel.dot ]; then exit 0; fi
-      - sleep 10
-      - statelearner
-      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
-
-  - name: commit
-    image: python:3.6
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.1.0c/TLS12/learnedModel.dot ]; then exit 0; fi
-      - pip install -r requirements.txt
-      - python commit_model.py
-        --implementation openssl
-        --version 1.1.0c
-        --tls-version TLS12
-        --model /tmp/cache/learnedModel.dot
-        --verbose
-    environment:
-      GITLAB_TLSPRINT_API_KEY:
-        from_secret: GITLAB_TLSPRINT_API_KEY
-
-volumes:
-  - name: cache
-    temp: {}
-
-trigger:
-  branch:
-    - master
-
----
-kind: pipeline
-name: openssl 1.0.2p
-
-steps:
-    # Start the sut (system under test)
-  - name: sut
-    image: tlsprint/openssl:1.0.2p
-    detach: true
-
-    # Start the connector with a delay of 5 seconds, so the sut has time to
-    # initialize.
-  - name: connector
-    image: tlsprint/tlsattackerconnector
-    pull: always
-    detach: true
-    commands:
-      - connector
-        --targetHost sut
-        --protocolVersion TLS12
-        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
-        --startupDelay 5000
-
-    # Perform the learning
-  - name: learner
-    image: tlsprint/statelearner
-    pull: always
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.0.2p /TLS12/learnedModel.dot ]; then exit 0; fi
-      - sleep 10
-      - statelearner
-      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
-
-  - name: commit
-    image: python:3.6
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.0.2p/TLS12/learnedModel.dot ]; then exit 0; fi
-      - pip install -r requirements.txt
-      - python commit_model.py
-        --implementation openssl
-        --version 1.0.2p
         --tls-version TLS12
         --model /tmp/cache/learnedModel.dot
         --verbose
@@ -2856,7 +168,7 @@ steps:
         path: /tmp/cache
     commands:
         # Skip if target already exists
-      - if [ -e models/openssl/1.1.0d /TLS12/learnedModel.dot ]; then exit 0; fi
+      - if [ -e models/openssl/1.1.0d/TLS12/learnedModel.dot ]; then exit 0; fi
       - sleep 10
       - statelearner
       - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
@@ -2873,6 +185,70 @@ steps:
       - python commit_model.py
         --implementation openssl
         --version 1.1.0d
+        --tls-version TLS12
+        --model /tmp/cache/learnedModel.dot
+        --verbose
+    environment:
+      GITLAB_TLSPRINT_API_KEY:
+        from_secret: GITLAB_TLSPRINT_API_KEY
+
+volumes:
+  - name: cache
+    temp: {}
+
+trigger:
+  branch:
+    - master
+
+---
+kind: pipeline
+name: openssl 1.0.1f
+
+steps:
+    # Start the sut (system under test)
+  - name: sut
+    image: tlsprint/openssl:1.0.1f
+    detach: true
+
+    # Start the connector with a delay of 5 seconds, so the sut has time to
+    # initialize.
+  - name: connector
+    image: tlsprint/tlsattackerconnector
+    pull: always
+    detach: true
+    commands:
+      - connector
+        --targetHost sut
+        --protocolVersion TLS12
+        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
+        --startupDelay 5000
+
+    # Perform the learning
+  - name: learner
+    image: tlsprint/statelearner
+    pull: always
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/openssl/1.0.1f/TLS12/learnedModel.dot ]; then exit 0; fi
+      - sleep 10
+      - statelearner
+      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
+
+  - name: commit
+    image: python:3.6
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/openssl/1.0.1f/TLS12/learnedModel.dot ]; then exit 0; fi
+      - pip install -r requirements.txt
+      - python commit_model.py
+        --implementation openssl
+        --version 1.0.1f
         --tls-version TLS12
         --model /tmp/cache/learnedModel.dot
         --verbose
@@ -2920,7 +296,7 @@ steps:
         path: /tmp/cache
     commands:
         # Skip if target already exists
-      - if [ -e models/openssl/1.0.1e /TLS12/learnedModel.dot ]; then exit 0; fi
+      - if [ -e models/openssl/1.0.1e/TLS12/learnedModel.dot ]; then exit 0; fi
       - sleep 10
       - statelearner
       - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
@@ -2954,12 +330,12 @@ trigger:
 
 ---
 kind: pipeline
-name: openssl 1.0.2e
+name: openssl 1.0.1s
 
 steps:
     # Start the sut (system under test)
   - name: sut
-    image: tlsprint/openssl:1.0.2e
+    image: tlsprint/openssl:1.0.1s
     detach: true
 
     # Start the connector with a delay of 5 seconds, so the sut has time to
@@ -2984,7 +360,7 @@ steps:
         path: /tmp/cache
     commands:
         # Skip if target already exists
-      - if [ -e models/openssl/1.0.2e /TLS12/learnedModel.dot ]; then exit 0; fi
+      - if [ -e models/openssl/1.0.1s/TLS12/learnedModel.dot ]; then exit 0; fi
       - sleep 10
       - statelearner
       - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
@@ -2996,11 +372,11 @@ steps:
         path: /tmp/cache
     commands:
         # Skip if target already exists
-      - if [ -e models/openssl/1.0.2e/TLS12/learnedModel.dot ]; then exit 0; fi
+      - if [ -e models/openssl/1.0.1s/TLS12/learnedModel.dot ]; then exit 0; fi
       - pip install -r requirements.txt
       - python commit_model.py
         --implementation openssl
-        --version 1.0.2e
+        --version 1.0.1s
         --tls-version TLS12
         --model /tmp/cache/learnedModel.dot
         --verbose
@@ -3018,12 +394,12 @@ trigger:
 
 ---
 kind: pipeline
-name: openssl 1.0.1u
+name: openssl 1.0.2n
 
 steps:
     # Start the sut (system under test)
   - name: sut
-    image: tlsprint/openssl:1.0.1u
+    image: tlsprint/openssl:1.0.2n
     detach: true
 
     # Start the connector with a delay of 5 seconds, so the sut has time to
@@ -3048,7 +424,7 @@ steps:
         path: /tmp/cache
     commands:
         # Skip if target already exists
-      - if [ -e models/openssl/1.0.1u /TLS12/learnedModel.dot ]; then exit 0; fi
+      - if [ -e models/openssl/1.0.2n/TLS12/learnedModel.dot ]; then exit 0; fi
       - sleep 10
       - statelearner
       - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
@@ -3060,11 +436,11 @@ steps:
         path: /tmp/cache
     commands:
         # Skip if target already exists
-      - if [ -e models/openssl/1.0.1u/TLS12/learnedModel.dot ]; then exit 0; fi
+      - if [ -e models/openssl/1.0.2n/TLS12/learnedModel.dot ]; then exit 0; fi
       - pip install -r requirements.txt
       - python commit_model.py
         --implementation openssl
-        --version 1.0.1u
+        --version 1.0.2n
         --tls-version TLS12
         --model /tmp/cache/learnedModel.dot
         --verbose
@@ -3082,12 +458,12 @@ trigger:
 
 ---
 kind: pipeline
-name: openssl 1.0.2b
+name: openssl 1.1.1c
 
 steps:
     # Start the sut (system under test)
   - name: sut
-    image: tlsprint/openssl:1.0.2b
+    image: tlsprint/openssl:1.1.1c
     detach: true
 
     # Start the connector with a delay of 5 seconds, so the sut has time to
@@ -3112,7 +488,7 @@ steps:
         path: /tmp/cache
     commands:
         # Skip if target already exists
-      - if [ -e models/openssl/1.0.2b /TLS12/learnedModel.dot ]; then exit 0; fi
+      - if [ -e models/openssl/1.1.1c/TLS12/learnedModel.dot ]; then exit 0; fi
       - sleep 10
       - statelearner
       - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
@@ -3124,11 +500,11 @@ steps:
         path: /tmp/cache
     commands:
         # Skip if target already exists
-      - if [ -e models/openssl/1.0.2b/TLS12/learnedModel.dot ]; then exit 0; fi
+      - if [ -e models/openssl/1.1.1c/TLS12/learnedModel.dot ]; then exit 0; fi
       - pip install -r requirements.txt
       - python commit_model.py
         --implementation openssl
-        --version 1.0.2b
+        --version 1.1.1c
         --tls-version TLS12
         --model /tmp/cache/learnedModel.dot
         --verbose
@@ -3146,12 +522,12 @@ trigger:
 
 ---
 kind: pipeline
-name: openssl 1.1.0e
+name: openssl 1.1.0j
 
 steps:
     # Start the sut (system under test)
   - name: sut
-    image: tlsprint/openssl:1.1.0e
+    image: tlsprint/openssl:1.1.0j
     detach: true
 
     # Start the connector with a delay of 5 seconds, so the sut has time to
@@ -3176,7 +552,7 @@ steps:
         path: /tmp/cache
     commands:
         # Skip if target already exists
-      - if [ -e models/openssl/1.1.0e /TLS12/learnedModel.dot ]; then exit 0; fi
+      - if [ -e models/openssl/1.1.0j/TLS12/learnedModel.dot ]; then exit 0; fi
       - sleep 10
       - statelearner
       - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
@@ -3188,11 +564,11 @@ steps:
         path: /tmp/cache
     commands:
         # Skip if target already exists
-      - if [ -e models/openssl/1.1.0e/TLS12/learnedModel.dot ]; then exit 0; fi
+      - if [ -e models/openssl/1.1.0j/TLS12/learnedModel.dot ]; then exit 0; fi
       - pip install -r requirements.txt
       - python commit_model.py
         --implementation openssl
-        --version 1.1.0e
+        --version 1.1.0j
         --tls-version TLS12
         --model /tmp/cache/learnedModel.dot
         --verbose
@@ -3240,7 +616,7 @@ steps:
         path: /tmp/cache
     commands:
         # Skip if target already exists
-      - if [ -e models/openssl/1.1.1 /TLS12/learnedModel.dot ]; then exit 0; fi
+      - if [ -e models/openssl/1.1.1/TLS12/learnedModel.dot ]; then exit 0; fi
       - sleep 10
       - statelearner
       - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
@@ -3274,12 +650,12 @@ trigger:
 
 ---
 kind: pipeline
-name: openssl 1.1.1a
+name: openssl 1.0.1o
 
 steps:
     # Start the sut (system under test)
   - name: sut
-    image: tlsprint/openssl:1.1.1a
+    image: tlsprint/openssl:1.0.1o
     detach: true
 
     # Start the connector with a delay of 5 seconds, so the sut has time to
@@ -3304,7 +680,7 @@ steps:
         path: /tmp/cache
     commands:
         # Skip if target already exists
-      - if [ -e models/openssl/1.1.1a /TLS12/learnedModel.dot ]; then exit 0; fi
+      - if [ -e models/openssl/1.0.1o/TLS12/learnedModel.dot ]; then exit 0; fi
       - sleep 10
       - statelearner
       - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
@@ -3316,11 +692,11 @@ steps:
         path: /tmp/cache
     commands:
         # Skip if target already exists
-      - if [ -e models/openssl/1.1.1a/TLS12/learnedModel.dot ]; then exit 0; fi
+      - if [ -e models/openssl/1.0.1o/TLS12/learnedModel.dot ]; then exit 0; fi
       - pip install -r requirements.txt
       - python commit_model.py
         --implementation openssl
-        --version 1.1.1a
+        --version 1.0.1o
         --tls-version TLS12
         --model /tmp/cache/learnedModel.dot
         --verbose
@@ -3338,12 +714,12 @@ trigger:
 
 ---
 kind: pipeline
-name: openssl 1.0.2c
+name: openssl 1.0.2m
 
 steps:
     # Start the sut (system under test)
   - name: sut
-    image: tlsprint/openssl:1.0.2c
+    image: tlsprint/openssl:1.0.2m
     detach: true
 
     # Start the connector with a delay of 5 seconds, so the sut has time to
@@ -3368,7 +744,7 @@ steps:
         path: /tmp/cache
     commands:
         # Skip if target already exists
-      - if [ -e models/openssl/1.0.2c /TLS12/learnedModel.dot ]; then exit 0; fi
+      - if [ -e models/openssl/1.0.2m/TLS12/learnedModel.dot ]; then exit 0; fi
       - sleep 10
       - statelearner
       - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
@@ -3380,75 +756,11 @@ steps:
         path: /tmp/cache
     commands:
         # Skip if target already exists
-      - if [ -e models/openssl/1.0.2c/TLS12/learnedModel.dot ]; then exit 0; fi
+      - if [ -e models/openssl/1.0.2m/TLS12/learnedModel.dot ]; then exit 0; fi
       - pip install -r requirements.txt
       - python commit_model.py
         --implementation openssl
-        --version 1.0.2c
-        --tls-version TLS12
-        --model /tmp/cache/learnedModel.dot
-        --verbose
-    environment:
-      GITLAB_TLSPRINT_API_KEY:
-        from_secret: GITLAB_TLSPRINT_API_KEY
-
-volumes:
-  - name: cache
-    temp: {}
-
-trigger:
-  branch:
-    - master
-
----
-kind: pipeline
-name: openssl 1.0.1p
-
-steps:
-    # Start the sut (system under test)
-  - name: sut
-    image: tlsprint/openssl:1.0.1p
-    detach: true
-
-    # Start the connector with a delay of 5 seconds, so the sut has time to
-    # initialize.
-  - name: connector
-    image: tlsprint/tlsattackerconnector
-    pull: always
-    detach: true
-    commands:
-      - connector
-        --targetHost sut
-        --protocolVersion TLS12
-        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
-        --startupDelay 5000
-
-    # Perform the learning
-  - name: learner
-    image: tlsprint/statelearner
-    pull: always
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.0.1p /TLS12/learnedModel.dot ]; then exit 0; fi
-      - sleep 10
-      - statelearner
-      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
-
-  - name: commit
-    image: python:3.6
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.0.1p/TLS12/learnedModel.dot ]; then exit 0; fi
-      - pip install -r requirements.txt
-      - python commit_model.py
-        --implementation openssl
-        --version 1.0.1p
+        --version 1.0.2m
         --tls-version TLS12
         --model /tmp/cache/learnedModel.dot
         --verbose
@@ -3496,7 +808,7 @@ steps:
         path: /tmp/cache
     commands:
         # Skip if target already exists
-      - if [ -e models/openssl/1.0.1l /TLS12/learnedModel.dot ]; then exit 0; fi
+      - if [ -e models/openssl/1.0.1l/TLS12/learnedModel.dot ]; then exit 0; fi
       - sleep 10
       - statelearner
       - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
@@ -3530,12 +842,12 @@ trigger:
 
 ---
 kind: pipeline
-name: openssl 1.0.2k
+name: openssl 1.0.2i
 
 steps:
     # Start the sut (system under test)
   - name: sut
-    image: tlsprint/openssl:1.0.2k
+    image: tlsprint/openssl:1.0.2i
     detach: true
 
     # Start the connector with a delay of 5 seconds, so the sut has time to
@@ -3560,7 +872,7 @@ steps:
         path: /tmp/cache
     commands:
         # Skip if target already exists
-      - if [ -e models/openssl/1.0.2k /TLS12/learnedModel.dot ]; then exit 0; fi
+      - if [ -e models/openssl/1.0.2i/TLS12/learnedModel.dot ]; then exit 0; fi
       - sleep 10
       - statelearner
       - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
@@ -3572,11 +884,139 @@ steps:
         path: /tmp/cache
     commands:
         # Skip if target already exists
-      - if [ -e models/openssl/1.0.2k/TLS12/learnedModel.dot ]; then exit 0; fi
+      - if [ -e models/openssl/1.0.2i/TLS12/learnedModel.dot ]; then exit 0; fi
       - pip install -r requirements.txt
       - python commit_model.py
         --implementation openssl
-        --version 1.0.2k
+        --version 1.0.2i
+        --tls-version TLS12
+        --model /tmp/cache/learnedModel.dot
+        --verbose
+    environment:
+      GITLAB_TLSPRINT_API_KEY:
+        from_secret: GITLAB_TLSPRINT_API_KEY
+
+volumes:
+  - name: cache
+    temp: {}
+
+trigger:
+  branch:
+    - master
+
+---
+kind: pipeline
+name: openssl 1.0.1k
+
+steps:
+    # Start the sut (system under test)
+  - name: sut
+    image: tlsprint/openssl:1.0.1k
+    detach: true
+
+    # Start the connector with a delay of 5 seconds, so the sut has time to
+    # initialize.
+  - name: connector
+    image: tlsprint/tlsattackerconnector
+    pull: always
+    detach: true
+    commands:
+      - connector
+        --targetHost sut
+        --protocolVersion TLS12
+        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
+        --startupDelay 5000
+
+    # Perform the learning
+  - name: learner
+    image: tlsprint/statelearner
+    pull: always
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/openssl/1.0.1k/TLS12/learnedModel.dot ]; then exit 0; fi
+      - sleep 10
+      - statelearner
+      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
+
+  - name: commit
+    image: python:3.6
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/openssl/1.0.1k/TLS12/learnedModel.dot ]; then exit 0; fi
+      - pip install -r requirements.txt
+      - python commit_model.py
+        --implementation openssl
+        --version 1.0.1k
+        --tls-version TLS12
+        --model /tmp/cache/learnedModel.dot
+        --verbose
+    environment:
+      GITLAB_TLSPRINT_API_KEY:
+        from_secret: GITLAB_TLSPRINT_API_KEY
+
+volumes:
+  - name: cache
+    temp: {}
+
+trigger:
+  branch:
+    - master
+
+---
+kind: pipeline
+name: openssl 1.0.2r
+
+steps:
+    # Start the sut (system under test)
+  - name: sut
+    image: tlsprint/openssl:1.0.2r
+    detach: true
+
+    # Start the connector with a delay of 5 seconds, so the sut has time to
+    # initialize.
+  - name: connector
+    image: tlsprint/tlsattackerconnector
+    pull: always
+    detach: true
+    commands:
+      - connector
+        --targetHost sut
+        --protocolVersion TLS12
+        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
+        --startupDelay 5000
+
+    # Perform the learning
+  - name: learner
+    image: tlsprint/statelearner
+    pull: always
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/openssl/1.0.2r/TLS12/learnedModel.dot ]; then exit 0; fi
+      - sleep 10
+      - statelearner
+      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
+
+  - name: commit
+    image: python:3.6
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/openssl/1.0.2r/TLS12/learnedModel.dot ]; then exit 0; fi
+      - pip install -r requirements.txt
+      - python commit_model.py
+        --implementation openssl
+        --version 1.0.2r
         --tls-version TLS12
         --model /tmp/cache/learnedModel.dot
         --verbose
@@ -3624,7 +1064,7 @@ steps:
         path: /tmp/cache
     commands:
         # Skip if target already exists
-      - if [ -e models/openssl/1.0.1c /TLS12/learnedModel.dot ]; then exit 0; fi
+      - if [ -e models/openssl/1.0.1c/TLS12/learnedModel.dot ]; then exit 0; fi
       - sleep 10
       - statelearner
       - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
@@ -3641,6 +1081,2566 @@ steps:
       - python commit_model.py
         --implementation openssl
         --version 1.0.1c
+        --tls-version TLS12
+        --model /tmp/cache/learnedModel.dot
+        --verbose
+    environment:
+      GITLAB_TLSPRINT_API_KEY:
+        from_secret: GITLAB_TLSPRINT_API_KEY
+
+volumes:
+  - name: cache
+    temp: {}
+
+trigger:
+  branch:
+    - master
+
+---
+kind: pipeline
+name: openssl 1.1.0b
+
+steps:
+    # Start the sut (system under test)
+  - name: sut
+    image: tlsprint/openssl:1.1.0b
+    detach: true
+
+    # Start the connector with a delay of 5 seconds, so the sut has time to
+    # initialize.
+  - name: connector
+    image: tlsprint/tlsattackerconnector
+    pull: always
+    detach: true
+    commands:
+      - connector
+        --targetHost sut
+        --protocolVersion TLS12
+        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
+        --startupDelay 5000
+
+    # Perform the learning
+  - name: learner
+    image: tlsprint/statelearner
+    pull: always
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/openssl/1.1.0b/TLS12/learnedModel.dot ]; then exit 0; fi
+      - sleep 10
+      - statelearner
+      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
+
+  - name: commit
+    image: python:3.6
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/openssl/1.1.0b/TLS12/learnedModel.dot ]; then exit 0; fi
+      - pip install -r requirements.txt
+      - python commit_model.py
+        --implementation openssl
+        --version 1.1.0b
+        --tls-version TLS12
+        --model /tmp/cache/learnedModel.dot
+        --verbose
+    environment:
+      GITLAB_TLSPRINT_API_KEY:
+        from_secret: GITLAB_TLSPRINT_API_KEY
+
+volumes:
+  - name: cache
+    temp: {}
+
+trigger:
+  branch:
+    - master
+
+---
+kind: pipeline
+name: openssl 1.1.1a
+
+steps:
+    # Start the sut (system under test)
+  - name: sut
+    image: tlsprint/openssl:1.1.1a
+    detach: true
+
+    # Start the connector with a delay of 5 seconds, so the sut has time to
+    # initialize.
+  - name: connector
+    image: tlsprint/tlsattackerconnector
+    pull: always
+    detach: true
+    commands:
+      - connector
+        --targetHost sut
+        --protocolVersion TLS12
+        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
+        --startupDelay 5000
+
+    # Perform the learning
+  - name: learner
+    image: tlsprint/statelearner
+    pull: always
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/openssl/1.1.1a/TLS12/learnedModel.dot ]; then exit 0; fi
+      - sleep 10
+      - statelearner
+      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
+
+  - name: commit
+    image: python:3.6
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/openssl/1.1.1a/TLS12/learnedModel.dot ]; then exit 0; fi
+      - pip install -r requirements.txt
+      - python commit_model.py
+        --implementation openssl
+        --version 1.1.1a
+        --tls-version TLS12
+        --model /tmp/cache/learnedModel.dot
+        --verbose
+    environment:
+      GITLAB_TLSPRINT_API_KEY:
+        from_secret: GITLAB_TLSPRINT_API_KEY
+
+volumes:
+  - name: cache
+    temp: {}
+
+trigger:
+  branch:
+    - master
+
+---
+kind: pipeline
+name: openssl 1.0.2d
+
+steps:
+    # Start the sut (system under test)
+  - name: sut
+    image: tlsprint/openssl:1.0.2d
+    detach: true
+
+    # Start the connector with a delay of 5 seconds, so the sut has time to
+    # initialize.
+  - name: connector
+    image: tlsprint/tlsattackerconnector
+    pull: always
+    detach: true
+    commands:
+      - connector
+        --targetHost sut
+        --protocolVersion TLS12
+        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
+        --startupDelay 5000
+
+    # Perform the learning
+  - name: learner
+    image: tlsprint/statelearner
+    pull: always
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/openssl/1.0.2d/TLS12/learnedModel.dot ]; then exit 0; fi
+      - sleep 10
+      - statelearner
+      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
+
+  - name: commit
+    image: python:3.6
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/openssl/1.0.2d/TLS12/learnedModel.dot ]; then exit 0; fi
+      - pip install -r requirements.txt
+      - python commit_model.py
+        --implementation openssl
+        --version 1.0.2d
+        --tls-version TLS12
+        --model /tmp/cache/learnedModel.dot
+        --verbose
+    environment:
+      GITLAB_TLSPRINT_API_KEY:
+        from_secret: GITLAB_TLSPRINT_API_KEY
+
+volumes:
+  - name: cache
+    temp: {}
+
+trigger:
+  branch:
+    - master
+
+---
+kind: pipeline
+name: openssl 1.0.1h
+
+steps:
+    # Start the sut (system under test)
+  - name: sut
+    image: tlsprint/openssl:1.0.1h
+    detach: true
+
+    # Start the connector with a delay of 5 seconds, so the sut has time to
+    # initialize.
+  - name: connector
+    image: tlsprint/tlsattackerconnector
+    pull: always
+    detach: true
+    commands:
+      - connector
+        --targetHost sut
+        --protocolVersion TLS12
+        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
+        --startupDelay 5000
+
+    # Perform the learning
+  - name: learner
+    image: tlsprint/statelearner
+    pull: always
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/openssl/1.0.1h/TLS12/learnedModel.dot ]; then exit 0; fi
+      - sleep 10
+      - statelearner
+      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
+
+  - name: commit
+    image: python:3.6
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/openssl/1.0.1h/TLS12/learnedModel.dot ]; then exit 0; fi
+      - pip install -r requirements.txt
+      - python commit_model.py
+        --implementation openssl
+        --version 1.0.1h
+        --tls-version TLS12
+        --model /tmp/cache/learnedModel.dot
+        --verbose
+    environment:
+      GITLAB_TLSPRINT_API_KEY:
+        from_secret: GITLAB_TLSPRINT_API_KEY
+
+volumes:
+  - name: cache
+    temp: {}
+
+trigger:
+  branch:
+    - master
+
+---
+kind: pipeline
+name: openssl 1.0.2c
+
+steps:
+    # Start the sut (system under test)
+  - name: sut
+    image: tlsprint/openssl:1.0.2c
+    detach: true
+
+    # Start the connector with a delay of 5 seconds, so the sut has time to
+    # initialize.
+  - name: connector
+    image: tlsprint/tlsattackerconnector
+    pull: always
+    detach: true
+    commands:
+      - connector
+        --targetHost sut
+        --protocolVersion TLS12
+        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
+        --startupDelay 5000
+
+    # Perform the learning
+  - name: learner
+    image: tlsprint/statelearner
+    pull: always
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/openssl/1.0.2c/TLS12/learnedModel.dot ]; then exit 0; fi
+      - sleep 10
+      - statelearner
+      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
+
+  - name: commit
+    image: python:3.6
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/openssl/1.0.2c/TLS12/learnedModel.dot ]; then exit 0; fi
+      - pip install -r requirements.txt
+      - python commit_model.py
+        --implementation openssl
+        --version 1.0.2c
+        --tls-version TLS12
+        --model /tmp/cache/learnedModel.dot
+        --verbose
+    environment:
+      GITLAB_TLSPRINT_API_KEY:
+        from_secret: GITLAB_TLSPRINT_API_KEY
+
+volumes:
+  - name: cache
+    temp: {}
+
+trigger:
+  branch:
+    - master
+
+---
+kind: pipeline
+name: openssl 1.0.1q
+
+steps:
+    # Start the sut (system under test)
+  - name: sut
+    image: tlsprint/openssl:1.0.1q
+    detach: true
+
+    # Start the connector with a delay of 5 seconds, so the sut has time to
+    # initialize.
+  - name: connector
+    image: tlsprint/tlsattackerconnector
+    pull: always
+    detach: true
+    commands:
+      - connector
+        --targetHost sut
+        --protocolVersion TLS12
+        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
+        --startupDelay 5000
+
+    # Perform the learning
+  - name: learner
+    image: tlsprint/statelearner
+    pull: always
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/openssl/1.0.1q/TLS12/learnedModel.dot ]; then exit 0; fi
+      - sleep 10
+      - statelearner
+      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
+
+  - name: commit
+    image: python:3.6
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/openssl/1.0.1q/TLS12/learnedModel.dot ]; then exit 0; fi
+      - pip install -r requirements.txt
+      - python commit_model.py
+        --implementation openssl
+        --version 1.0.1q
+        --tls-version TLS12
+        --model /tmp/cache/learnedModel.dot
+        --verbose
+    environment:
+      GITLAB_TLSPRINT_API_KEY:
+        from_secret: GITLAB_TLSPRINT_API_KEY
+
+volumes:
+  - name: cache
+    temp: {}
+
+trigger:
+  branch:
+    - master
+
+---
+kind: pipeline
+name: openssl 1.0.1u
+
+steps:
+    # Start the sut (system under test)
+  - name: sut
+    image: tlsprint/openssl:1.0.1u
+    detach: true
+
+    # Start the connector with a delay of 5 seconds, so the sut has time to
+    # initialize.
+  - name: connector
+    image: tlsprint/tlsattackerconnector
+    pull: always
+    detach: true
+    commands:
+      - connector
+        --targetHost sut
+        --protocolVersion TLS12
+        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
+        --startupDelay 5000
+
+    # Perform the learning
+  - name: learner
+    image: tlsprint/statelearner
+    pull: always
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/openssl/1.0.1u/TLS12/learnedModel.dot ]; then exit 0; fi
+      - sleep 10
+      - statelearner
+      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
+
+  - name: commit
+    image: python:3.6
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/openssl/1.0.1u/TLS12/learnedModel.dot ]; then exit 0; fi
+      - pip install -r requirements.txt
+      - python commit_model.py
+        --implementation openssl
+        --version 1.0.1u
+        --tls-version TLS12
+        --model /tmp/cache/learnedModel.dot
+        --verbose
+    environment:
+      GITLAB_TLSPRINT_API_KEY:
+        from_secret: GITLAB_TLSPRINT_API_KEY
+
+volumes:
+  - name: cache
+    temp: {}
+
+trigger:
+  branch:
+    - master
+
+---
+kind: pipeline
+name: openssl 1.1.0g
+
+steps:
+    # Start the sut (system under test)
+  - name: sut
+    image: tlsprint/openssl:1.1.0g
+    detach: true
+
+    # Start the connector with a delay of 5 seconds, so the sut has time to
+    # initialize.
+  - name: connector
+    image: tlsprint/tlsattackerconnector
+    pull: always
+    detach: true
+    commands:
+      - connector
+        --targetHost sut
+        --protocolVersion TLS12
+        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
+        --startupDelay 5000
+
+    # Perform the learning
+  - name: learner
+    image: tlsprint/statelearner
+    pull: always
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/openssl/1.1.0g/TLS12/learnedModel.dot ]; then exit 0; fi
+      - sleep 10
+      - statelearner
+      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
+
+  - name: commit
+    image: python:3.6
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/openssl/1.1.0g/TLS12/learnedModel.dot ]; then exit 0; fi
+      - pip install -r requirements.txt
+      - python commit_model.py
+        --implementation openssl
+        --version 1.1.0g
+        --tls-version TLS12
+        --model /tmp/cache/learnedModel.dot
+        --verbose
+    environment:
+      GITLAB_TLSPRINT_API_KEY:
+        from_secret: GITLAB_TLSPRINT_API_KEY
+
+volumes:
+  - name: cache
+    temp: {}
+
+trigger:
+  branch:
+    - master
+
+---
+kind: pipeline
+name: openssl 1.0.2s
+
+steps:
+    # Start the sut (system under test)
+  - name: sut
+    image: tlsprint/openssl:1.0.2s
+    detach: true
+
+    # Start the connector with a delay of 5 seconds, so the sut has time to
+    # initialize.
+  - name: connector
+    image: tlsprint/tlsattackerconnector
+    pull: always
+    detach: true
+    commands:
+      - connector
+        --targetHost sut
+        --protocolVersion TLS12
+        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
+        --startupDelay 5000
+
+    # Perform the learning
+  - name: learner
+    image: tlsprint/statelearner
+    pull: always
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/openssl/1.0.2s/TLS12/learnedModel.dot ]; then exit 0; fi
+      - sleep 10
+      - statelearner
+      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
+
+  - name: commit
+    image: python:3.6
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/openssl/1.0.2s/TLS12/learnedModel.dot ]; then exit 0; fi
+      - pip install -r requirements.txt
+      - python commit_model.py
+        --implementation openssl
+        --version 1.0.2s
+        --tls-version TLS12
+        --model /tmp/cache/learnedModel.dot
+        --verbose
+    environment:
+      GITLAB_TLSPRINT_API_KEY:
+        from_secret: GITLAB_TLSPRINT_API_KEY
+
+volumes:
+  - name: cache
+    temp: {}
+
+trigger:
+  branch:
+    - master
+
+---
+kind: pipeline
+name: openssl 1.0.2b
+
+steps:
+    # Start the sut (system under test)
+  - name: sut
+    image: tlsprint/openssl:1.0.2b
+    detach: true
+
+    # Start the connector with a delay of 5 seconds, so the sut has time to
+    # initialize.
+  - name: connector
+    image: tlsprint/tlsattackerconnector
+    pull: always
+    detach: true
+    commands:
+      - connector
+        --targetHost sut
+        --protocolVersion TLS12
+        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
+        --startupDelay 5000
+
+    # Perform the learning
+  - name: learner
+    image: tlsprint/statelearner
+    pull: always
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/openssl/1.0.2b/TLS12/learnedModel.dot ]; then exit 0; fi
+      - sleep 10
+      - statelearner
+      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
+
+  - name: commit
+    image: python:3.6
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/openssl/1.0.2b/TLS12/learnedModel.dot ]; then exit 0; fi
+      - pip install -r requirements.txt
+      - python commit_model.py
+        --implementation openssl
+        --version 1.0.2b
+        --tls-version TLS12
+        --model /tmp/cache/learnedModel.dot
+        --verbose
+    environment:
+      GITLAB_TLSPRINT_API_KEY:
+        from_secret: GITLAB_TLSPRINT_API_KEY
+
+volumes:
+  - name: cache
+    temp: {}
+
+trigger:
+  branch:
+    - master
+
+---
+kind: pipeline
+name: openssl 1.0.2f
+
+steps:
+    # Start the sut (system under test)
+  - name: sut
+    image: tlsprint/openssl:1.0.2f
+    detach: true
+
+    # Start the connector with a delay of 5 seconds, so the sut has time to
+    # initialize.
+  - name: connector
+    image: tlsprint/tlsattackerconnector
+    pull: always
+    detach: true
+    commands:
+      - connector
+        --targetHost sut
+        --protocolVersion TLS12
+        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
+        --startupDelay 5000
+
+    # Perform the learning
+  - name: learner
+    image: tlsprint/statelearner
+    pull: always
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/openssl/1.0.2f/TLS12/learnedModel.dot ]; then exit 0; fi
+      - sleep 10
+      - statelearner
+      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
+
+  - name: commit
+    image: python:3.6
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/openssl/1.0.2f/TLS12/learnedModel.dot ]; then exit 0; fi
+      - pip install -r requirements.txt
+      - python commit_model.py
+        --implementation openssl
+        --version 1.0.2f
+        --tls-version TLS12
+        --model /tmp/cache/learnedModel.dot
+        --verbose
+    environment:
+      GITLAB_TLSPRINT_API_KEY:
+        from_secret: GITLAB_TLSPRINT_API_KEY
+
+volumes:
+  - name: cache
+    temp: {}
+
+trigger:
+  branch:
+    - master
+
+---
+kind: pipeline
+name: openssl 1.0.2q
+
+steps:
+    # Start the sut (system under test)
+  - name: sut
+    image: tlsprint/openssl:1.0.2q
+    detach: true
+
+    # Start the connector with a delay of 5 seconds, so the sut has time to
+    # initialize.
+  - name: connector
+    image: tlsprint/tlsattackerconnector
+    pull: always
+    detach: true
+    commands:
+      - connector
+        --targetHost sut
+        --protocolVersion TLS12
+        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
+        --startupDelay 5000
+
+    # Perform the learning
+  - name: learner
+    image: tlsprint/statelearner
+    pull: always
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/openssl/1.0.2q/TLS12/learnedModel.dot ]; then exit 0; fi
+      - sleep 10
+      - statelearner
+      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
+
+  - name: commit
+    image: python:3.6
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/openssl/1.0.2q/TLS12/learnedModel.dot ]; then exit 0; fi
+      - pip install -r requirements.txt
+      - python commit_model.py
+        --implementation openssl
+        --version 1.0.2q
+        --tls-version TLS12
+        --model /tmp/cache/learnedModel.dot
+        --verbose
+    environment:
+      GITLAB_TLSPRINT_API_KEY:
+        from_secret: GITLAB_TLSPRINT_API_KEY
+
+volumes:
+  - name: cache
+    temp: {}
+
+trigger:
+  branch:
+    - master
+
+---
+kind: pipeline
+name: openssl 1.1.0c
+
+steps:
+    # Start the sut (system under test)
+  - name: sut
+    image: tlsprint/openssl:1.1.0c
+    detach: true
+
+    # Start the connector with a delay of 5 seconds, so the sut has time to
+    # initialize.
+  - name: connector
+    image: tlsprint/tlsattackerconnector
+    pull: always
+    detach: true
+    commands:
+      - connector
+        --targetHost sut
+        --protocolVersion TLS12
+        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
+        --startupDelay 5000
+
+    # Perform the learning
+  - name: learner
+    image: tlsprint/statelearner
+    pull: always
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/openssl/1.1.0c/TLS12/learnedModel.dot ]; then exit 0; fi
+      - sleep 10
+      - statelearner
+      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
+
+  - name: commit
+    image: python:3.6
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/openssl/1.1.0c/TLS12/learnedModel.dot ]; then exit 0; fi
+      - pip install -r requirements.txt
+      - python commit_model.py
+        --implementation openssl
+        --version 1.1.0c
+        --tls-version TLS12
+        --model /tmp/cache/learnedModel.dot
+        --verbose
+    environment:
+      GITLAB_TLSPRINT_API_KEY:
+        from_secret: GITLAB_TLSPRINT_API_KEY
+
+volumes:
+  - name: cache
+    temp: {}
+
+trigger:
+  branch:
+    - master
+
+---
+kind: pipeline
+name: openssl 1.1.1b
+
+steps:
+    # Start the sut (system under test)
+  - name: sut
+    image: tlsprint/openssl:1.1.1b
+    detach: true
+
+    # Start the connector with a delay of 5 seconds, so the sut has time to
+    # initialize.
+  - name: connector
+    image: tlsprint/tlsattackerconnector
+    pull: always
+    detach: true
+    commands:
+      - connector
+        --targetHost sut
+        --protocolVersion TLS12
+        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
+        --startupDelay 5000
+
+    # Perform the learning
+  - name: learner
+    image: tlsprint/statelearner
+    pull: always
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/openssl/1.1.1b/TLS12/learnedModel.dot ]; then exit 0; fi
+      - sleep 10
+      - statelearner
+      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
+
+  - name: commit
+    image: python:3.6
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/openssl/1.1.1b/TLS12/learnedModel.dot ]; then exit 0; fi
+      - pip install -r requirements.txt
+      - python commit_model.py
+        --implementation openssl
+        --version 1.1.1b
+        --tls-version TLS12
+        --model /tmp/cache/learnedModel.dot
+        --verbose
+    environment:
+      GITLAB_TLSPRINT_API_KEY:
+        from_secret: GITLAB_TLSPRINT_API_KEY
+
+volumes:
+  - name: cache
+    temp: {}
+
+trigger:
+  branch:
+    - master
+
+---
+kind: pipeline
+name: openssl 1.1.0h
+
+steps:
+    # Start the sut (system under test)
+  - name: sut
+    image: tlsprint/openssl:1.1.0h
+    detach: true
+
+    # Start the connector with a delay of 5 seconds, so the sut has time to
+    # initialize.
+  - name: connector
+    image: tlsprint/tlsattackerconnector
+    pull: always
+    detach: true
+    commands:
+      - connector
+        --targetHost sut
+        --protocolVersion TLS12
+        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
+        --startupDelay 5000
+
+    # Perform the learning
+  - name: learner
+    image: tlsprint/statelearner
+    pull: always
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/openssl/1.1.0h/TLS12/learnedModel.dot ]; then exit 0; fi
+      - sleep 10
+      - statelearner
+      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
+
+  - name: commit
+    image: python:3.6
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/openssl/1.1.0h/TLS12/learnedModel.dot ]; then exit 0; fi
+      - pip install -r requirements.txt
+      - python commit_model.py
+        --implementation openssl
+        --version 1.1.0h
+        --tls-version TLS12
+        --model /tmp/cache/learnedModel.dot
+        --verbose
+    environment:
+      GITLAB_TLSPRINT_API_KEY:
+        from_secret: GITLAB_TLSPRINT_API_KEY
+
+volumes:
+  - name: cache
+    temp: {}
+
+trigger:
+  branch:
+    - master
+
+---
+kind: pipeline
+name: openssl 1.0.1d
+
+steps:
+    # Start the sut (system under test)
+  - name: sut
+    image: tlsprint/openssl:1.0.1d
+    detach: true
+
+    # Start the connector with a delay of 5 seconds, so the sut has time to
+    # initialize.
+  - name: connector
+    image: tlsprint/tlsattackerconnector
+    pull: always
+    detach: true
+    commands:
+      - connector
+        --targetHost sut
+        --protocolVersion TLS12
+        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
+        --startupDelay 5000
+
+    # Perform the learning
+  - name: learner
+    image: tlsprint/statelearner
+    pull: always
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/openssl/1.0.1d/TLS12/learnedModel.dot ]; then exit 0; fi
+      - sleep 10
+      - statelearner
+      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
+
+  - name: commit
+    image: python:3.6
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/openssl/1.0.1d/TLS12/learnedModel.dot ]; then exit 0; fi
+      - pip install -r requirements.txt
+      - python commit_model.py
+        --implementation openssl
+        --version 1.0.1d
+        --tls-version TLS12
+        --model /tmp/cache/learnedModel.dot
+        --verbose
+    environment:
+      GITLAB_TLSPRINT_API_KEY:
+        from_secret: GITLAB_TLSPRINT_API_KEY
+
+volumes:
+  - name: cache
+    temp: {}
+
+trigger:
+  branch:
+    - master
+
+---
+kind: pipeline
+name: openssl 1.0.1b
+
+steps:
+    # Start the sut (system under test)
+  - name: sut
+    image: tlsprint/openssl:1.0.1b
+    detach: true
+
+    # Start the connector with a delay of 5 seconds, so the sut has time to
+    # initialize.
+  - name: connector
+    image: tlsprint/tlsattackerconnector
+    pull: always
+    detach: true
+    commands:
+      - connector
+        --targetHost sut
+        --protocolVersion TLS12
+        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
+        --startupDelay 5000
+
+    # Perform the learning
+  - name: learner
+    image: tlsprint/statelearner
+    pull: always
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/openssl/1.0.1b/TLS12/learnedModel.dot ]; then exit 0; fi
+      - sleep 10
+      - statelearner
+      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
+
+  - name: commit
+    image: python:3.6
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/openssl/1.0.1b/TLS12/learnedModel.dot ]; then exit 0; fi
+      - pip install -r requirements.txt
+      - python commit_model.py
+        --implementation openssl
+        --version 1.0.1b
+        --tls-version TLS12
+        --model /tmp/cache/learnedModel.dot
+        --verbose
+    environment:
+      GITLAB_TLSPRINT_API_KEY:
+        from_secret: GITLAB_TLSPRINT_API_KEY
+
+volumes:
+  - name: cache
+    temp: {}
+
+trigger:
+  branch:
+    - master
+
+---
+kind: pipeline
+name: openssl 1.0.1g
+
+steps:
+    # Start the sut (system under test)
+  - name: sut
+    image: tlsprint/openssl:1.0.1g
+    detach: true
+
+    # Start the connector with a delay of 5 seconds, so the sut has time to
+    # initialize.
+  - name: connector
+    image: tlsprint/tlsattackerconnector
+    pull: always
+    detach: true
+    commands:
+      - connector
+        --targetHost sut
+        --protocolVersion TLS12
+        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
+        --startupDelay 5000
+
+    # Perform the learning
+  - name: learner
+    image: tlsprint/statelearner
+    pull: always
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/openssl/1.0.1g/TLS12/learnedModel.dot ]; then exit 0; fi
+      - sleep 10
+      - statelearner
+      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
+
+  - name: commit
+    image: python:3.6
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/openssl/1.0.1g/TLS12/learnedModel.dot ]; then exit 0; fi
+      - pip install -r requirements.txt
+      - python commit_model.py
+        --implementation openssl
+        --version 1.0.1g
+        --tls-version TLS12
+        --model /tmp/cache/learnedModel.dot
+        --verbose
+    environment:
+      GITLAB_TLSPRINT_API_KEY:
+        from_secret: GITLAB_TLSPRINT_API_KEY
+
+volumes:
+  - name: cache
+    temp: {}
+
+trigger:
+  branch:
+    - master
+
+---
+kind: pipeline
+name: openssl 1.0.2a
+
+steps:
+    # Start the sut (system under test)
+  - name: sut
+    image: tlsprint/openssl:1.0.2a
+    detach: true
+
+    # Start the connector with a delay of 5 seconds, so the sut has time to
+    # initialize.
+  - name: connector
+    image: tlsprint/tlsattackerconnector
+    pull: always
+    detach: true
+    commands:
+      - connector
+        --targetHost sut
+        --protocolVersion TLS12
+        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
+        --startupDelay 5000
+
+    # Perform the learning
+  - name: learner
+    image: tlsprint/statelearner
+    pull: always
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/openssl/1.0.2a/TLS12/learnedModel.dot ]; then exit 0; fi
+      - sleep 10
+      - statelearner
+      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
+
+  - name: commit
+    image: python:3.6
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/openssl/1.0.2a/TLS12/learnedModel.dot ]; then exit 0; fi
+      - pip install -r requirements.txt
+      - python commit_model.py
+        --implementation openssl
+        --version 1.0.2a
+        --tls-version TLS12
+        --model /tmp/cache/learnedModel.dot
+        --verbose
+    environment:
+      GITLAB_TLSPRINT_API_KEY:
+        from_secret: GITLAB_TLSPRINT_API_KEY
+
+volumes:
+  - name: cache
+    temp: {}
+
+trigger:
+  branch:
+    - master
+
+---
+kind: pipeline
+name: openssl 1.1.0f
+
+steps:
+    # Start the sut (system under test)
+  - name: sut
+    image: tlsprint/openssl:1.1.0f
+    detach: true
+
+    # Start the connector with a delay of 5 seconds, so the sut has time to
+    # initialize.
+  - name: connector
+    image: tlsprint/tlsattackerconnector
+    pull: always
+    detach: true
+    commands:
+      - connector
+        --targetHost sut
+        --protocolVersion TLS12
+        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
+        --startupDelay 5000
+
+    # Perform the learning
+  - name: learner
+    image: tlsprint/statelearner
+    pull: always
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/openssl/1.1.0f/TLS12/learnedModel.dot ]; then exit 0; fi
+      - sleep 10
+      - statelearner
+      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
+
+  - name: commit
+    image: python:3.6
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/openssl/1.1.0f/TLS12/learnedModel.dot ]; then exit 0; fi
+      - pip install -r requirements.txt
+      - python commit_model.py
+        --implementation openssl
+        --version 1.1.0f
+        --tls-version TLS12
+        --model /tmp/cache/learnedModel.dot
+        --verbose
+    environment:
+      GITLAB_TLSPRINT_API_KEY:
+        from_secret: GITLAB_TLSPRINT_API_KEY
+
+volumes:
+  - name: cache
+    temp: {}
+
+trigger:
+  branch:
+    - master
+
+---
+kind: pipeline
+name: openssl 1.0.2h
+
+steps:
+    # Start the sut (system under test)
+  - name: sut
+    image: tlsprint/openssl:1.0.2h
+    detach: true
+
+    # Start the connector with a delay of 5 seconds, so the sut has time to
+    # initialize.
+  - name: connector
+    image: tlsprint/tlsattackerconnector
+    pull: always
+    detach: true
+    commands:
+      - connector
+        --targetHost sut
+        --protocolVersion TLS12
+        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
+        --startupDelay 5000
+
+    # Perform the learning
+  - name: learner
+    image: tlsprint/statelearner
+    pull: always
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/openssl/1.0.2h/TLS12/learnedModel.dot ]; then exit 0; fi
+      - sleep 10
+      - statelearner
+      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
+
+  - name: commit
+    image: python:3.6
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/openssl/1.0.2h/TLS12/learnedModel.dot ]; then exit 0; fi
+      - pip install -r requirements.txt
+      - python commit_model.py
+        --implementation openssl
+        --version 1.0.2h
+        --tls-version TLS12
+        --model /tmp/cache/learnedModel.dot
+        --verbose
+    environment:
+      GITLAB_TLSPRINT_API_KEY:
+        from_secret: GITLAB_TLSPRINT_API_KEY
+
+volumes:
+  - name: cache
+    temp: {}
+
+trigger:
+  branch:
+    - master
+
+---
+kind: pipeline
+name: openssl 1.0.2g
+
+steps:
+    # Start the sut (system under test)
+  - name: sut
+    image: tlsprint/openssl:1.0.2g
+    detach: true
+
+    # Start the connector with a delay of 5 seconds, so the sut has time to
+    # initialize.
+  - name: connector
+    image: tlsprint/tlsattackerconnector
+    pull: always
+    detach: true
+    commands:
+      - connector
+        --targetHost sut
+        --protocolVersion TLS12
+        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
+        --startupDelay 5000
+
+    # Perform the learning
+  - name: learner
+    image: tlsprint/statelearner
+    pull: always
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/openssl/1.0.2g/TLS12/learnedModel.dot ]; then exit 0; fi
+      - sleep 10
+      - statelearner
+      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
+
+  - name: commit
+    image: python:3.6
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/openssl/1.0.2g/TLS12/learnedModel.dot ]; then exit 0; fi
+      - pip install -r requirements.txt
+      - python commit_model.py
+        --implementation openssl
+        --version 1.0.2g
+        --tls-version TLS12
+        --model /tmp/cache/learnedModel.dot
+        --verbose
+    environment:
+      GITLAB_TLSPRINT_API_KEY:
+        from_secret: GITLAB_TLSPRINT_API_KEY
+
+volumes:
+  - name: cache
+    temp: {}
+
+trigger:
+  branch:
+    - master
+
+---
+kind: pipeline
+name: openssl 1.0.2
+
+steps:
+    # Start the sut (system under test)
+  - name: sut
+    image: tlsprint/openssl:1.0.2
+    detach: true
+
+    # Start the connector with a delay of 5 seconds, so the sut has time to
+    # initialize.
+  - name: connector
+    image: tlsprint/tlsattackerconnector
+    pull: always
+    detach: true
+    commands:
+      - connector
+        --targetHost sut
+        --protocolVersion TLS12
+        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
+        --startupDelay 5000
+
+    # Perform the learning
+  - name: learner
+    image: tlsprint/statelearner
+    pull: always
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/openssl/1.0.2/TLS12/learnedModel.dot ]; then exit 0; fi
+      - sleep 10
+      - statelearner
+      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
+
+  - name: commit
+    image: python:3.6
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/openssl/1.0.2/TLS12/learnedModel.dot ]; then exit 0; fi
+      - pip install -r requirements.txt
+      - python commit_model.py
+        --implementation openssl
+        --version 1.0.2
+        --tls-version TLS12
+        --model /tmp/cache/learnedModel.dot
+        --verbose
+    environment:
+      GITLAB_TLSPRINT_API_KEY:
+        from_secret: GITLAB_TLSPRINT_API_KEY
+
+volumes:
+  - name: cache
+    temp: {}
+
+trigger:
+  branch:
+    - master
+
+---
+kind: pipeline
+name: openssl 1.0.2j
+
+steps:
+    # Start the sut (system under test)
+  - name: sut
+    image: tlsprint/openssl:1.0.2j
+    detach: true
+
+    # Start the connector with a delay of 5 seconds, so the sut has time to
+    # initialize.
+  - name: connector
+    image: tlsprint/tlsattackerconnector
+    pull: always
+    detach: true
+    commands:
+      - connector
+        --targetHost sut
+        --protocolVersion TLS12
+        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
+        --startupDelay 5000
+
+    # Perform the learning
+  - name: learner
+    image: tlsprint/statelearner
+    pull: always
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/openssl/1.0.2j/TLS12/learnedModel.dot ]; then exit 0; fi
+      - sleep 10
+      - statelearner
+      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
+
+  - name: commit
+    image: python:3.6
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/openssl/1.0.2j/TLS12/learnedModel.dot ]; then exit 0; fi
+      - pip install -r requirements.txt
+      - python commit_model.py
+        --implementation openssl
+        --version 1.0.2j
+        --tls-version TLS12
+        --model /tmp/cache/learnedModel.dot
+        --verbose
+    environment:
+      GITLAB_TLSPRINT_API_KEY:
+        from_secret: GITLAB_TLSPRINT_API_KEY
+
+volumes:
+  - name: cache
+    temp: {}
+
+trigger:
+  branch:
+    - master
+
+---
+kind: pipeline
+name: openssl 1.0.1r
+
+steps:
+    # Start the sut (system under test)
+  - name: sut
+    image: tlsprint/openssl:1.0.1r
+    detach: true
+
+    # Start the connector with a delay of 5 seconds, so the sut has time to
+    # initialize.
+  - name: connector
+    image: tlsprint/tlsattackerconnector
+    pull: always
+    detach: true
+    commands:
+      - connector
+        --targetHost sut
+        --protocolVersion TLS12
+        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
+        --startupDelay 5000
+
+    # Perform the learning
+  - name: learner
+    image: tlsprint/statelearner
+    pull: always
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/openssl/1.0.1r/TLS12/learnedModel.dot ]; then exit 0; fi
+      - sleep 10
+      - statelearner
+      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
+
+  - name: commit
+    image: python:3.6
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/openssl/1.0.1r/TLS12/learnedModel.dot ]; then exit 0; fi
+      - pip install -r requirements.txt
+      - python commit_model.py
+        --implementation openssl
+        --version 1.0.1r
+        --tls-version TLS12
+        --model /tmp/cache/learnedModel.dot
+        --verbose
+    environment:
+      GITLAB_TLSPRINT_API_KEY:
+        from_secret: GITLAB_TLSPRINT_API_KEY
+
+volumes:
+  - name: cache
+    temp: {}
+
+trigger:
+  branch:
+    - master
+
+---
+kind: pipeline
+name: openssl 1.0.1i
+
+steps:
+    # Start the sut (system under test)
+  - name: sut
+    image: tlsprint/openssl:1.0.1i
+    detach: true
+
+    # Start the connector with a delay of 5 seconds, so the sut has time to
+    # initialize.
+  - name: connector
+    image: tlsprint/tlsattackerconnector
+    pull: always
+    detach: true
+    commands:
+      - connector
+        --targetHost sut
+        --protocolVersion TLS12
+        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
+        --startupDelay 5000
+
+    # Perform the learning
+  - name: learner
+    image: tlsprint/statelearner
+    pull: always
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/openssl/1.0.1i/TLS12/learnedModel.dot ]; then exit 0; fi
+      - sleep 10
+      - statelearner
+      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
+
+  - name: commit
+    image: python:3.6
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/openssl/1.0.1i/TLS12/learnedModel.dot ]; then exit 0; fi
+      - pip install -r requirements.txt
+      - python commit_model.py
+        --implementation openssl
+        --version 1.0.1i
+        --tls-version TLS12
+        --model /tmp/cache/learnedModel.dot
+        --verbose
+    environment:
+      GITLAB_TLSPRINT_API_KEY:
+        from_secret: GITLAB_TLSPRINT_API_KEY
+
+volumes:
+  - name: cache
+    temp: {}
+
+trigger:
+  branch:
+    - master
+
+---
+kind: pipeline
+name: openssl 1.0.2e
+
+steps:
+    # Start the sut (system under test)
+  - name: sut
+    image: tlsprint/openssl:1.0.2e
+    detach: true
+
+    # Start the connector with a delay of 5 seconds, so the sut has time to
+    # initialize.
+  - name: connector
+    image: tlsprint/tlsattackerconnector
+    pull: always
+    detach: true
+    commands:
+      - connector
+        --targetHost sut
+        --protocolVersion TLS12
+        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
+        --startupDelay 5000
+
+    # Perform the learning
+  - name: learner
+    image: tlsprint/statelearner
+    pull: always
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/openssl/1.0.2e/TLS12/learnedModel.dot ]; then exit 0; fi
+      - sleep 10
+      - statelearner
+      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
+
+  - name: commit
+    image: python:3.6
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/openssl/1.0.2e/TLS12/learnedModel.dot ]; then exit 0; fi
+      - pip install -r requirements.txt
+      - python commit_model.py
+        --implementation openssl
+        --version 1.0.2e
+        --tls-version TLS12
+        --model /tmp/cache/learnedModel.dot
+        --verbose
+    environment:
+      GITLAB_TLSPRINT_API_KEY:
+        from_secret: GITLAB_TLSPRINT_API_KEY
+
+volumes:
+  - name: cache
+    temp: {}
+
+trigger:
+  branch:
+    - master
+
+---
+kind: pipeline
+name: openssl 1.0.1m
+
+steps:
+    # Start the sut (system under test)
+  - name: sut
+    image: tlsprint/openssl:1.0.1m
+    detach: true
+
+    # Start the connector with a delay of 5 seconds, so the sut has time to
+    # initialize.
+  - name: connector
+    image: tlsprint/tlsattackerconnector
+    pull: always
+    detach: true
+    commands:
+      - connector
+        --targetHost sut
+        --protocolVersion TLS12
+        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
+        --startupDelay 5000
+
+    # Perform the learning
+  - name: learner
+    image: tlsprint/statelearner
+    pull: always
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/openssl/1.0.1m/TLS12/learnedModel.dot ]; then exit 0; fi
+      - sleep 10
+      - statelearner
+      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
+
+  - name: commit
+    image: python:3.6
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/openssl/1.0.1m/TLS12/learnedModel.dot ]; then exit 0; fi
+      - pip install -r requirements.txt
+      - python commit_model.py
+        --implementation openssl
+        --version 1.0.1m
+        --tls-version TLS12
+        --model /tmp/cache/learnedModel.dot
+        --verbose
+    environment:
+      GITLAB_TLSPRINT_API_KEY:
+        from_secret: GITLAB_TLSPRINT_API_KEY
+
+volumes:
+  - name: cache
+    temp: {}
+
+trigger:
+  branch:
+    - master
+
+---
+kind: pipeline
+name: openssl 1.0.2k
+
+steps:
+    # Start the sut (system under test)
+  - name: sut
+    image: tlsprint/openssl:1.0.2k
+    detach: true
+
+    # Start the connector with a delay of 5 seconds, so the sut has time to
+    # initialize.
+  - name: connector
+    image: tlsprint/tlsattackerconnector
+    pull: always
+    detach: true
+    commands:
+      - connector
+        --targetHost sut
+        --protocolVersion TLS12
+        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
+        --startupDelay 5000
+
+    # Perform the learning
+  - name: learner
+    image: tlsprint/statelearner
+    pull: always
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/openssl/1.0.2k/TLS12/learnedModel.dot ]; then exit 0; fi
+      - sleep 10
+      - statelearner
+      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
+
+  - name: commit
+    image: python:3.6
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/openssl/1.0.2k/TLS12/learnedModel.dot ]; then exit 0; fi
+      - pip install -r requirements.txt
+      - python commit_model.py
+        --implementation openssl
+        --version 1.0.2k
+        --tls-version TLS12
+        --model /tmp/cache/learnedModel.dot
+        --verbose
+    environment:
+      GITLAB_TLSPRINT_API_KEY:
+        from_secret: GITLAB_TLSPRINT_API_KEY
+
+volumes:
+  - name: cache
+    temp: {}
+
+trigger:
+  branch:
+    - master
+
+---
+kind: pipeline
+name: openssl 1.1.0k
+
+steps:
+    # Start the sut (system under test)
+  - name: sut
+    image: tlsprint/openssl:1.1.0k
+    detach: true
+
+    # Start the connector with a delay of 5 seconds, so the sut has time to
+    # initialize.
+  - name: connector
+    image: tlsprint/tlsattackerconnector
+    pull: always
+    detach: true
+    commands:
+      - connector
+        --targetHost sut
+        --protocolVersion TLS12
+        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
+        --startupDelay 5000
+
+    # Perform the learning
+  - name: learner
+    image: tlsprint/statelearner
+    pull: always
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/openssl/1.1.0k/TLS12/learnedModel.dot ]; then exit 0; fi
+      - sleep 10
+      - statelearner
+      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
+
+  - name: commit
+    image: python:3.6
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/openssl/1.1.0k/TLS12/learnedModel.dot ]; then exit 0; fi
+      - pip install -r requirements.txt
+      - python commit_model.py
+        --implementation openssl
+        --version 1.1.0k
+        --tls-version TLS12
+        --model /tmp/cache/learnedModel.dot
+        --verbose
+    environment:
+      GITLAB_TLSPRINT_API_KEY:
+        from_secret: GITLAB_TLSPRINT_API_KEY
+
+volumes:
+  - name: cache
+    temp: {}
+
+trigger:
+  branch:
+    - master
+
+---
+kind: pipeline
+name: openssl 1.1.0e
+
+steps:
+    # Start the sut (system under test)
+  - name: sut
+    image: tlsprint/openssl:1.1.0e
+    detach: true
+
+    # Start the connector with a delay of 5 seconds, so the sut has time to
+    # initialize.
+  - name: connector
+    image: tlsprint/tlsattackerconnector
+    pull: always
+    detach: true
+    commands:
+      - connector
+        --targetHost sut
+        --protocolVersion TLS12
+        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
+        --startupDelay 5000
+
+    # Perform the learning
+  - name: learner
+    image: tlsprint/statelearner
+    pull: always
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/openssl/1.1.0e/TLS12/learnedModel.dot ]; then exit 0; fi
+      - sleep 10
+      - statelearner
+      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
+
+  - name: commit
+    image: python:3.6
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/openssl/1.1.0e/TLS12/learnedModel.dot ]; then exit 0; fi
+      - pip install -r requirements.txt
+      - python commit_model.py
+        --implementation openssl
+        --version 1.1.0e
+        --tls-version TLS12
+        --model /tmp/cache/learnedModel.dot
+        --verbose
+    environment:
+      GITLAB_TLSPRINT_API_KEY:
+        from_secret: GITLAB_TLSPRINT_API_KEY
+
+volumes:
+  - name: cache
+    temp: {}
+
+trigger:
+  branch:
+    - master
+
+---
+kind: pipeline
+name: openssl 1.0.1n
+
+steps:
+    # Start the sut (system under test)
+  - name: sut
+    image: tlsprint/openssl:1.0.1n
+    detach: true
+
+    # Start the connector with a delay of 5 seconds, so the sut has time to
+    # initialize.
+  - name: connector
+    image: tlsprint/tlsattackerconnector
+    pull: always
+    detach: true
+    commands:
+      - connector
+        --targetHost sut
+        --protocolVersion TLS12
+        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
+        --startupDelay 5000
+
+    # Perform the learning
+  - name: learner
+    image: tlsprint/statelearner
+    pull: always
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/openssl/1.0.1n/TLS12/learnedModel.dot ]; then exit 0; fi
+      - sleep 10
+      - statelearner
+      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
+
+  - name: commit
+    image: python:3.6
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/openssl/1.0.1n/TLS12/learnedModel.dot ]; then exit 0; fi
+      - pip install -r requirements.txt
+      - python commit_model.py
+        --implementation openssl
+        --version 1.0.1n
+        --tls-version TLS12
+        --model /tmp/cache/learnedModel.dot
+        --verbose
+    environment:
+      GITLAB_TLSPRINT_API_KEY:
+        from_secret: GITLAB_TLSPRINT_API_KEY
+
+volumes:
+  - name: cache
+    temp: {}
+
+trigger:
+  branch:
+    - master
+
+---
+kind: pipeline
+name: openssl 1.0.1j
+
+steps:
+    # Start the sut (system under test)
+  - name: sut
+    image: tlsprint/openssl:1.0.1j
+    detach: true
+
+    # Start the connector with a delay of 5 seconds, so the sut has time to
+    # initialize.
+  - name: connector
+    image: tlsprint/tlsattackerconnector
+    pull: always
+    detach: true
+    commands:
+      - connector
+        --targetHost sut
+        --protocolVersion TLS12
+        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
+        --startupDelay 5000
+
+    # Perform the learning
+  - name: learner
+    image: tlsprint/statelearner
+    pull: always
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/openssl/1.0.1j/TLS12/learnedModel.dot ]; then exit 0; fi
+      - sleep 10
+      - statelearner
+      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
+
+  - name: commit
+    image: python:3.6
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/openssl/1.0.1j/TLS12/learnedModel.dot ]; then exit 0; fi
+      - pip install -r requirements.txt
+      - python commit_model.py
+        --implementation openssl
+        --version 1.0.1j
+        --tls-version TLS12
+        --model /tmp/cache/learnedModel.dot
+        --verbose
+    environment:
+      GITLAB_TLSPRINT_API_KEY:
+        from_secret: GITLAB_TLSPRINT_API_KEY
+
+volumes:
+  - name: cache
+    temp: {}
+
+trigger:
+  branch:
+    - master
+
+---
+kind: pipeline
+name: openssl 1.0.2l
+
+steps:
+    # Start the sut (system under test)
+  - name: sut
+    image: tlsprint/openssl:1.0.2l
+    detach: true
+
+    # Start the connector with a delay of 5 seconds, so the sut has time to
+    # initialize.
+  - name: connector
+    image: tlsprint/tlsattackerconnector
+    pull: always
+    detach: true
+    commands:
+      - connector
+        --targetHost sut
+        --protocolVersion TLS12
+        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
+        --startupDelay 5000
+
+    # Perform the learning
+  - name: learner
+    image: tlsprint/statelearner
+    pull: always
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/openssl/1.0.2l/TLS12/learnedModel.dot ]; then exit 0; fi
+      - sleep 10
+      - statelearner
+      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
+
+  - name: commit
+    image: python:3.6
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/openssl/1.0.2l/TLS12/learnedModel.dot ]; then exit 0; fi
+      - pip install -r requirements.txt
+      - python commit_model.py
+        --implementation openssl
+        --version 1.0.2l
+        --tls-version TLS12
+        --model /tmp/cache/learnedModel.dot
+        --verbose
+    environment:
+      GITLAB_TLSPRINT_API_KEY:
+        from_secret: GITLAB_TLSPRINT_API_KEY
+
+volumes:
+  - name: cache
+    temp: {}
+
+trigger:
+  branch:
+    - master
+
+---
+kind: pipeline
+name: openssl 1.0.1t
+
+steps:
+    # Start the sut (system under test)
+  - name: sut
+    image: tlsprint/openssl:1.0.1t
+    detach: true
+
+    # Start the connector with a delay of 5 seconds, so the sut has time to
+    # initialize.
+  - name: connector
+    image: tlsprint/tlsattackerconnector
+    pull: always
+    detach: true
+    commands:
+      - connector
+        --targetHost sut
+        --protocolVersion TLS12
+        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
+        --startupDelay 5000
+
+    # Perform the learning
+  - name: learner
+    image: tlsprint/statelearner
+    pull: always
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/openssl/1.0.1t/TLS12/learnedModel.dot ]; then exit 0; fi
+      - sleep 10
+      - statelearner
+      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
+
+  - name: commit
+    image: python:3.6
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/openssl/1.0.1t/TLS12/learnedModel.dot ]; then exit 0; fi
+      - pip install -r requirements.txt
+      - python commit_model.py
+        --implementation openssl
+        --version 1.0.1t
+        --tls-version TLS12
+        --model /tmp/cache/learnedModel.dot
+        --verbose
+    environment:
+      GITLAB_TLSPRINT_API_KEY:
+        from_secret: GITLAB_TLSPRINT_API_KEY
+
+volumes:
+  - name: cache
+    temp: {}
+
+trigger:
+  branch:
+    - master
+
+---
+kind: pipeline
+name: openssl 1.0.2p
+
+steps:
+    # Start the sut (system under test)
+  - name: sut
+    image: tlsprint/openssl:1.0.2p
+    detach: true
+
+    # Start the connector with a delay of 5 seconds, so the sut has time to
+    # initialize.
+  - name: connector
+    image: tlsprint/tlsattackerconnector
+    pull: always
+    detach: true
+    commands:
+      - connector
+        --targetHost sut
+        --protocolVersion TLS12
+        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
+        --startupDelay 5000
+
+    # Perform the learning
+  - name: learner
+    image: tlsprint/statelearner
+    pull: always
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/openssl/1.0.2p/TLS12/learnedModel.dot ]; then exit 0; fi
+      - sleep 10
+      - statelearner
+      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
+
+  - name: commit
+    image: python:3.6
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/openssl/1.0.2p/TLS12/learnedModel.dot ]; then exit 0; fi
+      - pip install -r requirements.txt
+      - python commit_model.py
+        --implementation openssl
+        --version 1.0.2p
+        --tls-version TLS12
+        --model /tmp/cache/learnedModel.dot
+        --verbose
+    environment:
+      GITLAB_TLSPRINT_API_KEY:
+        from_secret: GITLAB_TLSPRINT_API_KEY
+
+volumes:
+  - name: cache
+    temp: {}
+
+trigger:
+  branch:
+    - master
+
+---
+kind: pipeline
+name: openssl 1.0.1a
+
+steps:
+    # Start the sut (system under test)
+  - name: sut
+    image: tlsprint/openssl:1.0.1a
+    detach: true
+
+    # Start the connector with a delay of 5 seconds, so the sut has time to
+    # initialize.
+  - name: connector
+    image: tlsprint/tlsattackerconnector
+    pull: always
+    detach: true
+    commands:
+      - connector
+        --targetHost sut
+        --protocolVersion TLS12
+        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
+        --startupDelay 5000
+
+    # Perform the learning
+  - name: learner
+    image: tlsprint/statelearner
+    pull: always
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/openssl/1.0.1a/TLS12/learnedModel.dot ]; then exit 0; fi
+      - sleep 10
+      - statelearner
+      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
+
+  - name: commit
+    image: python:3.6
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/openssl/1.0.1a/TLS12/learnedModel.dot ]; then exit 0; fi
+      - pip install -r requirements.txt
+      - python commit_model.py
+        --implementation openssl
+        --version 1.0.1a
+        --tls-version TLS12
+        --model /tmp/cache/learnedModel.dot
+        --verbose
+    environment:
+      GITLAB_TLSPRINT_API_KEY:
+        from_secret: GITLAB_TLSPRINT_API_KEY
+
+volumes:
+  - name: cache
+    temp: {}
+
+trigger:
+  branch:
+    - master
+
+---
+kind: pipeline
+name: openssl 1.1.0a
+
+steps:
+    # Start the sut (system under test)
+  - name: sut
+    image: tlsprint/openssl:1.1.0a
+    detach: true
+
+    # Start the connector with a delay of 5 seconds, so the sut has time to
+    # initialize.
+  - name: connector
+    image: tlsprint/tlsattackerconnector
+    pull: always
+    detach: true
+    commands:
+      - connector
+        --targetHost sut
+        --protocolVersion TLS12
+        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
+        --startupDelay 5000
+
+    # Perform the learning
+  - name: learner
+    image: tlsprint/statelearner
+    pull: always
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/openssl/1.1.0a/TLS12/learnedModel.dot ]; then exit 0; fi
+      - sleep 10
+      - statelearner
+      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
+
+  - name: commit
+    image: python:3.6
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/openssl/1.1.0a/TLS12/learnedModel.dot ]; then exit 0; fi
+      - pip install -r requirements.txt
+      - python commit_model.py
+        --implementation openssl
+        --version 1.1.0a
+        --tls-version TLS12
+        --model /tmp/cache/learnedModel.dot
+        --verbose
+    environment:
+      GITLAB_TLSPRINT_API_KEY:
+        from_secret: GITLAB_TLSPRINT_API_KEY
+
+volumes:
+  - name: cache
+    temp: {}
+
+trigger:
+  branch:
+    - master
+
+---
+kind: pipeline
+name: openssl 1.0.1p
+
+steps:
+    # Start the sut (system under test)
+  - name: sut
+    image: tlsprint/openssl:1.0.1p
+    detach: true
+
+    # Start the connector with a delay of 5 seconds, so the sut has time to
+    # initialize.
+  - name: connector
+    image: tlsprint/tlsattackerconnector
+    pull: always
+    detach: true
+    commands:
+      - connector
+        --targetHost sut
+        --protocolVersion TLS12
+        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
+        --startupDelay 5000
+
+    # Perform the learning
+  - name: learner
+    image: tlsprint/statelearner
+    pull: always
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/openssl/1.0.1p/TLS12/learnedModel.dot ]; then exit 0; fi
+      - sleep 10
+      - statelearner
+      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
+
+  - name: commit
+    image: python:3.6
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/openssl/1.0.1p/TLS12/learnedModel.dot ]; then exit 0; fi
+      - pip install -r requirements.txt
+      - python commit_model.py
+        --implementation openssl
+        --version 1.0.1p
+        --tls-version TLS12
+        --model /tmp/cache/learnedModel.dot
+        --verbose
+    environment:
+      GITLAB_TLSPRINT_API_KEY:
+        from_secret: GITLAB_TLSPRINT_API_KEY
+
+volumes:
+  - name: cache
+    temp: {}
+
+trigger:
+  branch:
+    - master
+
+---
+kind: pipeline
+name: openssl 1.0.2o
+
+steps:
+    # Start the sut (system under test)
+  - name: sut
+    image: tlsprint/openssl:1.0.2o
+    detach: true
+
+    # Start the connector with a delay of 5 seconds, so the sut has time to
+    # initialize.
+  - name: connector
+    image: tlsprint/tlsattackerconnector
+    pull: always
+    detach: true
+    commands:
+      - connector
+        --targetHost sut
+        --protocolVersion TLS12
+        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
+        --startupDelay 5000
+
+    # Perform the learning
+  - name: learner
+    image: tlsprint/statelearner
+    pull: always
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/openssl/1.0.2o/TLS12/learnedModel.dot ]; then exit 0; fi
+      - sleep 10
+      - statelearner
+      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
+
+  - name: commit
+    image: python:3.6
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/openssl/1.0.2o/TLS12/learnedModel.dot ]; then exit 0; fi
+      - pip install -r requirements.txt
+      - python commit_model.py
+        --implementation openssl
+        --version 1.0.2o
         --tls-version TLS12
         --model /tmp/cache/learnedModel.dot
         --verbose
