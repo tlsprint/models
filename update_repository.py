@@ -6,6 +6,22 @@ import click
 import gitlab
 import requests
 from jinja2 import Template
+from git import Repo
+
+import logging
+logging.basicConfig(level=logging.INFO)
+
+def update_submodules():
+    repo = Repo(".")
+
+    for submodule in repo.submodules:
+        # Pull the most recent version of the submodule
+        module = submodule.module()
+        module.heads.master.checkout()
+        module.remote().pull()
+
+        # Update the submodules of this submodule
+        module.git.submodule(["update", "--recursive"])
 
 
 def query_docker_image_tags(image):
@@ -41,6 +57,8 @@ def query_docker_image_tags(image):
     help="Indicates whether the files modified by this script should be committed.",
 )
 def main(api_key, gitlab_url, project_id, verbose, commit):
+    update_submodules()
+
     tags = query_docker_image_tags("openssl")
 
     # For now only use image > 1.0.1, these support all TLS12

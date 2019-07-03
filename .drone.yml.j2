@@ -8,6 +8,12 @@ steps:
     commands:
       - git submodule update --init --recursive
 
+  - name: update
+    image: python:3.6
+    commands:
+      - pip install -r requirements.txt
+      - python update_repository.py
+
 {% for target in targets -%}
 {% set implementation = target["implementation"] -%}
 {% set version = target["version"] -%}

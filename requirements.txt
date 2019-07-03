@@ -2,3 +2,4 @@ click
 python-gitlab
 jinja2
 requests
+GitPython
