@@ -74,7 +74,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -138,7 +138,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -202,7 +202,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -267,7 +267,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -331,7 +331,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -395,7 +395,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -460,7 +460,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -524,7 +524,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -588,7 +588,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -653,7 +653,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -717,7 +717,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -781,7 +781,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -846,7 +846,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -910,7 +910,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -974,7 +974,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -1039,7 +1039,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -1103,7 +1103,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -1167,7 +1167,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -1232,7 +1232,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -1296,7 +1296,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -1360,7 +1360,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -1425,7 +1425,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -1489,7 +1489,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -1553,7 +1553,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -1618,7 +1618,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -1682,7 +1682,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -1746,7 +1746,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -1811,7 +1811,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -1875,7 +1875,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -1939,7 +1939,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -2004,7 +2004,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -2068,7 +2068,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -2132,7 +2132,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -2197,7 +2197,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -2261,7 +2261,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -2325,7 +2325,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -2390,7 +2390,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -2454,7 +2454,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -2518,7 +2518,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -2583,7 +2583,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -2647,7 +2647,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -2711,7 +2711,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -2776,7 +2776,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -2840,7 +2840,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -2904,7 +2904,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -2969,7 +2969,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -3033,7 +3033,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -3097,7 +3097,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -3162,7 +3162,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -3226,7 +3226,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -3290,7 +3290,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -3355,7 +3355,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -3419,7 +3419,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -3483,7 +3483,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -3548,7 +3548,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -3612,7 +3612,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -3676,7 +3676,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -3741,7 +3741,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -3805,7 +3805,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -3869,7 +3869,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -3934,7 +3934,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -3998,7 +3998,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -4062,7 +4062,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -4127,7 +4127,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -4191,7 +4191,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -4255,7 +4255,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -4320,7 +4320,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -4384,7 +4384,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -4448,7 +4448,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -4513,7 +4513,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -4577,7 +4577,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -4641,7 +4641,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -4706,7 +4706,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -4770,7 +4770,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -4834,7 +4834,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -4899,7 +4899,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -4963,7 +4963,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -5027,7 +5027,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -5092,7 +5092,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -5156,7 +5156,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -5220,7 +5220,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -5285,7 +5285,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -5349,7 +5349,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -5413,7 +5413,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -5478,7 +5478,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -5542,7 +5542,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -5606,7 +5606,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -5671,7 +5671,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -5735,7 +5735,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -5799,7 +5799,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -5864,7 +5864,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -5928,7 +5928,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -5992,7 +5992,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -6057,7 +6057,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -6121,7 +6121,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -6185,7 +6185,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -6250,7 +6250,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -6314,7 +6314,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -6378,7 +6378,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -6443,7 +6443,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -6507,7 +6507,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -6571,7 +6571,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -6636,7 +6636,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -6700,7 +6700,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -6764,7 +6764,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -6829,7 +6829,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -6893,7 +6893,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -6957,7 +6957,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -7022,7 +7022,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -7086,7 +7086,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -7150,7 +7150,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -7215,7 +7215,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -7279,7 +7279,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -7343,7 +7343,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -7408,7 +7408,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -7472,7 +7472,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -7536,7 +7536,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -7601,7 +7601,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -7665,7 +7665,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -7729,7 +7729,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -7794,7 +7794,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -7858,7 +7858,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -7922,7 +7922,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -7987,7 +7987,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -8051,7 +8051,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -8115,7 +8115,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -8180,7 +8180,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -8244,7 +8244,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -8308,7 +8308,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -8373,7 +8373,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -8437,7 +8437,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -8501,7 +8501,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -8566,7 +8566,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -8630,7 +8630,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -8694,7 +8694,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -8759,7 +8759,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -8823,7 +8823,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -8887,7 +8887,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -8952,7 +8952,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -9016,7 +9016,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -9080,7 +9080,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -9145,7 +9145,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -9209,7 +9209,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -9273,7 +9273,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -9338,7 +9338,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -9402,7 +9402,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -9466,7 +9466,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -9531,7 +9531,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -9595,7 +9595,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -9659,7 +9659,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -9724,7 +9724,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -9788,7 +9788,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -9852,7 +9852,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -9917,7 +9917,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -9981,7 +9981,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -10045,7 +10045,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -10110,7 +10110,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -10174,7 +10174,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
@@ -10238,7 +10238,7 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
+when:
   branch:
     - master
 
