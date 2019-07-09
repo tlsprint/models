@@ -10,3 +10,5 @@ before_script:
 update_repo:
   script:
     - python update_repository.py --verbose --commit
+  only:
+    - schedules
