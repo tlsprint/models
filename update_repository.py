@@ -11,6 +11,7 @@ from jinja2 import Template
 from git import Repo
 import dymport
 
+
 def update_submodules():
     repo = Repo(".")
 
@@ -32,10 +33,16 @@ def query_docker_image_tags(image):
     return {info["name"] for info in tag_info}
 
 
-def query_tags_with_models(implementation, model_dir="models"):
+def query_learned_models(implementation, model_dir="models"):
     directory = Path(model_dir) / implementation
     try:
-        return {path.name for path in directory.iterdir()}
+        versions = {path.name for path in directory.iterdir()}
+        combinations = {
+            (version, path.name)
+            for version in versions
+            for path in (directory / version).iterdir()
+        }
+        return combinations
     except FileNotFoundError:
         return set()
 
@@ -70,7 +77,9 @@ def main(api_key, gitlab_url, project_id, verbose, commit):
         print("Updating submodules")
     update_submodules()
 
-    implementation_dirs = [path for path in Path("docker-images").iterdir() if path.is_dir()]
+    implementation_dirs = [
+        path for path in Path("docker-images").iterdir() if path.is_dir()
+    ]
     if verbose:
         print("Found the following implementations:")
         for directory in implementation_dirs:
@@ -94,33 +103,55 @@ def main(api_key, gitlab_url, project_id, verbose, commit):
         if verbose:
             print(f"  - found {len(docker_tags)} tags in Docker registry")
 
-        # Check which versions already have models
-        model_tags = query_tags_with_models(implementation)
-
-        if verbose:
-            print(f"  - found {len(model_tags)} tags with learned models")
-
-        tags_to_learn = docker_tags - model_tags
-
-        if verbose:
-            print(f"  - found {len(tags_to_learn)} tags to learn")
-
-        # Sort tags for deterministic output
-        versions = sorted(tags_to_learn, key=LooseVersion)
-
-        # Get supported TLS versions for every implementation, and add to
-        # targets.
+        # Query supported TLS versions for every tag
         module = dymport.import_file(implementation, directory / "__init__.py")
+        tag_protocol_version_map = {
+            tag: module.get_supported_tls(tag) for tag in docker_tags
+        }
+
+        # Create a set of all (tag, protocol) combinations
+        possible_combinations = {
+            (tag, protocol)
+            for tag, protocols in tag_protocol_version_map.items()
+            for protocol in protocols
+        }
+
+        if verbose:
+            print(
+                f"  - found {len(possible_combinations)} possible tag-protocol combinations"
+            )
+
+        # Check which versions already have models
+        learned_combinations = query_learned_models(implementation)
+
+        if verbose:
+            print(
+                f"  - found {len(learned_combinations)} learned tag-protocol combinations"
+            )
+
+        # Takes the difference of all possible combinations and the
+        # combinations already learned, to get the set of combinations which
+        # still need to be learned.
+        combinations_to_learn = possible_combinations - learned_combinations
+
+        if verbose:
+            print(
+                f"  - found {len(combinations_to_learn)} tag-protocol combinations to learn"
+            )
+
+        # Sort for deterministic output
+        combinations = sorted(
+            combinations_to_learn, key=lambda comb: (LooseVersion(comb[0]), comb[1])
+        )
+
+        # Append to the list of learning targets for use in the template
         targets += [
-            {
-                "implementation": implementation,
-                "version": version,
-                "supported_tls": module.get_supported_tls(version),
-            } for version in versions
+            {"implementation": implementation, "version": version, "protocol": protocol}
+            for version, protocol in combinations
         ]
 
     if verbose:
-        print(f"Found {len(targets)} versions to learn in total")
+        print(f"Found {len(targets)} tag-protocol combinations to learn in total")
         print("Generating .drone.yml from template")
 
     with open(".drone.yml.j2") as f:
