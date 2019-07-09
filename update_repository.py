@@ -65,7 +65,7 @@ def commit_updated_files(gitlab_url, project_id, api_key, verbose=False):
 
     data = {
         "id": project_id,
-        "branch": "master",
+        "branch": "gitlab-cron",
         "commit_message": f"Update repository {datetime.today().date()}",
         "actions": [],
     }
