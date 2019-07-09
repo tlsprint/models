@@ -3,6 +3,7 @@ import os
 import sys
 from distutils.version import LooseVersion
 from pathlib import Path
+from datetime import datetime
 
 import click
 import gitlab
@@ -45,6 +46,44 @@ def query_learned_models(implementation, model_dir="models"):
         return combinations
     except FileNotFoundError:
         return set()
+
+
+def commit_updated_files(gitlab_url, project_id, api_key, verbose=False):
+    # Query environment variable if --api-key is not passed
+    if not api_key:
+        try:
+            api_key = os.environ["GITLAB_TLSPRINT_API_KEY"]
+        except KeyError:
+            print(
+                "No API key specified. Specify via --api-key or define GITLAB_TLSPRINT_API_KEY.",
+                file=sys.stderr,
+            )
+            sys.exit(1)
+
+    gl = gitlab.Gitlab(gitlab_url, private_token=api_key)
+    project = gl.projects.get(project_id)
+
+    data = {
+        "id": project_id,
+        "branch": "master",
+        "commit_message": f"Update repository {datetime.today().date()}",
+        "actions": [],
+    }
+
+    for file in [".drone.yml", "docker-images"]:
+        data["actions"].append(
+            {"action": "create", "file_path": file, "content": file.read()}
+        )
+
+    if verbose:
+        print("Data:")
+        print(json.dumps(data, indent=4))
+
+    # Create commit
+    commit = project.commits.create(data)
+
+    if verbose:
+        print(commit)
 
 
 @click.command()
@@ -161,19 +200,7 @@ def main(api_key, gitlab_url, project_id, verbose, commit):
         f.write(template.render(targets=targets))
 
     if commit:
-        # Query environment variable if --api-key is not passed
-        if not api_key:
-            try:
-                api_key = os.environ["GITLAB_TLSPRINT_API_KEY"]
-            except KeyError:
-                print(
-                    "No API key specified. Specify via --api-key or define GITLAB_TLSPRINT_API_KEY.",
-                    file=sys.stderr,
-                )
-                sys.exit(1)
-
-        gl = gitlab.Gitlab(gitlab_url, private_token=api_key)
-        project = gl.projects.get(project_id)
+        commit_updated_files(gitlab_url, project_id, api_key, verbose=verbose)
 
 
 if __name__ == "__main__":
