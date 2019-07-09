@@ -70,7 +70,7 @@ def commit_updated_files(gitlab_url, project_id, api_key, verbose=False):
         "actions": [],
     }
 
-    for file in [".drone.yml", "docker-images"]:
+    for file in [".drone.yml"]:
         with open(file) as f:
             data["actions"].append(
                 {"action": "create", "file_path": file, "content": f.read()}
