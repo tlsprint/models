@@ -24,6 +24,7 @@ steps:
         --protocolVersion {{ protocol }}
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -62,9 +63,5 @@ steps:
 volumes:
   - name: cache
     temp: {}
-
-trigger:
-  branch:
-    - master
 
 {% endfor %}

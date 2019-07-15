@@ -20,6 +20,7 @@ steps:
         --protocolVersion TLS10
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -58,10 +59,6 @@ steps:
 volumes:
   - name: cache
     temp: {}
-
-trigger:
-  branch:
-    - master
 
 ---
 kind: pipeline
@@ -85,6 +82,7 @@ steps:
         --protocolVersion TLS11
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -123,10 +121,6 @@ steps:
 volumes:
   - name: cache
     temp: {}
-
-trigger:
-  branch:
-    - master
 
 ---
 kind: pipeline
@@ -150,6 +144,7 @@ steps:
         --protocolVersion TLS12
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -189,10 +184,6 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
-  branch:
-    - master
-
 ---
 kind: pipeline
 name: mbedtls 1.2.13 TLS10
@@ -215,6 +206,7 @@ steps:
         --protocolVersion TLS10
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -253,10 +245,6 @@ steps:
 volumes:
   - name: cache
     temp: {}
-
-trigger:
-  branch:
-    - master
 
 ---
 kind: pipeline
@@ -280,6 +268,7 @@ steps:
         --protocolVersion TLS11
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -318,10 +307,6 @@ steps:
 volumes:
   - name: cache
     temp: {}
-
-trigger:
-  branch:
-    - master
 
 ---
 kind: pipeline
@@ -345,6 +330,7 @@ steps:
         --protocolVersion TLS12
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -384,10 +370,6 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
-  branch:
-    - master
-
 ---
 kind: pipeline
 name: mbedtls 1.2.14 TLS10
@@ -410,6 +392,7 @@ steps:
         --protocolVersion TLS10
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -448,10 +431,6 @@ steps:
 volumes:
   - name: cache
     temp: {}
-
-trigger:
-  branch:
-    - master
 
 ---
 kind: pipeline
@@ -475,6 +454,7 @@ steps:
         --protocolVersion TLS11
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -513,10 +493,6 @@ steps:
 volumes:
   - name: cache
     temp: {}
-
-trigger:
-  branch:
-    - master
 
 ---
 kind: pipeline
@@ -540,6 +516,7 @@ steps:
         --protocolVersion TLS12
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -579,10 +556,6 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
-  branch:
-    - master
-
 ---
 kind: pipeline
 name: mbedtls 1.2.15 TLS10
@@ -605,6 +578,7 @@ steps:
         --protocolVersion TLS10
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -643,10 +617,6 @@ steps:
 volumes:
   - name: cache
     temp: {}
-
-trigger:
-  branch:
-    - master
 
 ---
 kind: pipeline
@@ -670,6 +640,7 @@ steps:
         --protocolVersion TLS11
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -708,10 +679,6 @@ steps:
 volumes:
   - name: cache
     temp: {}
-
-trigger:
-  branch:
-    - master
 
 ---
 kind: pipeline
@@ -735,6 +702,7 @@ steps:
         --protocolVersion TLS12
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -774,10 +742,6 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
-  branch:
-    - master
-
 ---
 kind: pipeline
 name: mbedtls 1.2.16 TLS10
@@ -800,6 +764,7 @@ steps:
         --protocolVersion TLS10
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -838,10 +803,6 @@ steps:
 volumes:
   - name: cache
     temp: {}
-
-trigger:
-  branch:
-    - master
 
 ---
 kind: pipeline
@@ -865,6 +826,7 @@ steps:
         --protocolVersion TLS11
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -903,10 +865,6 @@ steps:
 volumes:
   - name: cache
     temp: {}
-
-trigger:
-  branch:
-    - master
 
 ---
 kind: pipeline
@@ -930,6 +888,7 @@ steps:
         --protocolVersion TLS12
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -969,10 +928,6 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
-  branch:
-    - master
-
 ---
 kind: pipeline
 name: mbedtls 1.2.17 TLS10
@@ -995,6 +950,7 @@ steps:
         --protocolVersion TLS10
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -1033,10 +989,6 @@ steps:
 volumes:
   - name: cache
     temp: {}
-
-trigger:
-  branch:
-    - master
 
 ---
 kind: pipeline
@@ -1060,6 +1012,7 @@ steps:
         --protocolVersion TLS11
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -1098,10 +1051,6 @@ steps:
 volumes:
   - name: cache
     temp: {}
-
-trigger:
-  branch:
-    - master
 
 ---
 kind: pipeline
@@ -1125,6 +1074,7 @@ steps:
         --protocolVersion TLS12
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -1164,10 +1114,6 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
-  branch:
-    - master
-
 ---
 kind: pipeline
 name: mbedtls 1.2.18 TLS10
@@ -1190,6 +1136,7 @@ steps:
         --protocolVersion TLS10
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -1228,10 +1175,6 @@ steps:
 volumes:
   - name: cache
     temp: {}
-
-trigger:
-  branch:
-    - master
 
 ---
 kind: pipeline
@@ -1255,6 +1198,7 @@ steps:
         --protocolVersion TLS11
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -1293,10 +1237,6 @@ steps:
 volumes:
   - name: cache
     temp: {}
-
-trigger:
-  branch:
-    - master
 
 ---
 kind: pipeline
@@ -1320,6 +1260,7 @@ steps:
         --protocolVersion TLS12
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -1359,10 +1300,6 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
-  branch:
-    - master
-
 ---
 kind: pipeline
 name: mbedtls 1.2.19 TLS10
@@ -1385,6 +1322,7 @@ steps:
         --protocolVersion TLS10
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -1423,10 +1361,6 @@ steps:
 volumes:
   - name: cache
     temp: {}
-
-trigger:
-  branch:
-    - master
 
 ---
 kind: pipeline
@@ -1450,6 +1384,7 @@ steps:
         --protocolVersion TLS11
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -1488,10 +1423,6 @@ steps:
 volumes:
   - name: cache
     temp: {}
-
-trigger:
-  branch:
-    - master
 
 ---
 kind: pipeline
@@ -1515,6 +1446,7 @@ steps:
         --protocolVersion TLS12
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -1554,10 +1486,6 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
-  branch:
-    - master
-
 ---
 kind: pipeline
 name: mbedtls 1.3.9 TLS10
@@ -1580,6 +1508,7 @@ steps:
         --protocolVersion TLS10
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -1618,10 +1547,6 @@ steps:
 volumes:
   - name: cache
     temp: {}
-
-trigger:
-  branch:
-    - master
 
 ---
 kind: pipeline
@@ -1645,6 +1570,7 @@ steps:
         --protocolVersion TLS11
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -1683,10 +1609,6 @@ steps:
 volumes:
   - name: cache
     temp: {}
-
-trigger:
-  branch:
-    - master
 
 ---
 kind: pipeline
@@ -1710,6 +1632,7 @@ steps:
         --protocolVersion TLS12
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -1749,10 +1672,6 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
-  branch:
-    - master
-
 ---
 kind: pipeline
 name: mbedtls 1.3.10 TLS10
@@ -1775,6 +1694,7 @@ steps:
         --protocolVersion TLS10
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -1813,10 +1733,6 @@ steps:
 volumes:
   - name: cache
     temp: {}
-
-trigger:
-  branch:
-    - master
 
 ---
 kind: pipeline
@@ -1840,6 +1756,7 @@ steps:
         --protocolVersion TLS11
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -1878,10 +1795,6 @@ steps:
 volumes:
   - name: cache
     temp: {}
-
-trigger:
-  branch:
-    - master
 
 ---
 kind: pipeline
@@ -1905,6 +1818,7 @@ steps:
         --protocolVersion TLS12
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -1944,10 +1858,6 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
-  branch:
-    - master
-
 ---
 kind: pipeline
 name: mbedtls 1.3.11 TLS10
@@ -1970,6 +1880,7 @@ steps:
         --protocolVersion TLS10
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -2008,10 +1919,6 @@ steps:
 volumes:
   - name: cache
     temp: {}
-
-trigger:
-  branch:
-    - master
 
 ---
 kind: pipeline
@@ -2035,6 +1942,7 @@ steps:
         --protocolVersion TLS11
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -2073,10 +1981,6 @@ steps:
 volumes:
   - name: cache
     temp: {}
-
-trigger:
-  branch:
-    - master
 
 ---
 kind: pipeline
@@ -2100,6 +2004,7 @@ steps:
         --protocolVersion TLS12
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -2139,10 +2044,6 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
-  branch:
-    - master
-
 ---
 kind: pipeline
 name: mbedtls 1.3.12 TLS10
@@ -2165,6 +2066,7 @@ steps:
         --protocolVersion TLS10
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -2203,10 +2105,6 @@ steps:
 volumes:
   - name: cache
     temp: {}
-
-trigger:
-  branch:
-    - master
 
 ---
 kind: pipeline
@@ -2230,6 +2128,7 @@ steps:
         --protocolVersion TLS11
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -2268,10 +2167,6 @@ steps:
 volumes:
   - name: cache
     temp: {}
-
-trigger:
-  branch:
-    - master
 
 ---
 kind: pipeline
@@ -2295,6 +2190,7 @@ steps:
         --protocolVersion TLS12
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -2334,10 +2230,6 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
-  branch:
-    - master
-
 ---
 kind: pipeline
 name: mbedtls 1.3.13 TLS10
@@ -2360,6 +2252,7 @@ steps:
         --protocolVersion TLS10
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -2398,10 +2291,6 @@ steps:
 volumes:
   - name: cache
     temp: {}
-
-trigger:
-  branch:
-    - master
 
 ---
 kind: pipeline
@@ -2425,6 +2314,7 @@ steps:
         --protocolVersion TLS11
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -2463,10 +2353,6 @@ steps:
 volumes:
   - name: cache
     temp: {}
-
-trigger:
-  branch:
-    - master
 
 ---
 kind: pipeline
@@ -2490,6 +2376,7 @@ steps:
         --protocolVersion TLS12
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -2529,10 +2416,6 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
-  branch:
-    - master
-
 ---
 kind: pipeline
 name: mbedtls 1.3.14 TLS10
@@ -2555,6 +2438,7 @@ steps:
         --protocolVersion TLS10
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -2593,10 +2477,6 @@ steps:
 volumes:
   - name: cache
     temp: {}
-
-trigger:
-  branch:
-    - master
 
 ---
 kind: pipeline
@@ -2620,6 +2500,7 @@ steps:
         --protocolVersion TLS11
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -2658,10 +2539,6 @@ steps:
 volumes:
   - name: cache
     temp: {}
-
-trigger:
-  branch:
-    - master
 
 ---
 kind: pipeline
@@ -2685,6 +2562,7 @@ steps:
         --protocolVersion TLS12
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -2724,10 +2602,6 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
-  branch:
-    - master
-
 ---
 kind: pipeline
 name: mbedtls 1.3.15 TLS10
@@ -2750,6 +2624,7 @@ steps:
         --protocolVersion TLS10
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -2788,10 +2663,6 @@ steps:
 volumes:
   - name: cache
     temp: {}
-
-trigger:
-  branch:
-    - master
 
 ---
 kind: pipeline
@@ -2815,6 +2686,7 @@ steps:
         --protocolVersion TLS11
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -2853,10 +2725,6 @@ steps:
 volumes:
   - name: cache
     temp: {}
-
-trigger:
-  branch:
-    - master
 
 ---
 kind: pipeline
@@ -2880,6 +2748,7 @@ steps:
         --protocolVersion TLS12
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -2919,10 +2788,6 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
-  branch:
-    - master
-
 ---
 kind: pipeline
 name: mbedtls 1.3.16 TLS10
@@ -2945,6 +2810,7 @@ steps:
         --protocolVersion TLS10
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -2983,10 +2849,6 @@ steps:
 volumes:
   - name: cache
     temp: {}
-
-trigger:
-  branch:
-    - master
 
 ---
 kind: pipeline
@@ -3010,6 +2872,7 @@ steps:
         --protocolVersion TLS11
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -3048,10 +2911,6 @@ steps:
 volumes:
   - name: cache
     temp: {}
-
-trigger:
-  branch:
-    - master
 
 ---
 kind: pipeline
@@ -3075,6 +2934,7 @@ steps:
         --protocolVersion TLS12
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -3114,10 +2974,6 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
-  branch:
-    - master
-
 ---
 kind: pipeline
 name: mbedtls 1.3.17 TLS10
@@ -3140,6 +2996,7 @@ steps:
         --protocolVersion TLS10
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -3178,10 +3035,6 @@ steps:
 volumes:
   - name: cache
     temp: {}
-
-trigger:
-  branch:
-    - master
 
 ---
 kind: pipeline
@@ -3205,6 +3058,7 @@ steps:
         --protocolVersion TLS11
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -3243,10 +3097,6 @@ steps:
 volumes:
   - name: cache
     temp: {}
-
-trigger:
-  branch:
-    - master
 
 ---
 kind: pipeline
@@ -3270,6 +3120,7 @@ steps:
         --protocolVersion TLS12
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -3309,10 +3160,6 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
-  branch:
-    - master
-
 ---
 kind: pipeline
 name: mbedtls 1.3.18 TLS10
@@ -3335,6 +3182,7 @@ steps:
         --protocolVersion TLS10
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -3373,10 +3221,6 @@ steps:
 volumes:
   - name: cache
     temp: {}
-
-trigger:
-  branch:
-    - master
 
 ---
 kind: pipeline
@@ -3400,6 +3244,7 @@ steps:
         --protocolVersion TLS11
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -3438,10 +3283,6 @@ steps:
 volumes:
   - name: cache
     temp: {}
-
-trigger:
-  branch:
-    - master
 
 ---
 kind: pipeline
@@ -3465,6 +3306,7 @@ steps:
         --protocolVersion TLS12
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -3504,10 +3346,6 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
-  branch:
-    - master
-
 ---
 kind: pipeline
 name: mbedtls 1.3.19 TLS10
@@ -3530,6 +3368,7 @@ steps:
         --protocolVersion TLS10
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -3568,10 +3407,6 @@ steps:
 volumes:
   - name: cache
     temp: {}
-
-trigger:
-  branch:
-    - master
 
 ---
 kind: pipeline
@@ -3595,6 +3430,7 @@ steps:
         --protocolVersion TLS11
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -3633,10 +3469,6 @@ steps:
 volumes:
   - name: cache
     temp: {}
-
-trigger:
-  branch:
-    - master
 
 ---
 kind: pipeline
@@ -3660,6 +3492,7 @@ steps:
         --protocolVersion TLS12
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -3699,10 +3532,6 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
-  branch:
-    - master
-
 ---
 kind: pipeline
 name: mbedtls 1.3.20 TLS10
@@ -3725,6 +3554,7 @@ steps:
         --protocolVersion TLS10
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -3763,10 +3593,6 @@ steps:
 volumes:
   - name: cache
     temp: {}
-
-trigger:
-  branch:
-    - master
 
 ---
 kind: pipeline
@@ -3790,6 +3616,7 @@ steps:
         --protocolVersion TLS11
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -3828,10 +3655,6 @@ steps:
 volumes:
   - name: cache
     temp: {}
-
-trigger:
-  branch:
-    - master
 
 ---
 kind: pipeline
@@ -3855,6 +3678,7 @@ steps:
         --protocolVersion TLS12
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -3894,10 +3718,6 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
-  branch:
-    - master
-
 ---
 kind: pipeline
 name: mbedtls 1.3.21 TLS10
@@ -3920,6 +3740,7 @@ steps:
         --protocolVersion TLS10
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -3958,10 +3779,6 @@ steps:
 volumes:
   - name: cache
     temp: {}
-
-trigger:
-  branch:
-    - master
 
 ---
 kind: pipeline
@@ -3985,6 +3802,7 @@ steps:
         --protocolVersion TLS11
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -4024,10 +3842,6 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
-  branch:
-    - master
-
 ---
 kind: pipeline
 name: mbedtls 1.3.21 TLS12
@@ -4050,6 +3864,7 @@ steps:
         --protocolVersion TLS12
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -4089,10 +3904,6 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
-  branch:
-    - master
-
 ---
 kind: pipeline
 name: mbedtls 1.3.22 TLS10
@@ -4115,6 +3926,7 @@ steps:
         --protocolVersion TLS10
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -4154,10 +3966,6 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
-  branch:
-    - master
-
 ---
 kind: pipeline
 name: mbedtls 1.3.22 TLS11
@@ -4180,6 +3988,7 @@ steps:
         --protocolVersion TLS11
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -4219,10 +4028,6 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
-  branch:
-    - master
-
 ---
 kind: pipeline
 name: mbedtls 1.3.22 TLS12
@@ -4245,6 +4050,7 @@ steps:
         --protocolVersion TLS12
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -4284,10 +4090,6 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
-  branch:
-    - master
-
 ---
 kind: pipeline
 name: mbedtls 2.0.0 TLS10
@@ -4310,6 +4112,7 @@ steps:
         --protocolVersion TLS10
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -4349,10 +4152,6 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
-  branch:
-    - master
-
 ---
 kind: pipeline
 name: mbedtls 2.1.0 TLS10
@@ -4375,6 +4174,7 @@ steps:
         --protocolVersion TLS10
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -4414,10 +4214,6 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
-  branch:
-    - master
-
 ---
 kind: pipeline
 name: mbedtls 2.1.1 TLS10
@@ -4440,6 +4236,7 @@ steps:
         --protocolVersion TLS10
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -4479,10 +4276,6 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
-  branch:
-    - master
-
 ---
 kind: pipeline
 name: mbedtls 2.1.2 TLS10
@@ -4505,6 +4298,7 @@ steps:
         --protocolVersion TLS10
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -4544,10 +4338,6 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
-  branch:
-    - master
-
 ---
 kind: pipeline
 name: mbedtls 2.1.3 TLS10
@@ -4570,6 +4360,7 @@ steps:
         --protocolVersion TLS10
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -4609,10 +4400,6 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
-  branch:
-    - master
-
 ---
 kind: pipeline
 name: mbedtls 2.1.4 TLS10
@@ -4635,6 +4422,7 @@ steps:
         --protocolVersion TLS10
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -4674,10 +4462,6 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
-  branch:
-    - master
-
 ---
 kind: pipeline
 name: mbedtls 2.1.5 TLS10
@@ -4700,6 +4484,7 @@ steps:
         --protocolVersion TLS10
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -4739,10 +4524,6 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
-  branch:
-    - master
-
 ---
 kind: pipeline
 name: mbedtls 2.1.6 TLS10
@@ -4765,6 +4546,7 @@ steps:
         --protocolVersion TLS10
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -4804,10 +4586,6 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
-  branch:
-    - master
-
 ---
 kind: pipeline
 name: mbedtls 2.1.7 TLS10
@@ -4830,6 +4608,7 @@ steps:
         --protocolVersion TLS10
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -4869,10 +4648,6 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
-  branch:
-    - master
-
 ---
 kind: pipeline
 name: mbedtls 2.1.7 TLS12
@@ -4895,6 +4670,7 @@ steps:
         --protocolVersion TLS12
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -4934,10 +4710,6 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
-  branch:
-    - master
-
 ---
 kind: pipeline
 name: mbedtls 2.1.8 TLS10
@@ -4960,6 +4732,7 @@ steps:
         --protocolVersion TLS10
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -4999,10 +4772,6 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
-  branch:
-    - master
-
 ---
 kind: pipeline
 name: mbedtls 2.1.9 TLS10
@@ -5025,6 +4794,7 @@ steps:
         --protocolVersion TLS10
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -5064,10 +4834,6 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
-  branch:
-    - master
-
 ---
 kind: pipeline
 name: mbedtls 2.1.10 TLS10
@@ -5090,6 +4856,7 @@ steps:
         --protocolVersion TLS10
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -5129,10 +4896,6 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
-  branch:
-    - master
-
 ---
 kind: pipeline
 name: mbedtls 2.1.11 TLS10
@@ -5155,6 +4918,7 @@ steps:
         --protocolVersion TLS10
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -5194,10 +4958,6 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
-  branch:
-    - master
-
 ---
 kind: pipeline
 name: mbedtls 2.1.12 TLS10
@@ -5220,6 +4980,7 @@ steps:
         --protocolVersion TLS10
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -5259,10 +5020,6 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
-  branch:
-    - master
-
 ---
 kind: pipeline
 name: mbedtls 2.1.13 TLS10
@@ -5285,6 +5042,7 @@ steps:
         --protocolVersion TLS10
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -5324,10 +5082,6 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
-  branch:
-    - master
-
 ---
 kind: pipeline
 name: mbedtls 2.1.14 TLS10
@@ -5350,6 +5104,7 @@ steps:
         --protocolVersion TLS10
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -5389,10 +5144,6 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
-  branch:
-    - master
-
 ---
 kind: pipeline
 name: mbedtls 2.1.15 TLS10
@@ -5415,6 +5166,7 @@ steps:
         --protocolVersion TLS10
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -5454,10 +5206,6 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
-  branch:
-    - master
-
 ---
 kind: pipeline
 name: mbedtls 2.1.16 TLS10
@@ -5480,6 +5228,7 @@ steps:
         --protocolVersion TLS10
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -5519,10 +5268,6 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
-  branch:
-    - master
-
 ---
 kind: pipeline
 name: mbedtls 2.1.17 TLS10
@@ -5545,6 +5290,7 @@ steps:
         --protocolVersion TLS10
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -5584,10 +5330,6 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
-  branch:
-    - master
-
 ---
 kind: pipeline
 name: mbedtls 2.1.18 TLS10
@@ -5610,6 +5352,7 @@ steps:
         --protocolVersion TLS10
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -5649,10 +5392,6 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
-  branch:
-    - master
-
 ---
 kind: pipeline
 name: mbedtls 2.2.0 TLS10
@@ -5675,6 +5414,7 @@ steps:
         --protocolVersion TLS10
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -5714,10 +5454,6 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
-  branch:
-    - master
-
 ---
 kind: pipeline
 name: mbedtls 2.2.1 TLS10
@@ -5740,6 +5476,7 @@ steps:
         --protocolVersion TLS10
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -5779,10 +5516,6 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
-  branch:
-    - master
-
 ---
 kind: pipeline
 name: mbedtls 2.3.0 TLS10
@@ -5805,6 +5538,7 @@ steps:
         --protocolVersion TLS10
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -5844,10 +5578,6 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
-  branch:
-    - master
-
 ---
 kind: pipeline
 name: mbedtls 2.4.0 TLS10
@@ -5870,6 +5600,7 @@ steps:
         --protocolVersion TLS10
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -5909,10 +5640,6 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
-  branch:
-    - master
-
 ---
 kind: pipeline
 name: mbedtls 2.4.1 TLS10
@@ -5935,6 +5662,7 @@ steps:
         --protocolVersion TLS10
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -5974,10 +5702,6 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
-  branch:
-    - master
-
 ---
 kind: pipeline
 name: mbedtls 2.4.2 TLS10
@@ -6000,6 +5724,7 @@ steps:
         --protocolVersion TLS10
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -6039,10 +5764,6 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
-  branch:
-    - master
-
 ---
 kind: pipeline
 name: mbedtls 2.5.0 TLS10
@@ -6065,6 +5786,7 @@ steps:
         --protocolVersion TLS10
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -6104,10 +5826,6 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
-  branch:
-    - master
-
 ---
 kind: pipeline
 name: mbedtls 2.5.1 TLS10
@@ -6130,6 +5848,7 @@ steps:
         --protocolVersion TLS10
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -6169,10 +5888,6 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
-  branch:
-    - master
-
 ---
 kind: pipeline
 name: mbedtls 2.6.0 TLS10
@@ -6195,6 +5910,7 @@ steps:
         --protocolVersion TLS10
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -6234,10 +5950,6 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
-  branch:
-    - master
-
 ---
 kind: pipeline
 name: mbedtls 2.6.1 TLS10
@@ -6260,6 +5972,7 @@ steps:
         --protocolVersion TLS10
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -6299,10 +6012,6 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
-  branch:
-    - master
-
 ---
 kind: pipeline
 name: mbedtls 2.7.0 TLS10
@@ -6325,6 +6034,7 @@ steps:
         --protocolVersion TLS10
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -6364,10 +6074,6 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
-  branch:
-    - master
-
 ---
 kind: pipeline
 name: mbedtls 2.7.1 TLS10
@@ -6390,6 +6096,7 @@ steps:
         --protocolVersion TLS10
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -6429,10 +6136,6 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
-  branch:
-    - master
-
 ---
 kind: pipeline
 name: mbedtls 2.7.2 TLS10
@@ -6455,6 +6158,7 @@ steps:
         --protocolVersion TLS10
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -6494,10 +6198,6 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
-  branch:
-    - master
-
 ---
 kind: pipeline
 name: mbedtls 2.7.3 TLS10
@@ -6520,6 +6220,7 @@ steps:
         --protocolVersion TLS10
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -6559,10 +6260,6 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
-  branch:
-    - master
-
 ---
 kind: pipeline
 name: mbedtls 2.7.4 TLS10
@@ -6585,6 +6282,7 @@ steps:
         --protocolVersion TLS10
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -6624,10 +6322,6 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
-  branch:
-    - master
-
 ---
 kind: pipeline
 name: mbedtls 2.7.5 TLS10
@@ -6650,6 +6344,7 @@ steps:
         --protocolVersion TLS10
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -6689,10 +6384,6 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
-  branch:
-    - master
-
 ---
 kind: pipeline
 name: mbedtls 2.7.6 TLS10
@@ -6715,6 +6406,7 @@ steps:
         --protocolVersion TLS10
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -6754,10 +6446,6 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
-  branch:
-    - master
-
 ---
 kind: pipeline
 name: mbedtls 2.7.7 TLS10
@@ -6780,6 +6468,7 @@ steps:
         --protocolVersion TLS10
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -6819,10 +6508,6 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
-  branch:
-    - master
-
 ---
 kind: pipeline
 name: mbedtls 2.7.8 TLS10
@@ -6845,6 +6530,7 @@ steps:
         --protocolVersion TLS10
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -6884,10 +6570,6 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
-  branch:
-    - master
-
 ---
 kind: pipeline
 name: mbedtls 2.7.9 TLS10
@@ -6910,6 +6592,7 @@ steps:
         --protocolVersion TLS10
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -6949,10 +6632,6 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
-  branch:
-    - master
-
 ---
 kind: pipeline
 name: mbedtls 2.7.10 TLS10
@@ -6975,6 +6654,7 @@ steps:
         --protocolVersion TLS10
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -7013,10 +6693,6 @@ steps:
 volumes:
   - name: cache
     temp: {}
-
-trigger:
-  branch:
-    - master
 
 ---
 kind: pipeline
@@ -7040,6 +6716,7 @@ steps:
         --protocolVersion TLS11
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -7079,10 +6756,6 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
-  branch:
-    - master
-
 ---
 kind: pipeline
 name: mbedtls 2.7.11 TLS10
@@ -7105,6 +6778,7 @@ steps:
         --protocolVersion TLS10
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -7144,10 +6818,6 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
-  branch:
-    - master
-
 ---
 kind: pipeline
 name: mbedtls 2.7.11 TLS11
@@ -7170,6 +6840,7 @@ steps:
         --protocolVersion TLS11
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -7209,10 +6880,6 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
-  branch:
-    - master
-
 ---
 kind: pipeline
 name: mbedtls 2.7.11 TLS12
@@ -7235,6 +6902,7 @@ steps:
         --protocolVersion TLS12
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -7274,10 +6942,6 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
-  branch:
-    - master
-
 ---
 kind: pipeline
 name: mbedtls 2.8.0 TLS10
@@ -7300,6 +6964,7 @@ steps:
         --protocolVersion TLS10
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -7339,10 +7004,6 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
-  branch:
-    - master
-
 ---
 kind: pipeline
 name: mbedtls 2.9.0 TLS10
@@ -7365,6 +7026,7 @@ steps:
         --protocolVersion TLS10
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -7404,10 +7066,6 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
-  branch:
-    - master
-
 ---
 kind: pipeline
 name: mbedtls 2.10.0 TLS10
@@ -7430,6 +7088,7 @@ steps:
         --protocolVersion TLS10
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -7469,10 +7128,6 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
-  branch:
-    - master
-
 ---
 kind: pipeline
 name: mbedtls 2.11.0 TLS10
@@ -7495,6 +7150,7 @@ steps:
         --protocolVersion TLS10
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -7534,10 +7190,6 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
-  branch:
-    - master
-
 ---
 kind: pipeline
 name: mbedtls 2.12.0 TLS10
@@ -7560,6 +7212,7 @@ steps:
         --protocolVersion TLS10
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -7599,10 +7252,6 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
-  branch:
-    - master
-
 ---
 kind: pipeline
 name: mbedtls 2.13.0 TLS10
@@ -7625,6 +7274,7 @@ steps:
         --protocolVersion TLS10
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -7664,10 +7314,6 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
-  branch:
-    - master
-
 ---
 kind: pipeline
 name: mbedtls 2.13.1 TLS10
@@ -7690,6 +7336,7 @@ steps:
         --protocolVersion TLS10
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -7729,10 +7376,6 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
-  branch:
-    - master
-
 ---
 kind: pipeline
 name: mbedtls 2.14.0 TLS10
@@ -7755,6 +7398,7 @@ steps:
         --protocolVersion TLS10
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -7794,10 +7438,6 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
-  branch:
-    - master
-
 ---
 kind: pipeline
 name: mbedtls 2.14.1 TLS10
@@ -7820,6 +7460,7 @@ steps:
         --protocolVersion TLS10
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -7859,10 +7500,6 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
-  branch:
-    - master
-
 ---
 kind: pipeline
 name: mbedtls 2.15.0 TLS10
@@ -7885,6 +7522,7 @@ steps:
         --protocolVersion TLS10
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -7924,10 +7562,6 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
-  branch:
-    - master
-
 ---
 kind: pipeline
 name: mbedtls 2.15.1 TLS10
@@ -7950,6 +7584,7 @@ steps:
         --protocolVersion TLS10
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -7989,10 +7624,6 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
-  branch:
-    - master
-
 ---
 kind: pipeline
 name: mbedtls 2.16.0 TLS10
@@ -8015,6 +7646,7 @@ steps:
         --protocolVersion TLS10
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -8054,10 +7686,6 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
-  branch:
-    - master
-
 ---
 kind: pipeline
 name: mbedtls 2.16.1 TLS10
@@ -8080,6 +7708,7 @@ steps:
         --protocolVersion TLS10
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -8119,10 +7748,6 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
-  branch:
-    - master
-
 ---
 kind: pipeline
 name: mbedtls 2.16.2 TLS10
@@ -8145,6 +7770,7 @@ steps:
         --protocolVersion TLS10
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -8184,10 +7810,6 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
-  branch:
-    - master
-
 ---
 kind: pipeline
 name: mbedtls 2.16.2 TLS11
@@ -8210,6 +7832,7 @@ steps:
         --protocolVersion TLS11
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -8249,10 +7872,6 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
-  branch:
-    - master
-
 ---
 kind: pipeline
 name: mbedtls 2.16.2 TLS12
@@ -8275,6 +7894,7 @@ steps:
         --protocolVersion TLS12
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -8314,10 +7934,6 @@ volumes:
   - name: cache
     temp: {}
 
-trigger:
-  branch:
-    - master
-
 ---
 kind: pipeline
 name: mbedtls 2.17.0 TLS10
@@ -8340,6 +7956,7 @@ steps:
         --protocolVersion TLS10
         --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
         --startupDelay 5000
+        --timeout 500
         --merge-application
 
     # Perform the learning
@@ -8378,203 +7995,4 @@ steps:
 volumes:
   - name: cache
     temp: {}
-
-trigger:
-  branch:
-    - master
-
----
-kind: pipeline
-name: openssl 1.0.1c TLS10
-
-steps:
-    # Start the sut (system under test)
-  - name: sut
-    image: tlsprint/openssl:1.0.1c
-    detach: true
-
-    # Start the connector with a delay of 5 seconds, so the sut has time to
-    # initialize.
-  - name: connector
-    image: tlsprint/tlsattackerconnector
-    pull: always
-    detach: true
-    commands:
-      - connector
-        --targetHost sut
-        --protocolVersion TLS10
-        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
-        --startupDelay 5000
-        --merge-application
-
-    # Perform the learning
-  - name: learner
-    image: tlsprint/statelearner
-    pull: always
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.0.1c/TLS10/learnedModel.dot ]; then exit 0; fi
-      - sleep 10
-      - statelearner
-      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
-
-  - name: commit
-    image: python:3.6
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.0.1c/TLS10/learnedModel.dot ]; then exit 0; fi
-      - pip install -r requirements.txt
-      - python commit_model.py
-        --implementation openssl
-        --version 1.0.1c
-        --tls-version TLS10
-        --model /tmp/cache/learnedModel.dot
-        --verbose
-    environment:
-      GITLAB_TLSPRINT_API_KEY:
-        from_secret: GITLAB_TLSPRINT_API_KEY
-
-volumes:
-  - name: cache
-    temp: {}
-
-trigger:
-  branch:
-    - master
-
----
-kind: pipeline
-name: openssl 1.0.1i TLS10
-
-steps:
-    # Start the sut (system under test)
-  - name: sut
-    image: tlsprint/openssl:1.0.1i
-    detach: true
-
-    # Start the connector with a delay of 5 seconds, so the sut has time to
-    # initialize.
-  - name: connector
-    image: tlsprint/tlsattackerconnector
-    pull: always
-    detach: true
-    commands:
-      - connector
-        --targetHost sut
-        --protocolVersion TLS10
-        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
-        --startupDelay 5000
-        --merge-application
-
-    # Perform the learning
-  - name: learner
-    image: tlsprint/statelearner
-    pull: always
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.0.1i/TLS10/learnedModel.dot ]; then exit 0; fi
-      - sleep 10
-      - statelearner
-      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
-
-  - name: commit
-    image: python:3.6
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.0.1i/TLS10/learnedModel.dot ]; then exit 0; fi
-      - pip install -r requirements.txt
-      - python commit_model.py
-        --implementation openssl
-        --version 1.0.1i
-        --tls-version TLS10
-        --model /tmp/cache/learnedModel.dot
-        --verbose
-    environment:
-      GITLAB_TLSPRINT_API_KEY:
-        from_secret: GITLAB_TLSPRINT_API_KEY
-
-volumes:
-  - name: cache
-    temp: {}
-
-trigger:
-  branch:
-    - master
-
----
-kind: pipeline
-name: openssl 1.0.1k TLS11
-
-steps:
-    # Start the sut (system under test)
-  - name: sut
-    image: tlsprint/openssl:1.0.1k
-    detach: true
-
-    # Start the connector with a delay of 5 seconds, so the sut has time to
-    # initialize.
-  - name: connector
-    image: tlsprint/tlsattackerconnector
-    pull: always
-    detach: true
-    commands:
-      - connector
-        --targetHost sut
-        --protocolVersion TLS11
-        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
-        --startupDelay 5000
-        --merge-application
-
-    # Perform the learning
-  - name: learner
-    image: tlsprint/statelearner
-    pull: always
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.0.1k/TLS11/learnedModel.dot ]; then exit 0; fi
-      - sleep 10
-      - statelearner
-      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
-
-  - name: commit
-    image: python:3.6
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.0.1k/TLS11/learnedModel.dot ]; then exit 0; fi
-      - pip install -r requirements.txt
-      - python commit_model.py
-        --implementation openssl
-        --version 1.0.1k
-        --tls-version TLS11
-        --model /tmp/cache/learnedModel.dot
-        --verbose
-    environment:
-      GITLAB_TLSPRINT_API_KEY:
-        from_secret: GITLAB_TLSPRINT_API_KEY
-
-volumes:
-  - name: cache
-    temp: {}
-
-trigger:
-  branch:
-    - master
 
