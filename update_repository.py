@@ -5,6 +5,7 @@ from distutils.version import LooseVersion
 from pathlib import Path
 from datetime import datetime
 
+import git
 import click
 import gitlab
 import requests
@@ -201,7 +202,12 @@ def main(api_key, gitlab_url, project_id, verbose, commit):
         f.write(template.render(targets=targets))
 
     if commit:
-        commit_updated_files(gitlab_url, project_id, api_key, verbose=verbose)
+        repo = git.Repo()
+        changed_files = [item.a_path for item in repo.index.diff(None)]
+        if ".drone.yml" in changed_files:
+            commit_updated_files(gitlab_url, project_id, api_key, verbose=verbose)
+        else:
+            print("Skipping commit: .drone.yml has not been changed")
 
 
 if __name__ == "__main__":
