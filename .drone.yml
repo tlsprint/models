@@ -1,5 +1,1175 @@
 ---
 kind: pipeline
+name: mbedtls 1.0.0 TLS10
+
+steps:
+    # Start the sut (system under test)
+  - name: sut
+    image: tlsprint/mbedtls:1.0.0
+    detach: true
+
+    # Start the connector with a delay of 5 seconds, so the sut has time to
+    # initialize.
+  - name: connector
+    image: tlsprint/tlsattackerconnector
+    pull: always
+    detach: true
+    commands:
+      - connector
+        --targetHost sut
+        --protocolVersion TLS10
+        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
+        --startupDelay 5000
+        --merge-application
+
+    # Perform the learning
+  - name: learner
+    image: tlsprint/statelearner
+    pull: always
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/mbedtls/1.0.0/TLS10/learnedModel.dot ]; then exit 0; fi
+      - sleep 10
+      - statelearner
+      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
+
+  - name: commit
+    image: python:3.6
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/mbedtls/1.0.0/TLS10/learnedModel.dot ]; then exit 0; fi
+      - pip install -r requirements.txt
+      - python commit_model.py
+        --implementation mbedtls
+        --version 1.0.0
+        --tls-version TLS10
+        --model /tmp/cache/learnedModel.dot
+        --verbose
+    environment:
+      GITLAB_TLSPRINT_API_KEY:
+        from_secret: GITLAB_TLSPRINT_API_KEY
+
+volumes:
+  - name: cache
+    temp: {}
+
+trigger:
+  branch:
+    - master
+
+---
+kind: pipeline
+name: mbedtls 1.0.0 TLS11
+
+steps:
+    # Start the sut (system under test)
+  - name: sut
+    image: tlsprint/mbedtls:1.0.0
+    detach: true
+
+    # Start the connector with a delay of 5 seconds, so the sut has time to
+    # initialize.
+  - name: connector
+    image: tlsprint/tlsattackerconnector
+    pull: always
+    detach: true
+    commands:
+      - connector
+        --targetHost sut
+        --protocolVersion TLS11
+        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
+        --startupDelay 5000
+        --merge-application
+
+    # Perform the learning
+  - name: learner
+    image: tlsprint/statelearner
+    pull: always
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/mbedtls/1.0.0/TLS11/learnedModel.dot ]; then exit 0; fi
+      - sleep 10
+      - statelearner
+      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
+
+  - name: commit
+    image: python:3.6
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/mbedtls/1.0.0/TLS11/learnedModel.dot ]; then exit 0; fi
+      - pip install -r requirements.txt
+      - python commit_model.py
+        --implementation mbedtls
+        --version 1.0.0
+        --tls-version TLS11
+        --model /tmp/cache/learnedModel.dot
+        --verbose
+    environment:
+      GITLAB_TLSPRINT_API_KEY:
+        from_secret: GITLAB_TLSPRINT_API_KEY
+
+volumes:
+  - name: cache
+    temp: {}
+
+trigger:
+  branch:
+    - master
+
+---
+kind: pipeline
+name: mbedtls 1.1.0 TLS10
+
+steps:
+    # Start the sut (system under test)
+  - name: sut
+    image: tlsprint/mbedtls:1.1.0
+    detach: true
+
+    # Start the connector with a delay of 5 seconds, so the sut has time to
+    # initialize.
+  - name: connector
+    image: tlsprint/tlsattackerconnector
+    pull: always
+    detach: true
+    commands:
+      - connector
+        --targetHost sut
+        --protocolVersion TLS10
+        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
+        --startupDelay 5000
+        --merge-application
+
+    # Perform the learning
+  - name: learner
+    image: tlsprint/statelearner
+    pull: always
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/mbedtls/1.1.0/TLS10/learnedModel.dot ]; then exit 0; fi
+      - sleep 10
+      - statelearner
+      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
+
+  - name: commit
+    image: python:3.6
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/mbedtls/1.1.0/TLS10/learnedModel.dot ]; then exit 0; fi
+      - pip install -r requirements.txt
+      - python commit_model.py
+        --implementation mbedtls
+        --version 1.1.0
+        --tls-version TLS10
+        --model /tmp/cache/learnedModel.dot
+        --verbose
+    environment:
+      GITLAB_TLSPRINT_API_KEY:
+        from_secret: GITLAB_TLSPRINT_API_KEY
+
+volumes:
+  - name: cache
+    temp: {}
+
+trigger:
+  branch:
+    - master
+
+---
+kind: pipeline
+name: mbedtls 1.1.0 TLS11
+
+steps:
+    # Start the sut (system under test)
+  - name: sut
+    image: tlsprint/mbedtls:1.1.0
+    detach: true
+
+    # Start the connector with a delay of 5 seconds, so the sut has time to
+    # initialize.
+  - name: connector
+    image: tlsprint/tlsattackerconnector
+    pull: always
+    detach: true
+    commands:
+      - connector
+        --targetHost sut
+        --protocolVersion TLS11
+        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
+        --startupDelay 5000
+        --merge-application
+
+    # Perform the learning
+  - name: learner
+    image: tlsprint/statelearner
+    pull: always
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/mbedtls/1.1.0/TLS11/learnedModel.dot ]; then exit 0; fi
+      - sleep 10
+      - statelearner
+      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
+
+  - name: commit
+    image: python:3.6
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/mbedtls/1.1.0/TLS11/learnedModel.dot ]; then exit 0; fi
+      - pip install -r requirements.txt
+      - python commit_model.py
+        --implementation mbedtls
+        --version 1.1.0
+        --tls-version TLS11
+        --model /tmp/cache/learnedModel.dot
+        --verbose
+    environment:
+      GITLAB_TLSPRINT_API_KEY:
+        from_secret: GITLAB_TLSPRINT_API_KEY
+
+volumes:
+  - name: cache
+    temp: {}
+
+trigger:
+  branch:
+    - master
+
+---
+kind: pipeline
+name: mbedtls 1.1.1 TLS10
+
+steps:
+    # Start the sut (system under test)
+  - name: sut
+    image: tlsprint/mbedtls:1.1.1
+    detach: true
+
+    # Start the connector with a delay of 5 seconds, so the sut has time to
+    # initialize.
+  - name: connector
+    image: tlsprint/tlsattackerconnector
+    pull: always
+    detach: true
+    commands:
+      - connector
+        --targetHost sut
+        --protocolVersion TLS10
+        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
+        --startupDelay 5000
+        --merge-application
+
+    # Perform the learning
+  - name: learner
+    image: tlsprint/statelearner
+    pull: always
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/mbedtls/1.1.1/TLS10/learnedModel.dot ]; then exit 0; fi
+      - sleep 10
+      - statelearner
+      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
+
+  - name: commit
+    image: python:3.6
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/mbedtls/1.1.1/TLS10/learnedModel.dot ]; then exit 0; fi
+      - pip install -r requirements.txt
+      - python commit_model.py
+        --implementation mbedtls
+        --version 1.1.1
+        --tls-version TLS10
+        --model /tmp/cache/learnedModel.dot
+        --verbose
+    environment:
+      GITLAB_TLSPRINT_API_KEY:
+        from_secret: GITLAB_TLSPRINT_API_KEY
+
+volumes:
+  - name: cache
+    temp: {}
+
+trigger:
+  branch:
+    - master
+
+---
+kind: pipeline
+name: mbedtls 1.1.1 TLS11
+
+steps:
+    # Start the sut (system under test)
+  - name: sut
+    image: tlsprint/mbedtls:1.1.1
+    detach: true
+
+    # Start the connector with a delay of 5 seconds, so the sut has time to
+    # initialize.
+  - name: connector
+    image: tlsprint/tlsattackerconnector
+    pull: always
+    detach: true
+    commands:
+      - connector
+        --targetHost sut
+        --protocolVersion TLS11
+        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
+        --startupDelay 5000
+        --merge-application
+
+    # Perform the learning
+  - name: learner
+    image: tlsprint/statelearner
+    pull: always
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/mbedtls/1.1.1/TLS11/learnedModel.dot ]; then exit 0; fi
+      - sleep 10
+      - statelearner
+      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
+
+  - name: commit
+    image: python:3.6
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/mbedtls/1.1.1/TLS11/learnedModel.dot ]; then exit 0; fi
+      - pip install -r requirements.txt
+      - python commit_model.py
+        --implementation mbedtls
+        --version 1.1.1
+        --tls-version TLS11
+        --model /tmp/cache/learnedModel.dot
+        --verbose
+    environment:
+      GITLAB_TLSPRINT_API_KEY:
+        from_secret: GITLAB_TLSPRINT_API_KEY
+
+volumes:
+  - name: cache
+    temp: {}
+
+trigger:
+  branch:
+    - master
+
+---
+kind: pipeline
+name: mbedtls 1.1.2 TLS10
+
+steps:
+    # Start the sut (system under test)
+  - name: sut
+    image: tlsprint/mbedtls:1.1.2
+    detach: true
+
+    # Start the connector with a delay of 5 seconds, so the sut has time to
+    # initialize.
+  - name: connector
+    image: tlsprint/tlsattackerconnector
+    pull: always
+    detach: true
+    commands:
+      - connector
+        --targetHost sut
+        --protocolVersion TLS10
+        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
+        --startupDelay 5000
+        --merge-application
+
+    # Perform the learning
+  - name: learner
+    image: tlsprint/statelearner
+    pull: always
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/mbedtls/1.1.2/TLS10/learnedModel.dot ]; then exit 0; fi
+      - sleep 10
+      - statelearner
+      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
+
+  - name: commit
+    image: python:3.6
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/mbedtls/1.1.2/TLS10/learnedModel.dot ]; then exit 0; fi
+      - pip install -r requirements.txt
+      - python commit_model.py
+        --implementation mbedtls
+        --version 1.1.2
+        --tls-version TLS10
+        --model /tmp/cache/learnedModel.dot
+        --verbose
+    environment:
+      GITLAB_TLSPRINT_API_KEY:
+        from_secret: GITLAB_TLSPRINT_API_KEY
+
+volumes:
+  - name: cache
+    temp: {}
+
+trigger:
+  branch:
+    - master
+
+---
+kind: pipeline
+name: mbedtls 1.1.2 TLS11
+
+steps:
+    # Start the sut (system under test)
+  - name: sut
+    image: tlsprint/mbedtls:1.1.2
+    detach: true
+
+    # Start the connector with a delay of 5 seconds, so the sut has time to
+    # initialize.
+  - name: connector
+    image: tlsprint/tlsattackerconnector
+    pull: always
+    detach: true
+    commands:
+      - connector
+        --targetHost sut
+        --protocolVersion TLS11
+        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
+        --startupDelay 5000
+        --merge-application
+
+    # Perform the learning
+  - name: learner
+    image: tlsprint/statelearner
+    pull: always
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/mbedtls/1.1.2/TLS11/learnedModel.dot ]; then exit 0; fi
+      - sleep 10
+      - statelearner
+      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
+
+  - name: commit
+    image: python:3.6
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/mbedtls/1.1.2/TLS11/learnedModel.dot ]; then exit 0; fi
+      - pip install -r requirements.txt
+      - python commit_model.py
+        --implementation mbedtls
+        --version 1.1.2
+        --tls-version TLS11
+        --model /tmp/cache/learnedModel.dot
+        --verbose
+    environment:
+      GITLAB_TLSPRINT_API_KEY:
+        from_secret: GITLAB_TLSPRINT_API_KEY
+
+volumes:
+  - name: cache
+    temp: {}
+
+trigger:
+  branch:
+    - master
+
+---
+kind: pipeline
+name: mbedtls 1.1.3 TLS10
+
+steps:
+    # Start the sut (system under test)
+  - name: sut
+    image: tlsprint/mbedtls:1.1.3
+    detach: true
+
+    # Start the connector with a delay of 5 seconds, so the sut has time to
+    # initialize.
+  - name: connector
+    image: tlsprint/tlsattackerconnector
+    pull: always
+    detach: true
+    commands:
+      - connector
+        --targetHost sut
+        --protocolVersion TLS10
+        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
+        --startupDelay 5000
+        --merge-application
+
+    # Perform the learning
+  - name: learner
+    image: tlsprint/statelearner
+    pull: always
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/mbedtls/1.1.3/TLS10/learnedModel.dot ]; then exit 0; fi
+      - sleep 10
+      - statelearner
+      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
+
+  - name: commit
+    image: python:3.6
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/mbedtls/1.1.3/TLS10/learnedModel.dot ]; then exit 0; fi
+      - pip install -r requirements.txt
+      - python commit_model.py
+        --implementation mbedtls
+        --version 1.1.3
+        --tls-version TLS10
+        --model /tmp/cache/learnedModel.dot
+        --verbose
+    environment:
+      GITLAB_TLSPRINT_API_KEY:
+        from_secret: GITLAB_TLSPRINT_API_KEY
+
+volumes:
+  - name: cache
+    temp: {}
+
+trigger:
+  branch:
+    - master
+
+---
+kind: pipeline
+name: mbedtls 1.1.3 TLS11
+
+steps:
+    # Start the sut (system under test)
+  - name: sut
+    image: tlsprint/mbedtls:1.1.3
+    detach: true
+
+    # Start the connector with a delay of 5 seconds, so the sut has time to
+    # initialize.
+  - name: connector
+    image: tlsprint/tlsattackerconnector
+    pull: always
+    detach: true
+    commands:
+      - connector
+        --targetHost sut
+        --protocolVersion TLS11
+        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
+        --startupDelay 5000
+        --merge-application
+
+    # Perform the learning
+  - name: learner
+    image: tlsprint/statelearner
+    pull: always
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/mbedtls/1.1.3/TLS11/learnedModel.dot ]; then exit 0; fi
+      - sleep 10
+      - statelearner
+      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
+
+  - name: commit
+    image: python:3.6
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/mbedtls/1.1.3/TLS11/learnedModel.dot ]; then exit 0; fi
+      - pip install -r requirements.txt
+      - python commit_model.py
+        --implementation mbedtls
+        --version 1.1.3
+        --tls-version TLS11
+        --model /tmp/cache/learnedModel.dot
+        --verbose
+    environment:
+      GITLAB_TLSPRINT_API_KEY:
+        from_secret: GITLAB_TLSPRINT_API_KEY
+
+volumes:
+  - name: cache
+    temp: {}
+
+trigger:
+  branch:
+    - master
+
+---
+kind: pipeline
+name: mbedtls 1.1.4 TLS10
+
+steps:
+    # Start the sut (system under test)
+  - name: sut
+    image: tlsprint/mbedtls:1.1.4
+    detach: true
+
+    # Start the connector with a delay of 5 seconds, so the sut has time to
+    # initialize.
+  - name: connector
+    image: tlsprint/tlsattackerconnector
+    pull: always
+    detach: true
+    commands:
+      - connector
+        --targetHost sut
+        --protocolVersion TLS10
+        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
+        --startupDelay 5000
+        --merge-application
+
+    # Perform the learning
+  - name: learner
+    image: tlsprint/statelearner
+    pull: always
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/mbedtls/1.1.4/TLS10/learnedModel.dot ]; then exit 0; fi
+      - sleep 10
+      - statelearner
+      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
+
+  - name: commit
+    image: python:3.6
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/mbedtls/1.1.4/TLS10/learnedModel.dot ]; then exit 0; fi
+      - pip install -r requirements.txt
+      - python commit_model.py
+        --implementation mbedtls
+        --version 1.1.4
+        --tls-version TLS10
+        --model /tmp/cache/learnedModel.dot
+        --verbose
+    environment:
+      GITLAB_TLSPRINT_API_KEY:
+        from_secret: GITLAB_TLSPRINT_API_KEY
+
+volumes:
+  - name: cache
+    temp: {}
+
+trigger:
+  branch:
+    - master
+
+---
+kind: pipeline
+name: mbedtls 1.1.4 TLS11
+
+steps:
+    # Start the sut (system under test)
+  - name: sut
+    image: tlsprint/mbedtls:1.1.4
+    detach: true
+
+    # Start the connector with a delay of 5 seconds, so the sut has time to
+    # initialize.
+  - name: connector
+    image: tlsprint/tlsattackerconnector
+    pull: always
+    detach: true
+    commands:
+      - connector
+        --targetHost sut
+        --protocolVersion TLS11
+        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
+        --startupDelay 5000
+        --merge-application
+
+    # Perform the learning
+  - name: learner
+    image: tlsprint/statelearner
+    pull: always
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/mbedtls/1.1.4/TLS11/learnedModel.dot ]; then exit 0; fi
+      - sleep 10
+      - statelearner
+      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
+
+  - name: commit
+    image: python:3.6
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/mbedtls/1.1.4/TLS11/learnedModel.dot ]; then exit 0; fi
+      - pip install -r requirements.txt
+      - python commit_model.py
+        --implementation mbedtls
+        --version 1.1.4
+        --tls-version TLS11
+        --model /tmp/cache/learnedModel.dot
+        --verbose
+    environment:
+      GITLAB_TLSPRINT_API_KEY:
+        from_secret: GITLAB_TLSPRINT_API_KEY
+
+volumes:
+  - name: cache
+    temp: {}
+
+trigger:
+  branch:
+    - master
+
+---
+kind: pipeline
+name: mbedtls 1.1.5 TLS10
+
+steps:
+    # Start the sut (system under test)
+  - name: sut
+    image: tlsprint/mbedtls:1.1.5
+    detach: true
+
+    # Start the connector with a delay of 5 seconds, so the sut has time to
+    # initialize.
+  - name: connector
+    image: tlsprint/tlsattackerconnector
+    pull: always
+    detach: true
+    commands:
+      - connector
+        --targetHost sut
+        --protocolVersion TLS10
+        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
+        --startupDelay 5000
+        --merge-application
+
+    # Perform the learning
+  - name: learner
+    image: tlsprint/statelearner
+    pull: always
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/mbedtls/1.1.5/TLS10/learnedModel.dot ]; then exit 0; fi
+      - sleep 10
+      - statelearner
+      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
+
+  - name: commit
+    image: python:3.6
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/mbedtls/1.1.5/TLS10/learnedModel.dot ]; then exit 0; fi
+      - pip install -r requirements.txt
+      - python commit_model.py
+        --implementation mbedtls
+        --version 1.1.5
+        --tls-version TLS10
+        --model /tmp/cache/learnedModel.dot
+        --verbose
+    environment:
+      GITLAB_TLSPRINT_API_KEY:
+        from_secret: GITLAB_TLSPRINT_API_KEY
+
+volumes:
+  - name: cache
+    temp: {}
+
+trigger:
+  branch:
+    - master
+
+---
+kind: pipeline
+name: mbedtls 1.1.5 TLS11
+
+steps:
+    # Start the sut (system under test)
+  - name: sut
+    image: tlsprint/mbedtls:1.1.5
+    detach: true
+
+    # Start the connector with a delay of 5 seconds, so the sut has time to
+    # initialize.
+  - name: connector
+    image: tlsprint/tlsattackerconnector
+    pull: always
+    detach: true
+    commands:
+      - connector
+        --targetHost sut
+        --protocolVersion TLS11
+        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
+        --startupDelay 5000
+        --merge-application
+
+    # Perform the learning
+  - name: learner
+    image: tlsprint/statelearner
+    pull: always
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/mbedtls/1.1.5/TLS11/learnedModel.dot ]; then exit 0; fi
+      - sleep 10
+      - statelearner
+      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
+
+  - name: commit
+    image: python:3.6
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/mbedtls/1.1.5/TLS11/learnedModel.dot ]; then exit 0; fi
+      - pip install -r requirements.txt
+      - python commit_model.py
+        --implementation mbedtls
+        --version 1.1.5
+        --tls-version TLS11
+        --model /tmp/cache/learnedModel.dot
+        --verbose
+    environment:
+      GITLAB_TLSPRINT_API_KEY:
+        from_secret: GITLAB_TLSPRINT_API_KEY
+
+volumes:
+  - name: cache
+    temp: {}
+
+trigger:
+  branch:
+    - master
+
+---
+kind: pipeline
+name: mbedtls 1.1.6 TLS10
+
+steps:
+    # Start the sut (system under test)
+  - name: sut
+    image: tlsprint/mbedtls:1.1.6
+    detach: true
+
+    # Start the connector with a delay of 5 seconds, so the sut has time to
+    # initialize.
+  - name: connector
+    image: tlsprint/tlsattackerconnector
+    pull: always
+    detach: true
+    commands:
+      - connector
+        --targetHost sut
+        --protocolVersion TLS10
+        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
+        --startupDelay 5000
+        --merge-application
+
+    # Perform the learning
+  - name: learner
+    image: tlsprint/statelearner
+    pull: always
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/mbedtls/1.1.6/TLS10/learnedModel.dot ]; then exit 0; fi
+      - sleep 10
+      - statelearner
+      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
+
+  - name: commit
+    image: python:3.6
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/mbedtls/1.1.6/TLS10/learnedModel.dot ]; then exit 0; fi
+      - pip install -r requirements.txt
+      - python commit_model.py
+        --implementation mbedtls
+        --version 1.1.6
+        --tls-version TLS10
+        --model /tmp/cache/learnedModel.dot
+        --verbose
+    environment:
+      GITLAB_TLSPRINT_API_KEY:
+        from_secret: GITLAB_TLSPRINT_API_KEY
+
+volumes:
+  - name: cache
+    temp: {}
+
+trigger:
+  branch:
+    - master
+
+---
+kind: pipeline
+name: mbedtls 1.1.6 TLS11
+
+steps:
+    # Start the sut (system under test)
+  - name: sut
+    image: tlsprint/mbedtls:1.1.6
+    detach: true
+
+    # Start the connector with a delay of 5 seconds, so the sut has time to
+    # initialize.
+  - name: connector
+    image: tlsprint/tlsattackerconnector
+    pull: always
+    detach: true
+    commands:
+      - connector
+        --targetHost sut
+        --protocolVersion TLS11
+        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
+        --startupDelay 5000
+        --merge-application
+
+    # Perform the learning
+  - name: learner
+    image: tlsprint/statelearner
+    pull: always
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/mbedtls/1.1.6/TLS11/learnedModel.dot ]; then exit 0; fi
+      - sleep 10
+      - statelearner
+      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
+
+  - name: commit
+    image: python:3.6
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/mbedtls/1.1.6/TLS11/learnedModel.dot ]; then exit 0; fi
+      - pip install -r requirements.txt
+      - python commit_model.py
+        --implementation mbedtls
+        --version 1.1.6
+        --tls-version TLS11
+        --model /tmp/cache/learnedModel.dot
+        --verbose
+    environment:
+      GITLAB_TLSPRINT_API_KEY:
+        from_secret: GITLAB_TLSPRINT_API_KEY
+
+volumes:
+  - name: cache
+    temp: {}
+
+trigger:
+  branch:
+    - master
+
+---
+kind: pipeline
+name: mbedtls 1.1.8 TLS10
+
+steps:
+    # Start the sut (system under test)
+  - name: sut
+    image: tlsprint/mbedtls:1.1.8
+    detach: true
+
+    # Start the connector with a delay of 5 seconds, so the sut has time to
+    # initialize.
+  - name: connector
+    image: tlsprint/tlsattackerconnector
+    pull: always
+    detach: true
+    commands:
+      - connector
+        --targetHost sut
+        --protocolVersion TLS10
+        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
+        --startupDelay 5000
+        --merge-application
+
+    # Perform the learning
+  - name: learner
+    image: tlsprint/statelearner
+    pull: always
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/mbedtls/1.1.8/TLS10/learnedModel.dot ]; then exit 0; fi
+      - sleep 10
+      - statelearner
+      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
+
+  - name: commit
+    image: python:3.6
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/mbedtls/1.1.8/TLS10/learnedModel.dot ]; then exit 0; fi
+      - pip install -r requirements.txt
+      - python commit_model.py
+        --implementation mbedtls
+        --version 1.1.8
+        --tls-version TLS10
+        --model /tmp/cache/learnedModel.dot
+        --verbose
+    environment:
+      GITLAB_TLSPRINT_API_KEY:
+        from_secret: GITLAB_TLSPRINT_API_KEY
+
+volumes:
+  - name: cache
+    temp: {}
+
+trigger:
+  branch:
+    - master
+
+---
+kind: pipeline
+name: mbedtls 1.1.8 TLS11
+
+steps:
+    # Start the sut (system under test)
+  - name: sut
+    image: tlsprint/mbedtls:1.1.8
+    detach: true
+
+    # Start the connector with a delay of 5 seconds, so the sut has time to
+    # initialize.
+  - name: connector
+    image: tlsprint/tlsattackerconnector
+    pull: always
+    detach: true
+    commands:
+      - connector
+        --targetHost sut
+        --protocolVersion TLS11
+        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
+        --startupDelay 5000
+        --merge-application
+
+    # Perform the learning
+  - name: learner
+    image: tlsprint/statelearner
+    pull: always
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/mbedtls/1.1.8/TLS11/learnedModel.dot ]; then exit 0; fi
+      - sleep 10
+      - statelearner
+      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
+
+  - name: commit
+    image: python:3.6
+    volumes:
+      - name: cache
+        path: /tmp/cache
+    commands:
+        # Skip if target already exists
+      - if [ -e models/mbedtls/1.1.8/TLS11/learnedModel.dot ]; then exit 0; fi
+      - pip install -r requirements.txt
+      - python commit_model.py
+        --implementation mbedtls
+        --version 1.1.8
+        --tls-version TLS11
+        --model /tmp/cache/learnedModel.dot
+        --verbose
+    environment:
+      GITLAB_TLSPRINT_API_KEY:
+        from_secret: GITLAB_TLSPRINT_API_KEY
+
+volumes:
+  - name: cache
+    temp: {}
+
+trigger:
+  branch:
+    - master
+
+---
+kind: pipeline
 name: mbedtls 1.2.0 TLS10
 
 steps:
@@ -179,136 +1349,6 @@ steps:
         --implementation mbedtls
         --version 1.2.0
         --tls-version TLS12
-        --model /tmp/cache/learnedModel.dot
-        --verbose
-    environment:
-      GITLAB_TLSPRINT_API_KEY:
-        from_secret: GITLAB_TLSPRINT_API_KEY
-
-volumes:
-  - name: cache
-    temp: {}
-
-trigger:
-  branch:
-    - master
-
----
-kind: pipeline
-name: mbedtls 1.2.2 TLS10
-
-steps:
-    # Start the sut (system under test)
-  - name: sut
-    image: tlsprint/mbedtls:1.2.2
-    detach: true
-
-    # Start the connector with a delay of 5 seconds, so the sut has time to
-    # initialize.
-  - name: connector
-    image: tlsprint/tlsattackerconnector
-    pull: always
-    detach: true
-    commands:
-      - connector
-        --targetHost sut
-        --protocolVersion TLS10
-        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
-        --startupDelay 5000
-        --merge-application
-
-    # Perform the learning
-  - name: learner
-    image: tlsprint/statelearner
-    pull: always
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/mbedtls/1.2.2/TLS10/learnedModel.dot ]; then exit 0; fi
-      - sleep 10
-      - statelearner
-      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
-
-  - name: commit
-    image: python:3.6
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/mbedtls/1.2.2/TLS10/learnedModel.dot ]; then exit 0; fi
-      - pip install -r requirements.txt
-      - python commit_model.py
-        --implementation mbedtls
-        --version 1.2.2
-        --tls-version TLS10
-        --model /tmp/cache/learnedModel.dot
-        --verbose
-    environment:
-      GITLAB_TLSPRINT_API_KEY:
-        from_secret: GITLAB_TLSPRINT_API_KEY
-
-volumes:
-  - name: cache
-    temp: {}
-
-trigger:
-  branch:
-    - master
-
----
-kind: pipeline
-name: mbedtls 1.2.4 TLS11
-
-steps:
-    # Start the sut (system under test)
-  - name: sut
-    image: tlsprint/mbedtls:1.2.4
-    detach: true
-
-    # Start the connector with a delay of 5 seconds, so the sut has time to
-    # initialize.
-  - name: connector
-    image: tlsprint/tlsattackerconnector
-    pull: always
-    detach: true
-    commands:
-      - connector
-        --targetHost sut
-        --protocolVersion TLS11
-        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
-        --startupDelay 5000
-        --merge-application
-
-    # Perform the learning
-  - name: learner
-    image: tlsprint/statelearner
-    pull: always
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/mbedtls/1.2.4/TLS11/learnedModel.dot ]; then exit 0; fi
-      - sleep 10
-      - statelearner
-      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
-
-  - name: commit
-    image: python:3.6
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/mbedtls/1.2.4/TLS11/learnedModel.dot ]; then exit 0; fi
-      - pip install -r requirements.txt
-      - python commit_model.py
-        --implementation mbedtls
-        --version 1.2.4
-        --tls-version TLS11
         --model /tmp/cache/learnedModel.dot
         --verbose
     environment:
@@ -1868,136 +2908,6 @@ steps:
       - python commit_model.py
         --implementation mbedtls
         --version 1.2.19
-        --tls-version TLS12
-        --model /tmp/cache/learnedModel.dot
-        --verbose
-    environment:
-      GITLAB_TLSPRINT_API_KEY:
-        from_secret: GITLAB_TLSPRINT_API_KEY
-
-volumes:
-  - name: cache
-    temp: {}
-
-trigger:
-  branch:
-    - master
-
----
-kind: pipeline
-name: mbedtls 1.3.0 TLS11
-
-steps:
-    # Start the sut (system under test)
-  - name: sut
-    image: tlsprint/mbedtls:1.3.0
-    detach: true
-
-    # Start the connector with a delay of 5 seconds, so the sut has time to
-    # initialize.
-  - name: connector
-    image: tlsprint/tlsattackerconnector
-    pull: always
-    detach: true
-    commands:
-      - connector
-        --targetHost sut
-        --protocolVersion TLS11
-        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
-        --startupDelay 5000
-        --merge-application
-
-    # Perform the learning
-  - name: learner
-    image: tlsprint/statelearner
-    pull: always
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/mbedtls/1.3.0/TLS11/learnedModel.dot ]; then exit 0; fi
-      - sleep 10
-      - statelearner
-      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
-
-  - name: commit
-    image: python:3.6
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/mbedtls/1.3.0/TLS11/learnedModel.dot ]; then exit 0; fi
-      - pip install -r requirements.txt
-      - python commit_model.py
-        --implementation mbedtls
-        --version 1.3.0
-        --tls-version TLS11
-        --model /tmp/cache/learnedModel.dot
-        --verbose
-    environment:
-      GITLAB_TLSPRINT_API_KEY:
-        from_secret: GITLAB_TLSPRINT_API_KEY
-
-volumes:
-  - name: cache
-    temp: {}
-
-trigger:
-  branch:
-    - master
-
----
-kind: pipeline
-name: mbedtls 1.3.1 TLS12
-
-steps:
-    # Start the sut (system under test)
-  - name: sut
-    image: tlsprint/mbedtls:1.3.1
-    detach: true
-
-    # Start the connector with a delay of 5 seconds, so the sut has time to
-    # initialize.
-  - name: connector
-    image: tlsprint/tlsattackerconnector
-    pull: always
-    detach: true
-    commands:
-      - connector
-        --targetHost sut
-        --protocolVersion TLS12
-        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
-        --startupDelay 5000
-        --merge-application
-
-    # Perform the learning
-  - name: learner
-    image: tlsprint/statelearner
-    pull: always
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/mbedtls/1.3.1/TLS12/learnedModel.dot ]; then exit 0; fi
-      - sleep 10
-      - statelearner
-      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
-
-  - name: commit
-    image: python:3.6
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/mbedtls/1.3.1/TLS12/learnedModel.dot ]; then exit 0; fi
-      - pip install -r requirements.txt
-      - python commit_model.py
-        --implementation mbedtls
-        --version 1.3.1
         --tls-version TLS12
         --model /tmp/cache/learnedModel.dot
         --verbose
@@ -4745,71 +5655,6 @@ trigger:
 
 ---
 kind: pipeline
-name: mbedtls 2.7.12 TLS10
-
-steps:
-    # Start the sut (system under test)
-  - name: sut
-    image: tlsprint/mbedtls:2.7.12
-    detach: true
-
-    # Start the connector with a delay of 5 seconds, so the sut has time to
-    # initialize.
-  - name: connector
-    image: tlsprint/tlsattackerconnector
-    pull: always
-    detach: true
-    commands:
-      - connector
-        --targetHost sut
-        --protocolVersion TLS10
-        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
-        --startupDelay 5000
-        --merge-application
-
-    # Perform the learning
-  - name: learner
-    image: tlsprint/statelearner
-    pull: always
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/mbedtls/2.7.12/TLS10/learnedModel.dot ]; then exit 0; fi
-      - sleep 10
-      - statelearner
-      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
-
-  - name: commit
-    image: python:3.6
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/mbedtls/2.7.12/TLS10/learnedModel.dot ]; then exit 0; fi
-      - pip install -r requirements.txt
-      - python commit_model.py
-        --implementation mbedtls
-        --version 2.7.12
-        --tls-version TLS10
-        --model /tmp/cache/learnedModel.dot
-        --verbose
-    environment:
-      GITLAB_TLSPRINT_API_KEY:
-        from_secret: GITLAB_TLSPRINT_API_KEY
-
-volumes:
-  - name: cache
-    temp: {}
-
-trigger:
-  branch:
-    - master
-
----
-kind: pipeline
 name: mbedtls 2.7.12 TLS11
 
 steps:
@@ -4875,77 +5720,12 @@ trigger:
 
 ---
 kind: pipeline
-name: mbedtls 2.7.12 TLS12
+name: mbedtls 2.19.1 TLS10
 
 steps:
     # Start the sut (system under test)
   - name: sut
-    image: tlsprint/mbedtls:2.7.12
-    detach: true
-
-    # Start the connector with a delay of 5 seconds, so the sut has time to
-    # initialize.
-  - name: connector
-    image: tlsprint/tlsattackerconnector
-    pull: always
-    detach: true
-    commands:
-      - connector
-        --targetHost sut
-        --protocolVersion TLS12
-        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
-        --startupDelay 5000
-        --merge-application
-
-    # Perform the learning
-  - name: learner
-    image: tlsprint/statelearner
-    pull: always
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/mbedtls/2.7.12/TLS12/learnedModel.dot ]; then exit 0; fi
-      - sleep 10
-      - statelearner
-      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
-
-  - name: commit
-    image: python:3.6
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/mbedtls/2.7.12/TLS12/learnedModel.dot ]; then exit 0; fi
-      - pip install -r requirements.txt
-      - python commit_model.py
-        --implementation mbedtls
-        --version 2.7.12
-        --tls-version TLS12
-        --model /tmp/cache/learnedModel.dot
-        --verbose
-    environment:
-      GITLAB_TLSPRINT_API_KEY:
-        from_secret: GITLAB_TLSPRINT_API_KEY
-
-volumes:
-  - name: cache
-    temp: {}
-
-trigger:
-  branch:
-    - master
-
----
-kind: pipeline
-name: mbedtls 2.16.3 TLS10
-
-steps:
-    # Start the sut (system under test)
-  - name: sut
-    image: tlsprint/mbedtls:2.16.3
+    image: tlsprint/mbedtls:2.19.1
     detach: true
 
     # Start the connector with a delay of 5 seconds, so the sut has time to
@@ -4971,7 +5751,7 @@ steps:
         path: /tmp/cache
     commands:
         # Skip if target already exists
-      - if [ -e models/mbedtls/2.16.3/TLS10/learnedModel.dot ]; then exit 0; fi
+      - if [ -e models/mbedtls/2.19.1/TLS10/learnedModel.dot ]; then exit 0; fi
       - sleep 10
       - statelearner
       - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
@@ -4983,11 +5763,11 @@ steps:
         path: /tmp/cache
     commands:
         # Skip if target already exists
-      - if [ -e models/mbedtls/2.16.3/TLS10/learnedModel.dot ]; then exit 0; fi
+      - if [ -e models/mbedtls/2.19.1/TLS10/learnedModel.dot ]; then exit 0; fi
       - pip install -r requirements.txt
       - python commit_model.py
         --implementation mbedtls
-        --version 2.16.3
+        --version 2.19.1
         --tls-version TLS10
         --model /tmp/cache/learnedModel.dot
         --verbose
@@ -5005,12 +5785,12 @@ trigger:
 
 ---
 kind: pipeline
-name: mbedtls 2.16.3 TLS11
+name: mbedtls 2.19.1 TLS11
 
 steps:
     # Start the sut (system under test)
   - name: sut
-    image: tlsprint/mbedtls:2.16.3
+    image: tlsprint/mbedtls:2.19.1
     detach: true
 
     # Start the connector with a delay of 5 seconds, so the sut has time to
@@ -5036,7 +5816,7 @@ steps:
         path: /tmp/cache
     commands:
         # Skip if target already exists
-      - if [ -e models/mbedtls/2.16.3/TLS11/learnedModel.dot ]; then exit 0; fi
+      - if [ -e models/mbedtls/2.19.1/TLS11/learnedModel.dot ]; then exit 0; fi
       - sleep 10
       - statelearner
       - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
@@ -5048,11 +5828,11 @@ steps:
         path: /tmp/cache
     commands:
         # Skip if target already exists
-      - if [ -e models/mbedtls/2.16.3/TLS11/learnedModel.dot ]; then exit 0; fi
+      - if [ -e models/mbedtls/2.19.1/TLS11/learnedModel.dot ]; then exit 0; fi
       - pip install -r requirements.txt
       - python commit_model.py
         --implementation mbedtls
-        --version 2.16.3
+        --version 2.19.1
         --tls-version TLS11
         --model /tmp/cache/learnedModel.dot
         --verbose
@@ -5070,12 +5850,12 @@ trigger:
 
 ---
 kind: pipeline
-name: mbedtls 2.16.3 TLS12
+name: mbedtls 2.19.1 TLS12
 
 steps:
     # Start the sut (system under test)
   - name: sut
-    image: tlsprint/mbedtls:2.16.3
+    image: tlsprint/mbedtls:2.19.1
     detach: true
 
     # Start the connector with a delay of 5 seconds, so the sut has time to
@@ -5101,7 +5881,7 @@ steps:
         path: /tmp/cache
     commands:
         # Skip if target already exists
-      - if [ -e models/mbedtls/2.16.3/TLS12/learnedModel.dot ]; then exit 0; fi
+      - if [ -e models/mbedtls/2.19.1/TLS12/learnedModel.dot ]; then exit 0; fi
       - sleep 10
       - statelearner
       - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
@@ -5113,1766 +5893,11 @@ steps:
         path: /tmp/cache
     commands:
         # Skip if target already exists
-      - if [ -e models/mbedtls/2.16.3/TLS12/learnedModel.dot ]; then exit 0; fi
+      - if [ -e models/mbedtls/2.19.1/TLS12/learnedModel.dot ]; then exit 0; fi
       - pip install -r requirements.txt
       - python commit_model.py
         --implementation mbedtls
-        --version 2.16.3
-        --tls-version TLS12
-        --model /tmp/cache/learnedModel.dot
-        --verbose
-    environment:
-      GITLAB_TLSPRINT_API_KEY:
-        from_secret: GITLAB_TLSPRINT_API_KEY
-
-volumes:
-  - name: cache
-    temp: {}
-
-trigger:
-  branch:
-    - master
-
----
-kind: pipeline
-name: mbedtls 2.18.0 TLS10
-
-steps:
-    # Start the sut (system under test)
-  - name: sut
-    image: tlsprint/mbedtls:2.18.0
-    detach: true
-
-    # Start the connector with a delay of 5 seconds, so the sut has time to
-    # initialize.
-  - name: connector
-    image: tlsprint/tlsattackerconnector
-    pull: always
-    detach: true
-    commands:
-      - connector
-        --targetHost sut
-        --protocolVersion TLS10
-        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
-        --startupDelay 5000
-        --merge-application
-
-    # Perform the learning
-  - name: learner
-    image: tlsprint/statelearner
-    pull: always
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/mbedtls/2.18.0/TLS10/learnedModel.dot ]; then exit 0; fi
-      - sleep 10
-      - statelearner
-      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
-
-  - name: commit
-    image: python:3.6
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/mbedtls/2.18.0/TLS10/learnedModel.dot ]; then exit 0; fi
-      - pip install -r requirements.txt
-      - python commit_model.py
-        --implementation mbedtls
-        --version 2.18.0
-        --tls-version TLS10
-        --model /tmp/cache/learnedModel.dot
-        --verbose
-    environment:
-      GITLAB_TLSPRINT_API_KEY:
-        from_secret: GITLAB_TLSPRINT_API_KEY
-
-volumes:
-  - name: cache
-    temp: {}
-
-trigger:
-  branch:
-    - master
-
----
-kind: pipeline
-name: mbedtls 2.18.0 TLS11
-
-steps:
-    # Start the sut (system under test)
-  - name: sut
-    image: tlsprint/mbedtls:2.18.0
-    detach: true
-
-    # Start the connector with a delay of 5 seconds, so the sut has time to
-    # initialize.
-  - name: connector
-    image: tlsprint/tlsattackerconnector
-    pull: always
-    detach: true
-    commands:
-      - connector
-        --targetHost sut
-        --protocolVersion TLS11
-        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
-        --startupDelay 5000
-        --merge-application
-
-    # Perform the learning
-  - name: learner
-    image: tlsprint/statelearner
-    pull: always
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/mbedtls/2.18.0/TLS11/learnedModel.dot ]; then exit 0; fi
-      - sleep 10
-      - statelearner
-      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
-
-  - name: commit
-    image: python:3.6
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/mbedtls/2.18.0/TLS11/learnedModel.dot ]; then exit 0; fi
-      - pip install -r requirements.txt
-      - python commit_model.py
-        --implementation mbedtls
-        --version 2.18.0
-        --tls-version TLS11
-        --model /tmp/cache/learnedModel.dot
-        --verbose
-    environment:
-      GITLAB_TLSPRINT_API_KEY:
-        from_secret: GITLAB_TLSPRINT_API_KEY
-
-volumes:
-  - name: cache
-    temp: {}
-
-trigger:
-  branch:
-    - master
-
----
-kind: pipeline
-name: mbedtls 2.18.0 TLS12
-
-steps:
-    # Start the sut (system under test)
-  - name: sut
-    image: tlsprint/mbedtls:2.18.0
-    detach: true
-
-    # Start the connector with a delay of 5 seconds, so the sut has time to
-    # initialize.
-  - name: connector
-    image: tlsprint/tlsattackerconnector
-    pull: always
-    detach: true
-    commands:
-      - connector
-        --targetHost sut
-        --protocolVersion TLS12
-        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
-        --startupDelay 5000
-        --merge-application
-
-    # Perform the learning
-  - name: learner
-    image: tlsprint/statelearner
-    pull: always
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/mbedtls/2.18.0/TLS12/learnedModel.dot ]; then exit 0; fi
-      - sleep 10
-      - statelearner
-      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
-
-  - name: commit
-    image: python:3.6
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/mbedtls/2.18.0/TLS12/learnedModel.dot ]; then exit 0; fi
-      - pip install -r requirements.txt
-      - python commit_model.py
-        --implementation mbedtls
-        --version 2.18.0
-        --tls-version TLS12
-        --model /tmp/cache/learnedModel.dot
-        --verbose
-    environment:
-      GITLAB_TLSPRINT_API_KEY:
-        from_secret: GITLAB_TLSPRINT_API_KEY
-
-volumes:
-  - name: cache
-    temp: {}
-
-trigger:
-  branch:
-    - master
-
----
-kind: pipeline
-name: mbedtls 2.18.1 TLS10
-
-steps:
-    # Start the sut (system under test)
-  - name: sut
-    image: tlsprint/mbedtls:2.18.1
-    detach: true
-
-    # Start the connector with a delay of 5 seconds, so the sut has time to
-    # initialize.
-  - name: connector
-    image: tlsprint/tlsattackerconnector
-    pull: always
-    detach: true
-    commands:
-      - connector
-        --targetHost sut
-        --protocolVersion TLS10
-        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
-        --startupDelay 5000
-        --merge-application
-
-    # Perform the learning
-  - name: learner
-    image: tlsprint/statelearner
-    pull: always
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/mbedtls/2.18.1/TLS10/learnedModel.dot ]; then exit 0; fi
-      - sleep 10
-      - statelearner
-      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
-
-  - name: commit
-    image: python:3.6
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/mbedtls/2.18.1/TLS10/learnedModel.dot ]; then exit 0; fi
-      - pip install -r requirements.txt
-      - python commit_model.py
-        --implementation mbedtls
-        --version 2.18.1
-        --tls-version TLS10
-        --model /tmp/cache/learnedModel.dot
-        --verbose
-    environment:
-      GITLAB_TLSPRINT_API_KEY:
-        from_secret: GITLAB_TLSPRINT_API_KEY
-
-volumes:
-  - name: cache
-    temp: {}
-
-trigger:
-  branch:
-    - master
-
----
-kind: pipeline
-name: mbedtls 2.18.1 TLS11
-
-steps:
-    # Start the sut (system under test)
-  - name: sut
-    image: tlsprint/mbedtls:2.18.1
-    detach: true
-
-    # Start the connector with a delay of 5 seconds, so the sut has time to
-    # initialize.
-  - name: connector
-    image: tlsprint/tlsattackerconnector
-    pull: always
-    detach: true
-    commands:
-      - connector
-        --targetHost sut
-        --protocolVersion TLS11
-        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
-        --startupDelay 5000
-        --merge-application
-
-    # Perform the learning
-  - name: learner
-    image: tlsprint/statelearner
-    pull: always
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/mbedtls/2.18.1/TLS11/learnedModel.dot ]; then exit 0; fi
-      - sleep 10
-      - statelearner
-      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
-
-  - name: commit
-    image: python:3.6
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/mbedtls/2.18.1/TLS11/learnedModel.dot ]; then exit 0; fi
-      - pip install -r requirements.txt
-      - python commit_model.py
-        --implementation mbedtls
-        --version 2.18.1
-        --tls-version TLS11
-        --model /tmp/cache/learnedModel.dot
-        --verbose
-    environment:
-      GITLAB_TLSPRINT_API_KEY:
-        from_secret: GITLAB_TLSPRINT_API_KEY
-
-volumes:
-  - name: cache
-    temp: {}
-
-trigger:
-  branch:
-    - master
-
----
-kind: pipeline
-name: mbedtls 2.18.1 TLS12
-
-steps:
-    # Start the sut (system under test)
-  - name: sut
-    image: tlsprint/mbedtls:2.18.1
-    detach: true
-
-    # Start the connector with a delay of 5 seconds, so the sut has time to
-    # initialize.
-  - name: connector
-    image: tlsprint/tlsattackerconnector
-    pull: always
-    detach: true
-    commands:
-      - connector
-        --targetHost sut
-        --protocolVersion TLS12
-        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
-        --startupDelay 5000
-        --merge-application
-
-    # Perform the learning
-  - name: learner
-    image: tlsprint/statelearner
-    pull: always
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/mbedtls/2.18.1/TLS12/learnedModel.dot ]; then exit 0; fi
-      - sleep 10
-      - statelearner
-      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
-
-  - name: commit
-    image: python:3.6
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/mbedtls/2.18.1/TLS12/learnedModel.dot ]; then exit 0; fi
-      - pip install -r requirements.txt
-      - python commit_model.py
-        --implementation mbedtls
-        --version 2.18.1
-        --tls-version TLS12
-        --model /tmp/cache/learnedModel.dot
-        --verbose
-    environment:
-      GITLAB_TLSPRINT_API_KEY:
-        from_secret: GITLAB_TLSPRINT_API_KEY
-
-volumes:
-  - name: cache
-    temp: {}
-
-trigger:
-  branch:
-    - master
-
----
-kind: pipeline
-name: mbedtls 2.19.0 TLS10
-
-steps:
-    # Start the sut (system under test)
-  - name: sut
-    image: tlsprint/mbedtls:2.19.0
-    detach: true
-
-    # Start the connector with a delay of 5 seconds, so the sut has time to
-    # initialize.
-  - name: connector
-    image: tlsprint/tlsattackerconnector
-    pull: always
-    detach: true
-    commands:
-      - connector
-        --targetHost sut
-        --protocolVersion TLS10
-        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
-        --startupDelay 5000
-        --merge-application
-
-    # Perform the learning
-  - name: learner
-    image: tlsprint/statelearner
-    pull: always
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/mbedtls/2.19.0/TLS10/learnedModel.dot ]; then exit 0; fi
-      - sleep 10
-      - statelearner
-      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
-
-  - name: commit
-    image: python:3.6
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/mbedtls/2.19.0/TLS10/learnedModel.dot ]; then exit 0; fi
-      - pip install -r requirements.txt
-      - python commit_model.py
-        --implementation mbedtls
-        --version 2.19.0
-        --tls-version TLS10
-        --model /tmp/cache/learnedModel.dot
-        --verbose
-    environment:
-      GITLAB_TLSPRINT_API_KEY:
-        from_secret: GITLAB_TLSPRINT_API_KEY
-
-volumes:
-  - name: cache
-    temp: {}
-
-trigger:
-  branch:
-    - master
-
----
-kind: pipeline
-name: mbedtls 2.19.0 TLS11
-
-steps:
-    # Start the sut (system under test)
-  - name: sut
-    image: tlsprint/mbedtls:2.19.0
-    detach: true
-
-    # Start the connector with a delay of 5 seconds, so the sut has time to
-    # initialize.
-  - name: connector
-    image: tlsprint/tlsattackerconnector
-    pull: always
-    detach: true
-    commands:
-      - connector
-        --targetHost sut
-        --protocolVersion TLS11
-        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
-        --startupDelay 5000
-        --merge-application
-
-    # Perform the learning
-  - name: learner
-    image: tlsprint/statelearner
-    pull: always
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/mbedtls/2.19.0/TLS11/learnedModel.dot ]; then exit 0; fi
-      - sleep 10
-      - statelearner
-      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
-
-  - name: commit
-    image: python:3.6
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/mbedtls/2.19.0/TLS11/learnedModel.dot ]; then exit 0; fi
-      - pip install -r requirements.txt
-      - python commit_model.py
-        --implementation mbedtls
-        --version 2.19.0
-        --tls-version TLS11
-        --model /tmp/cache/learnedModel.dot
-        --verbose
-    environment:
-      GITLAB_TLSPRINT_API_KEY:
-        from_secret: GITLAB_TLSPRINT_API_KEY
-
-volumes:
-  - name: cache
-    temp: {}
-
-trigger:
-  branch:
-    - master
-
----
-kind: pipeline
-name: mbedtls 2.19.0 TLS12
-
-steps:
-    # Start the sut (system under test)
-  - name: sut
-    image: tlsprint/mbedtls:2.19.0
-    detach: true
-
-    # Start the connector with a delay of 5 seconds, so the sut has time to
-    # initialize.
-  - name: connector
-    image: tlsprint/tlsattackerconnector
-    pull: always
-    detach: true
-    commands:
-      - connector
-        --targetHost sut
-        --protocolVersion TLS12
-        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
-        --startupDelay 5000
-        --merge-application
-
-    # Perform the learning
-  - name: learner
-    image: tlsprint/statelearner
-    pull: always
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/mbedtls/2.19.0/TLS12/learnedModel.dot ]; then exit 0; fi
-      - sleep 10
-      - statelearner
-      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
-
-  - name: commit
-    image: python:3.6
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/mbedtls/2.19.0/TLS12/learnedModel.dot ]; then exit 0; fi
-      - pip install -r requirements.txt
-      - python commit_model.py
-        --implementation mbedtls
-        --version 2.19.0
-        --tls-version TLS12
-        --model /tmp/cache/learnedModel.dot
-        --verbose
-    environment:
-      GITLAB_TLSPRINT_API_KEY:
-        from_secret: GITLAB_TLSPRINT_API_KEY
-
-volumes:
-  - name: cache
-    temp: {}
-
-trigger:
-  branch:
-    - master
-
----
-kind: pipeline
-name: mbedtls 2.19.0d1 TLS10
-
-steps:
-    # Start the sut (system under test)
-  - name: sut
-    image: tlsprint/mbedtls:2.19.0d1
-    detach: true
-
-    # Start the connector with a delay of 5 seconds, so the sut has time to
-    # initialize.
-  - name: connector
-    image: tlsprint/tlsattackerconnector
-    pull: always
-    detach: true
-    commands:
-      - connector
-        --targetHost sut
-        --protocolVersion TLS10
-        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
-        --startupDelay 5000
-        --merge-application
-
-    # Perform the learning
-  - name: learner
-    image: tlsprint/statelearner
-    pull: always
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/mbedtls/2.19.0d1/TLS10/learnedModel.dot ]; then exit 0; fi
-      - sleep 10
-      - statelearner
-      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
-
-  - name: commit
-    image: python:3.6
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/mbedtls/2.19.0d1/TLS10/learnedModel.dot ]; then exit 0; fi
-      - pip install -r requirements.txt
-      - python commit_model.py
-        --implementation mbedtls
-        --version 2.19.0d1
-        --tls-version TLS10
-        --model /tmp/cache/learnedModel.dot
-        --verbose
-    environment:
-      GITLAB_TLSPRINT_API_KEY:
-        from_secret: GITLAB_TLSPRINT_API_KEY
-
-volumes:
-  - name: cache
-    temp: {}
-
-trigger:
-  branch:
-    - master
-
----
-kind: pipeline
-name: mbedtls 2.19.0d1 TLS11
-
-steps:
-    # Start the sut (system under test)
-  - name: sut
-    image: tlsprint/mbedtls:2.19.0d1
-    detach: true
-
-    # Start the connector with a delay of 5 seconds, so the sut has time to
-    # initialize.
-  - name: connector
-    image: tlsprint/tlsattackerconnector
-    pull: always
-    detach: true
-    commands:
-      - connector
-        --targetHost sut
-        --protocolVersion TLS11
-        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
-        --startupDelay 5000
-        --merge-application
-
-    # Perform the learning
-  - name: learner
-    image: tlsprint/statelearner
-    pull: always
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/mbedtls/2.19.0d1/TLS11/learnedModel.dot ]; then exit 0; fi
-      - sleep 10
-      - statelearner
-      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
-
-  - name: commit
-    image: python:3.6
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/mbedtls/2.19.0d1/TLS11/learnedModel.dot ]; then exit 0; fi
-      - pip install -r requirements.txt
-      - python commit_model.py
-        --implementation mbedtls
-        --version 2.19.0d1
-        --tls-version TLS11
-        --model /tmp/cache/learnedModel.dot
-        --verbose
-    environment:
-      GITLAB_TLSPRINT_API_KEY:
-        from_secret: GITLAB_TLSPRINT_API_KEY
-
-volumes:
-  - name: cache
-    temp: {}
-
-trigger:
-  branch:
-    - master
-
----
-kind: pipeline
-name: mbedtls 2.19.0d1 TLS12
-
-steps:
-    # Start the sut (system under test)
-  - name: sut
-    image: tlsprint/mbedtls:2.19.0d1
-    detach: true
-
-    # Start the connector with a delay of 5 seconds, so the sut has time to
-    # initialize.
-  - name: connector
-    image: tlsprint/tlsattackerconnector
-    pull: always
-    detach: true
-    commands:
-      - connector
-        --targetHost sut
-        --protocolVersion TLS12
-        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
-        --startupDelay 5000
-        --merge-application
-
-    # Perform the learning
-  - name: learner
-    image: tlsprint/statelearner
-    pull: always
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/mbedtls/2.19.0d1/TLS12/learnedModel.dot ]; then exit 0; fi
-      - sleep 10
-      - statelearner
-      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
-
-  - name: commit
-    image: python:3.6
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/mbedtls/2.19.0d1/TLS12/learnedModel.dot ]; then exit 0; fi
-      - pip install -r requirements.txt
-      - python commit_model.py
-        --implementation mbedtls
-        --version 2.19.0d1
-        --tls-version TLS12
-        --model /tmp/cache/learnedModel.dot
-        --verbose
-    environment:
-      GITLAB_TLSPRINT_API_KEY:
-        from_secret: GITLAB_TLSPRINT_API_KEY
-
-volumes:
-  - name: cache
-    temp: {}
-
-trigger:
-  branch:
-    - master
-
----
-kind: pipeline
-name: mbedtls 2.19.0d2 TLS10
-
-steps:
-    # Start the sut (system under test)
-  - name: sut
-    image: tlsprint/mbedtls:2.19.0d2
-    detach: true
-
-    # Start the connector with a delay of 5 seconds, so the sut has time to
-    # initialize.
-  - name: connector
-    image: tlsprint/tlsattackerconnector
-    pull: always
-    detach: true
-    commands:
-      - connector
-        --targetHost sut
-        --protocolVersion TLS10
-        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
-        --startupDelay 5000
-        --merge-application
-
-    # Perform the learning
-  - name: learner
-    image: tlsprint/statelearner
-    pull: always
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/mbedtls/2.19.0d2/TLS10/learnedModel.dot ]; then exit 0; fi
-      - sleep 10
-      - statelearner
-      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
-
-  - name: commit
-    image: python:3.6
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/mbedtls/2.19.0d2/TLS10/learnedModel.dot ]; then exit 0; fi
-      - pip install -r requirements.txt
-      - python commit_model.py
-        --implementation mbedtls
-        --version 2.19.0d2
-        --tls-version TLS10
-        --model /tmp/cache/learnedModel.dot
-        --verbose
-    environment:
-      GITLAB_TLSPRINT_API_KEY:
-        from_secret: GITLAB_TLSPRINT_API_KEY
-
-volumes:
-  - name: cache
-    temp: {}
-
-trigger:
-  branch:
-    - master
-
----
-kind: pipeline
-name: mbedtls 2.19.0d2 TLS11
-
-steps:
-    # Start the sut (system under test)
-  - name: sut
-    image: tlsprint/mbedtls:2.19.0d2
-    detach: true
-
-    # Start the connector with a delay of 5 seconds, so the sut has time to
-    # initialize.
-  - name: connector
-    image: tlsprint/tlsattackerconnector
-    pull: always
-    detach: true
-    commands:
-      - connector
-        --targetHost sut
-        --protocolVersion TLS11
-        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
-        --startupDelay 5000
-        --merge-application
-
-    # Perform the learning
-  - name: learner
-    image: tlsprint/statelearner
-    pull: always
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/mbedtls/2.19.0d2/TLS11/learnedModel.dot ]; then exit 0; fi
-      - sleep 10
-      - statelearner
-      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
-
-  - name: commit
-    image: python:3.6
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/mbedtls/2.19.0d2/TLS11/learnedModel.dot ]; then exit 0; fi
-      - pip install -r requirements.txt
-      - python commit_model.py
-        --implementation mbedtls
-        --version 2.19.0d2
-        --tls-version TLS11
-        --model /tmp/cache/learnedModel.dot
-        --verbose
-    environment:
-      GITLAB_TLSPRINT_API_KEY:
-        from_secret: GITLAB_TLSPRINT_API_KEY
-
-volumes:
-  - name: cache
-    temp: {}
-
-trigger:
-  branch:
-    - master
-
----
-kind: pipeline
-name: mbedtls 2.19.0d2 TLS12
-
-steps:
-    # Start the sut (system under test)
-  - name: sut
-    image: tlsprint/mbedtls:2.19.0d2
-    detach: true
-
-    # Start the connector with a delay of 5 seconds, so the sut has time to
-    # initialize.
-  - name: connector
-    image: tlsprint/tlsattackerconnector
-    pull: always
-    detach: true
-    commands:
-      - connector
-        --targetHost sut
-        --protocolVersion TLS12
-        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
-        --startupDelay 5000
-        --merge-application
-
-    # Perform the learning
-  - name: learner
-    image: tlsprint/statelearner
-    pull: always
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/mbedtls/2.19.0d2/TLS12/learnedModel.dot ]; then exit 0; fi
-      - sleep 10
-      - statelearner
-      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
-
-  - name: commit
-    image: python:3.6
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/mbedtls/2.19.0d2/TLS12/learnedModel.dot ]; then exit 0; fi
-      - pip install -r requirements.txt
-      - python commit_model.py
-        --implementation mbedtls
-        --version 2.19.0d2
-        --tls-version TLS12
-        --model /tmp/cache/learnedModel.dot
-        --verbose
-    environment:
-      GITLAB_TLSPRINT_API_KEY:
-        from_secret: GITLAB_TLSPRINT_API_KEY
-
-volumes:
-  - name: cache
-    temp: {}
-
-trigger:
-  branch:
-    - master
-
----
-kind: pipeline
-name: mbedtls 3.0.0p1 TLS10
-
-steps:
-    # Start the sut (system under test)
-  - name: sut
-    image: tlsprint/mbedtls:3.0.0p1
-    detach: true
-
-    # Start the connector with a delay of 5 seconds, so the sut has time to
-    # initialize.
-  - name: connector
-    image: tlsprint/tlsattackerconnector
-    pull: always
-    detach: true
-    commands:
-      - connector
-        --targetHost sut
-        --protocolVersion TLS10
-        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
-        --startupDelay 5000
-        --merge-application
-
-    # Perform the learning
-  - name: learner
-    image: tlsprint/statelearner
-    pull: always
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/mbedtls/3.0.0p1/TLS10/learnedModel.dot ]; then exit 0; fi
-      - sleep 10
-      - statelearner
-      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
-
-  - name: commit
-    image: python:3.6
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/mbedtls/3.0.0p1/TLS10/learnedModel.dot ]; then exit 0; fi
-      - pip install -r requirements.txt
-      - python commit_model.py
-        --implementation mbedtls
-        --version 3.0.0p1
-        --tls-version TLS10
-        --model /tmp/cache/learnedModel.dot
-        --verbose
-    environment:
-      GITLAB_TLSPRINT_API_KEY:
-        from_secret: GITLAB_TLSPRINT_API_KEY
-
-volumes:
-  - name: cache
-    temp: {}
-
-trigger:
-  branch:
-    - master
-
----
-kind: pipeline
-name: mbedtls 3.0.0p1 TLS11
-
-steps:
-    # Start the sut (system under test)
-  - name: sut
-    image: tlsprint/mbedtls:3.0.0p1
-    detach: true
-
-    # Start the connector with a delay of 5 seconds, so the sut has time to
-    # initialize.
-  - name: connector
-    image: tlsprint/tlsattackerconnector
-    pull: always
-    detach: true
-    commands:
-      - connector
-        --targetHost sut
-        --protocolVersion TLS11
-        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
-        --startupDelay 5000
-        --merge-application
-
-    # Perform the learning
-  - name: learner
-    image: tlsprint/statelearner
-    pull: always
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/mbedtls/3.0.0p1/TLS11/learnedModel.dot ]; then exit 0; fi
-      - sleep 10
-      - statelearner
-      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
-
-  - name: commit
-    image: python:3.6
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/mbedtls/3.0.0p1/TLS11/learnedModel.dot ]; then exit 0; fi
-      - pip install -r requirements.txt
-      - python commit_model.py
-        --implementation mbedtls
-        --version 3.0.0p1
-        --tls-version TLS11
-        --model /tmp/cache/learnedModel.dot
-        --verbose
-    environment:
-      GITLAB_TLSPRINT_API_KEY:
-        from_secret: GITLAB_TLSPRINT_API_KEY
-
-volumes:
-  - name: cache
-    temp: {}
-
-trigger:
-  branch:
-    - master
-
----
-kind: pipeline
-name: mbedtls 3.0.0p1 TLS12
-
-steps:
-    # Start the sut (system under test)
-  - name: sut
-    image: tlsprint/mbedtls:3.0.0p1
-    detach: true
-
-    # Start the connector with a delay of 5 seconds, so the sut has time to
-    # initialize.
-  - name: connector
-    image: tlsprint/tlsattackerconnector
-    pull: always
-    detach: true
-    commands:
-      - connector
-        --targetHost sut
-        --protocolVersion TLS12
-        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
-        --startupDelay 5000
-        --merge-application
-
-    # Perform the learning
-  - name: learner
-    image: tlsprint/statelearner
-    pull: always
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/mbedtls/3.0.0p1/TLS12/learnedModel.dot ]; then exit 0; fi
-      - sleep 10
-      - statelearner
-      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
-
-  - name: commit
-    image: python:3.6
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/mbedtls/3.0.0p1/TLS12/learnedModel.dot ]; then exit 0; fi
-      - pip install -r requirements.txt
-      - python commit_model.py
-        --implementation mbedtls
-        --version 3.0.0p1
-        --tls-version TLS12
-        --model /tmp/cache/learnedModel.dot
-        --verbose
-    environment:
-      GITLAB_TLSPRINT_API_KEY:
-        from_secret: GITLAB_TLSPRINT_API_KEY
-
-volumes:
-  - name: cache
-    temp: {}
-
-trigger:
-  branch:
-    - master
-
----
-kind: pipeline
-name: openssl 1.0.2t TLS10
-
-steps:
-    # Start the sut (system under test)
-  - name: sut
-    image: tlsprint/openssl:1.0.2t
-    detach: true
-
-    # Start the connector with a delay of 5 seconds, so the sut has time to
-    # initialize.
-  - name: connector
-    image: tlsprint/tlsattackerconnector
-    pull: always
-    detach: true
-    commands:
-      - connector
-        --targetHost sut
-        --protocolVersion TLS10
-        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
-        --startupDelay 5000
-        --merge-application
-
-    # Perform the learning
-  - name: learner
-    image: tlsprint/statelearner
-    pull: always
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.0.2t/TLS10/learnedModel.dot ]; then exit 0; fi
-      - sleep 10
-      - statelearner
-      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
-
-  - name: commit
-    image: python:3.6
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.0.2t/TLS10/learnedModel.dot ]; then exit 0; fi
-      - pip install -r requirements.txt
-      - python commit_model.py
-        --implementation openssl
-        --version 1.0.2t
-        --tls-version TLS10
-        --model /tmp/cache/learnedModel.dot
-        --verbose
-    environment:
-      GITLAB_TLSPRINT_API_KEY:
-        from_secret: GITLAB_TLSPRINT_API_KEY
-
-volumes:
-  - name: cache
-    temp: {}
-
-trigger:
-  branch:
-    - master
-
----
-kind: pipeline
-name: openssl 1.0.2t TLS11
-
-steps:
-    # Start the sut (system under test)
-  - name: sut
-    image: tlsprint/openssl:1.0.2t
-    detach: true
-
-    # Start the connector with a delay of 5 seconds, so the sut has time to
-    # initialize.
-  - name: connector
-    image: tlsprint/tlsattackerconnector
-    pull: always
-    detach: true
-    commands:
-      - connector
-        --targetHost sut
-        --protocolVersion TLS11
-        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
-        --startupDelay 5000
-        --merge-application
-
-    # Perform the learning
-  - name: learner
-    image: tlsprint/statelearner
-    pull: always
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.0.2t/TLS11/learnedModel.dot ]; then exit 0; fi
-      - sleep 10
-      - statelearner
-      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
-
-  - name: commit
-    image: python:3.6
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.0.2t/TLS11/learnedModel.dot ]; then exit 0; fi
-      - pip install -r requirements.txt
-      - python commit_model.py
-        --implementation openssl
-        --version 1.0.2t
-        --tls-version TLS11
-        --model /tmp/cache/learnedModel.dot
-        --verbose
-    environment:
-      GITLAB_TLSPRINT_API_KEY:
-        from_secret: GITLAB_TLSPRINT_API_KEY
-
-volumes:
-  - name: cache
-    temp: {}
-
-trigger:
-  branch:
-    - master
-
----
-kind: pipeline
-name: openssl 1.0.2t TLS12
-
-steps:
-    # Start the sut (system under test)
-  - name: sut
-    image: tlsprint/openssl:1.0.2t
-    detach: true
-
-    # Start the connector with a delay of 5 seconds, so the sut has time to
-    # initialize.
-  - name: connector
-    image: tlsprint/tlsattackerconnector
-    pull: always
-    detach: true
-    commands:
-      - connector
-        --targetHost sut
-        --protocolVersion TLS12
-        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
-        --startupDelay 5000
-        --merge-application
-
-    # Perform the learning
-  - name: learner
-    image: tlsprint/statelearner
-    pull: always
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.0.2t/TLS12/learnedModel.dot ]; then exit 0; fi
-      - sleep 10
-      - statelearner
-      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
-
-  - name: commit
-    image: python:3.6
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.0.2t/TLS12/learnedModel.dot ]; then exit 0; fi
-      - pip install -r requirements.txt
-      - python commit_model.py
-        --implementation openssl
-        --version 1.0.2t
-        --tls-version TLS12
-        --model /tmp/cache/learnedModel.dot
-        --verbose
-    environment:
-      GITLAB_TLSPRINT_API_KEY:
-        from_secret: GITLAB_TLSPRINT_API_KEY
-
-volumes:
-  - name: cache
-    temp: {}
-
-trigger:
-  branch:
-    - master
-
----
-kind: pipeline
-name: openssl 1.1.0l TLS10
-
-steps:
-    # Start the sut (system under test)
-  - name: sut
-    image: tlsprint/openssl:1.1.0l
-    detach: true
-
-    # Start the connector with a delay of 5 seconds, so the sut has time to
-    # initialize.
-  - name: connector
-    image: tlsprint/tlsattackerconnector
-    pull: always
-    detach: true
-    commands:
-      - connector
-        --targetHost sut
-        --protocolVersion TLS10
-        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
-        --startupDelay 5000
-        --merge-application
-
-    # Perform the learning
-  - name: learner
-    image: tlsprint/statelearner
-    pull: always
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.1.0l/TLS10/learnedModel.dot ]; then exit 0; fi
-      - sleep 10
-      - statelearner
-      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
-
-  - name: commit
-    image: python:3.6
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.1.0l/TLS10/learnedModel.dot ]; then exit 0; fi
-      - pip install -r requirements.txt
-      - python commit_model.py
-        --implementation openssl
-        --version 1.1.0l
-        --tls-version TLS10
-        --model /tmp/cache/learnedModel.dot
-        --verbose
-    environment:
-      GITLAB_TLSPRINT_API_KEY:
-        from_secret: GITLAB_TLSPRINT_API_KEY
-
-volumes:
-  - name: cache
-    temp: {}
-
-trigger:
-  branch:
-    - master
-
----
-kind: pipeline
-name: openssl 1.1.0l TLS11
-
-steps:
-    # Start the sut (system under test)
-  - name: sut
-    image: tlsprint/openssl:1.1.0l
-    detach: true
-
-    # Start the connector with a delay of 5 seconds, so the sut has time to
-    # initialize.
-  - name: connector
-    image: tlsprint/tlsattackerconnector
-    pull: always
-    detach: true
-    commands:
-      - connector
-        --targetHost sut
-        --protocolVersion TLS11
-        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
-        --startupDelay 5000
-        --merge-application
-
-    # Perform the learning
-  - name: learner
-    image: tlsprint/statelearner
-    pull: always
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.1.0l/TLS11/learnedModel.dot ]; then exit 0; fi
-      - sleep 10
-      - statelearner
-      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
-
-  - name: commit
-    image: python:3.6
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.1.0l/TLS11/learnedModel.dot ]; then exit 0; fi
-      - pip install -r requirements.txt
-      - python commit_model.py
-        --implementation openssl
-        --version 1.1.0l
-        --tls-version TLS11
-        --model /tmp/cache/learnedModel.dot
-        --verbose
-    environment:
-      GITLAB_TLSPRINT_API_KEY:
-        from_secret: GITLAB_TLSPRINT_API_KEY
-
-volumes:
-  - name: cache
-    temp: {}
-
-trigger:
-  branch:
-    - master
-
----
-kind: pipeline
-name: openssl 1.1.0l TLS12
-
-steps:
-    # Start the sut (system under test)
-  - name: sut
-    image: tlsprint/openssl:1.1.0l
-    detach: true
-
-    # Start the connector with a delay of 5 seconds, so the sut has time to
-    # initialize.
-  - name: connector
-    image: tlsprint/tlsattackerconnector
-    pull: always
-    detach: true
-    commands:
-      - connector
-        --targetHost sut
-        --protocolVersion TLS12
-        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
-        --startupDelay 5000
-        --merge-application
-
-    # Perform the learning
-  - name: learner
-    image: tlsprint/statelearner
-    pull: always
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.1.0l/TLS12/learnedModel.dot ]; then exit 0; fi
-      - sleep 10
-      - statelearner
-      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
-
-  - name: commit
-    image: python:3.6
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.1.0l/TLS12/learnedModel.dot ]; then exit 0; fi
-      - pip install -r requirements.txt
-      - python commit_model.py
-        --implementation openssl
-        --version 1.1.0l
-        --tls-version TLS12
-        --model /tmp/cache/learnedModel.dot
-        --verbose
-    environment:
-      GITLAB_TLSPRINT_API_KEY:
-        from_secret: GITLAB_TLSPRINT_API_KEY
-
-volumes:
-  - name: cache
-    temp: {}
-
-trigger:
-  branch:
-    - master
-
----
-kind: pipeline
-name: openssl 1.1.1d TLS10
-
-steps:
-    # Start the sut (system under test)
-  - name: sut
-    image: tlsprint/openssl:1.1.1d
-    detach: true
-
-    # Start the connector with a delay of 5 seconds, so the sut has time to
-    # initialize.
-  - name: connector
-    image: tlsprint/tlsattackerconnector
-    pull: always
-    detach: true
-    commands:
-      - connector
-        --targetHost sut
-        --protocolVersion TLS10
-        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
-        --startupDelay 5000
-        --merge-application
-
-    # Perform the learning
-  - name: learner
-    image: tlsprint/statelearner
-    pull: always
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.1.1d/TLS10/learnedModel.dot ]; then exit 0; fi
-      - sleep 10
-      - statelearner
-      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
-
-  - name: commit
-    image: python:3.6
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.1.1d/TLS10/learnedModel.dot ]; then exit 0; fi
-      - pip install -r requirements.txt
-      - python commit_model.py
-        --implementation openssl
-        --version 1.1.1d
-        --tls-version TLS10
-        --model /tmp/cache/learnedModel.dot
-        --verbose
-    environment:
-      GITLAB_TLSPRINT_API_KEY:
-        from_secret: GITLAB_TLSPRINT_API_KEY
-
-volumes:
-  - name: cache
-    temp: {}
-
-trigger:
-  branch:
-    - master
-
----
-kind: pipeline
-name: openssl 1.1.1d TLS11
-
-steps:
-    # Start the sut (system under test)
-  - name: sut
-    image: tlsprint/openssl:1.1.1d
-    detach: true
-
-    # Start the connector with a delay of 5 seconds, so the sut has time to
-    # initialize.
-  - name: connector
-    image: tlsprint/tlsattackerconnector
-    pull: always
-    detach: true
-    commands:
-      - connector
-        --targetHost sut
-        --protocolVersion TLS11
-        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
-        --startupDelay 5000
-        --merge-application
-
-    # Perform the learning
-  - name: learner
-    image: tlsprint/statelearner
-    pull: always
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.1.1d/TLS11/learnedModel.dot ]; then exit 0; fi
-      - sleep 10
-      - statelearner
-      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
-
-  - name: commit
-    image: python:3.6
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.1.1d/TLS11/learnedModel.dot ]; then exit 0; fi
-      - pip install -r requirements.txt
-      - python commit_model.py
-        --implementation openssl
-        --version 1.1.1d
-        --tls-version TLS11
-        --model /tmp/cache/learnedModel.dot
-        --verbose
-    environment:
-      GITLAB_TLSPRINT_API_KEY:
-        from_secret: GITLAB_TLSPRINT_API_KEY
-
-volumes:
-  - name: cache
-    temp: {}
-
-trigger:
-  branch:
-    - master
-
----
-kind: pipeline
-name: openssl 1.1.1d TLS12
-
-steps:
-    # Start the sut (system under test)
-  - name: sut
-    image: tlsprint/openssl:1.1.1d
-    detach: true
-
-    # Start the connector with a delay of 5 seconds, so the sut has time to
-    # initialize.
-  - name: connector
-    image: tlsprint/tlsattackerconnector
-    pull: always
-    detach: true
-    commands:
-      - connector
-        --targetHost sut
-        --protocolVersion TLS12
-        --cipherSuite "TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA"
-        --startupDelay 5000
-        --merge-application
-
-    # Perform the learning
-  - name: learner
-    image: tlsprint/statelearner
-    pull: always
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.1.1d/TLS12/learnedModel.dot ]; then exit 0; fi
-      - sleep 10
-      - statelearner
-      - "cp output_server/learnedModel.dot /tmp/cache/learnedModel.dot"
-
-  - name: commit
-    image: python:3.6
-    volumes:
-      - name: cache
-        path: /tmp/cache
-    commands:
-        # Skip if target already exists
-      - if [ -e models/openssl/1.1.1d/TLS12/learnedModel.dot ]; then exit 0; fi
-      - pip install -r requirements.txt
-      - python commit_model.py
-        --implementation openssl
-        --version 1.1.1d
+        --version 2.19.1
         --tls-version TLS12
         --model /tmp/cache/learnedModel.dot
         --verbose
