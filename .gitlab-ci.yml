@@ -1,11 +1,45 @@
 image: python:3.6
 
-variables:
-  GIT_SUBMODULE_STRATEGY: recursive
-
+# Set up the SSH key and Git in order to commit changes.
+# Steps taken from here: https://docs.gitlab.com/ee/ci/ssh_keys/
 before_script:
+  # Install ssh-agent if not already installed, it is required by Docker.
+  - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+
+  # Run ssh-agent (inside the build environment)
+  - eval $(ssh-agent -s)
+
+  # Add the SSH key stored in SSH_PRIVATE_KEY variable to the agent store
+  - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+
+  # Create the SSH directory and give it the right permissions
+  - mkdir -p ~/.ssh
+  - chmod 700 ~/.ssh
+
+  # Set the user name and email.
+  - git config --global user.email "erwinjanssen@outlook.com"
+  - git config --global user.name "tlsprint bot"
+
+  # Add the gitlab key to the known_hosts file. This is not the most secure way
+  # to do this, but we trust the internal infrastructure.
+  - ssh-keyscan gitlab.sidnlabs.nl >> ~/.ssh/known_hosts
+  - chmod 644 ~/.ssh/known_hosts
+
+  # Install the dependencies for the update script
   - pip install -r requirements.txt
 
+  # In case a previous job resulted in a stuck rebase, any "rebase-apply"
+  # directories should first be removed.
+  - rm --recursive --force $(find .git/modules -name rebase-apply -type d)
+
+  # Update submodules. This can't use the GIT_SUBMODULE_STRATEGY variable,
+  # because the SSH keys are required to clone the submodules.
+  - git submodule sync --recursive
+  - git submodule update --init --recursive
+
+  # Set the remote of the current repository to the SSH version, for which the
+  # keys are added.
+  - git remote set-url origin git@gitlab.sidnlabs.nl:tlsprint/models.git
 
 update_repo:
   script:
