@@ -44,5 +44,9 @@ before_script:
 update_repo:
   script:
     - python update_repository.py --commit
+  variables:
+    # To debug the script if things to wrong, output all commands executed by
+    # GitPython.
+    GIT_PYTHON_TRACE: full
   only:
     - schedules
