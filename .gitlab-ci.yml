@@ -43,6 +43,6 @@ before_script:
 
 update_repo:
   script:
-    - python update_repository.py --verbose --commit
+    - python update_repository.py --commit
   only:
     - schedules
