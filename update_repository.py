@@ -61,6 +61,14 @@ def main(commit):
     logger.info("Updating submodules")
     update_submodules()
 
+    if commit:
+        repo = git.Repo(".")
+        # Since this script is supposed to run autonomously on the master
+        # branch, we make the (potentially dangerous) assumption that we need
+        # to checkout the master branch (since the CI is in detached state).
+        repo.git.checkout("master")
+        repo.git.pull("--rebase")
+
     implementation_dirs = [
         path for path in Path("docker-images").iterdir() if path.is_dir()
     ]
@@ -137,13 +145,6 @@ def main(commit):
         f.write(template.render(targets=targets))
 
     if commit:
-        repo = git.Repo(".")
-        # Since this script is supposed to run autonomously on the master
-        # branch, we make the (potentially dangerous) assumption that we need
-        # to checkout the master branch (since the CI is in detached state).
-        repo.git.checkout("master")
-        repo.git.pull("--rebase")
-
         logger.info("Commiting files")
         repo.git.add(".")
         repo.git.commit(message=f"Automatic update {datetime.date.today()}")
