@@ -1,17 +1,18 @@
+import datetime
 import json
-import os
-import sys
+import logging
 from distutils.version import LooseVersion
 from pathlib import Path
-from datetime import datetime
 
-import git
 import click
-import gitlab
-import requests
-from jinja2 import Template
-from git import Repo
 import dymport
+import git
+import requests
+from git import Repo
+from jinja2 import Template
+
+logging.basicConfig(level="INFO")
+logger = logging.getLogger(__name__)
 
 
 def update_submodules():
@@ -49,100 +50,38 @@ def query_learned_models(implementation, model_dir="models"):
         return set()
 
 
-def commit_updated_files(gitlab_url, project_id, api_key, verbose=False):
-    # Query environment variable if --api-key is not passed
-    if not api_key:
-        try:
-            api_key = os.environ["GITLAB_TLSPRINT_API_KEY"]
-        except KeyError:
-            print(
-                "No API key specified. Specify via --api-key or define GITLAB_TLSPRINT_API_KEY.",
-                file=sys.stderr,
-            )
-            sys.exit(1)
-
-    gl = gitlab.Gitlab(gitlab_url, private_token=api_key)
-    project = gl.projects.get(project_id)
-
-    data = {
-        "id": project_id,
-        "branch": "master",
-        "commit_message": f"Update repository {datetime.today().date()}",
-        "actions": [],
-    }
-
-    for file in [".drone.yml"]:
-        with open(file) as f:
-            data["actions"].append(
-                {"action": "update", "file_path": file, "content": f.read()}
-            )
-
-    if verbose:
-        print("Data:")
-        print(json.dumps(data, indent=4))
-
-    # Create commit
-    commit = project.commits.create(data)
-
-    if verbose:
-        print(commit)
-
-
 @click.command()
-@click.option(
-    "--api-key",
-    help="Gitlab API key. If empty, the 'GITLAB_TLSPRINT_API_KEY' environment variable will be used instead.",
-)
-@click.option(
-    "--gitlab-url",
-    default="https://gitlab.sidnlabs.nl",
-    help="Base URL for the Gitlab installation",
-)
-@click.option(
-    "--project-id",
-    default=50,
-    help="Gitlab ID of the project where the model should be committed to",
-)
-@click.option(
-    "-v", "--verbose", is_flag=True, default=False, help="Provide verbose output"
-)
 @click.option(
     "--commit",
     is_flag=True,
     default=False,
     help="Indicates whether the files modified by this script should be committed.",
 )
-def main(api_key, gitlab_url, project_id, verbose, commit):
-
-    if verbose:
-        print("Updating submodules")
+def main(commit):
+    logger.info("Updating submodules")
     update_submodules()
 
     implementation_dirs = [
         path for path in Path("docker-images").iterdir() if path.is_dir()
     ]
-    if verbose:
-        print("Found the following implementations:")
-        for directory in implementation_dirs:
-            print("  -", directory.name)
+    logger.info("Found the following implementations:")
+    for directory in implementation_dirs:
+        logger.info("  - %s", directory.name)
 
     targets = []
-    model_dir = Path("models")
     for directory in implementation_dirs:
         implementation = directory.name
 
-        if verbose:
-            print(f"Querying image tags for '{implementation}'")
+        logger.info(f"Querying image tags for '{implementation}'")
 
         try:
             docker_tags = query_docker_image_tags(implementation)
         except TypeError:
             # Query failed
-            print(f"Failed to retrieve tags for '{implementation}'", file=sys.stderr)
+            logger.warning(f"Failed to retrieve tags for '{implementation}'")
             continue
 
-        if verbose:
-            print(f"  - found {len(docker_tags)} tags in Docker registry")
+        logger.info(f"  - found {len(docker_tags)} tags in Docker registry")
 
         # Query supported TLS versions for every tag
         module = dymport.import_file(implementation, directory / "__init__.py")
@@ -157,28 +96,25 @@ def main(api_key, gitlab_url, project_id, verbose, commit):
             for protocol in protocols
         }
 
-        if verbose:
-            print(
-                f"  - found {len(possible_combinations)} possible tag-protocol combinations"
-            )
+        logger.info(
+            f"  - found {len(possible_combinations)} possible tag-protocol combinations"
+        )
 
         # Check which versions already have models
         learned_combinations = query_learned_models(implementation)
 
-        if verbose:
-            print(
-                f"  - found {len(learned_combinations)} learned tag-protocol combinations"
-            )
+        logger.info(
+            f"  - found {len(learned_combinations)} learned tag-protocol combinations"
+        )
 
         # Takes the difference of all possible combinations and the
         # combinations already learned, to get the set of combinations which
         # still need to be learned.
         combinations_to_learn = possible_combinations - learned_combinations
 
-        if verbose:
-            print(
-                f"  - found {len(combinations_to_learn)} tag-protocol combinations to learn"
-            )
+        logger.info(
+            f"  - found {len(combinations_to_learn)} tag-protocol combinations to learn"
+        )
 
         # Sort for deterministic output
         combinations = sorted(
@@ -191,9 +127,8 @@ def main(api_key, gitlab_url, project_id, verbose, commit):
             for version, protocol in combinations
         ]
 
-    if verbose:
-        print(f"Found {len(targets)} tag-protocol combinations to learn in total")
-        print("Generating .drone.yml from template")
+    logger.info(f"Found {len(targets)} tag-protocol combinations to learn in total")
+    logger.info("Generating .drone.yml from template")
 
     with open(".drone.yml.j2") as f:
         template = Template(f.read())
@@ -202,12 +137,17 @@ def main(api_key, gitlab_url, project_id, verbose, commit):
         f.write(template.render(targets=targets))
 
     if commit:
-        repo = git.Repo()
-        changed_files = [item.a_path for item in repo.index.diff(None)]
-        if ".drone.yml" in changed_files:
-            commit_updated_files(gitlab_url, project_id, api_key, verbose=verbose)
-        else:
-            print("Skipping commit: .drone.yml has not been changed")
+        repo = git.Repo(".")
+        # Since this script is supposed to run autonomously on the master
+        # branch, we make the (potentially dangerous) assumption that we need
+        # to checkout the master branch (since the CI is in detached state).
+        repo.git.checkout("master")
+        repo.git.pull("--rebase")
+
+        logger.info("Commiting files")
+        repo.git.add(".")
+        repo.git.commit(message=f"Automatic update {datetime.date.today()}")
+        repo.git.push()
 
 
 if __name__ == "__main__":
