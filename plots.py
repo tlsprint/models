@@ -86,6 +86,7 @@ def plot_implementation(data):
     pyplot.tick_params(axis="x", labelbottom=False, bottom=False)
     pyplot.ylim(5, 15)
     pyplot.ylabel("Number of states")
+    pyplot.xlabel("Version")
     pyplot.legend()
 
 
