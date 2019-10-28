@@ -145,9 +145,13 @@ def main(commit):
         f.write(template.render(targets=targets))
 
     if commit:
-        logger.info("Commiting files")
+        logger.info("Adding changes")
         repo.git.add(".")
-        repo.git.commit(message=f"Automatic update {datetime.date.today()}")
+        try:
+            repo.git.commit(message=f"Automatic update {datetime.date.today()}")
+            logger.info("Changes comitted")
+        except git.exc.GitCommandError:
+            logger.info("No changes to commit")
         repo.git.push()
 
 
