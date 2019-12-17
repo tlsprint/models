@@ -69,6 +69,20 @@ def main(commit):
         repo.git.checkout("master")
         repo.git.pull("--rebase")
 
+        # If changes are made to the submodules directory, we commit and push
+        # these with the [CI SKIP] tag, since this is not a change to the
+        # build config. Doing this separately prevents a lot of unnecessary
+        # builds.
+        try:
+            logger.info("Committing submodule update")
+            repo.git.add("docker-images")
+            repo.git.commit(message=f"[CI SKIP] {datetime.date.today()} Automatic update submodule")
+
+            logger.info("Pushing submodule update")
+            repo.git.push()
+        except git.exc.GitCommandError:
+            logger.info("Failed to commit and push submodule update")
+
     implementation_dirs = [
         path for path in Path("docker-images").iterdir() if path.is_dir()
     ]
@@ -148,7 +162,7 @@ def main(commit):
         logger.info("Adding changes")
         repo.git.add(".")
         try:
-            repo.git.commit(message=f"Automatic update {datetime.date.today()}")
+            repo.git.commit(message=f"{datetime.date.today()} Automatic update")
             logger.info("Changes comitted")
         except git.exc.GitCommandError:
             logger.info("No changes to commit")
