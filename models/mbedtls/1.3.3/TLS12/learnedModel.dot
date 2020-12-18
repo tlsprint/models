@@ -7,7 +7,6 @@ __start0 [label="" shape="none"];
 	s3 [shape="circle" label="3"];
 	s4 [shape="circle" label="4"];
 	s5 [shape="circle" label="5"];
-	s6 [shape="circle" label="6"];
 	s0 -> s1 [label="AlertWarningCloseNotify / ConnectionClosed"];
 	s0 -> s1 [label="ApplicationData / ConnectionClosed"];
 	s0 -> s1 [label="ChangeCipherSpec / ConnectionClosed"];
@@ -72,19 +71,8 @@ __start0 [label="" shape="none"];
 	s5 -> s1 [label="ECDHClientKeyExchange / ALERT_WARNING_NO_RENEGOTIATION|APPLICATION|ConnectionClosed"];
 	s5 -> s1 [label="Finished / ALERT_WARNING_NO_RENEGOTIATION|APPLICATION|ConnectionClosed"];
 	s5 -> s1 [label="RSAClientKeyExchange / ALERT_WARNING_NO_RENEGOTIATION|APPLICATION|ConnectionClosed"];
-	s5 -> s6 [label="ServerHello / ALERT_WARNING_NO_RENEGOTIATION|APPLICATION|ConnectionClosed"];
+	s5 -> s1 [label="ServerHello / ALERT_WARNING_NO_RENEGOTIATION|APPLICATION|ConnectionClosed"];
 	s5 -> s1 [label="ServerHelloDone / ALERT_WARNING_NO_RENEGOTIATION|APPLICATION|ConnectionClosed"];
-	s6 -> s1 [label="AlertWarningCloseNotify / ConnectionClosed"];
-	s6 -> s1 [label="ApplicationData / ConnectionClosed"];
-	s6 -> s1 [label="ChangeCipherSpec / ConnectionClosed"];
-	s6 -> s1 [label="ClientHello / ConnectionClosed"];
-	s6 -> s1 [label="DHClientKeyExchange / ConnectionClosed"];
-	s6 -> s1 [label="DHEServerKeyExchange / ConnectionClosed"];
-	s6 -> s1 [label="ECDHClientKeyExchange / ConnectionClosed"];
-	s6 -> s1 [label="Finished / ConnectionClosed"];
-	s6 -> s1 [label="RSAClientKeyExchange / ConnectionClosed"];
-	s6 -> s1 [label="ServerHello / ConnectionClosed"];
-	s6 -> s1 [label="ServerHelloDone / ConnectionClosed"];
 
 __start0 -> s0;
 }
